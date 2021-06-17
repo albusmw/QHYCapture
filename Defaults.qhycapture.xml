@@ -1,0 +1,3 @@
+<sequence>
+  <exp CaptureCount="0" Author="Martin Weiss" AutoOpenImage="False" ExposureType="Lights" Load10MicronDataAlways="True" Log_CamProp="False" Log_ClearStat="True" Log_Timing="False" Log_Verbose="False" RemoveOverscan="True" ShowLiveImage="False" StoreImage="True" />
+</sequence>

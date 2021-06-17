@@ -1,0 +1,47 @@
+﻿FITS keyword sources:
+- C:\Users\albus\Dropbox\Transfer Public\AndreasB\Abell29-C11Hy-Atik460EXm\Ha\Abell29-019H.fit)
+
+SIMPLE  =                    T                                                  
+BITPIX  =                   16 /8 unsigned int, 16 & 32 int, -32 & -64 real     
+NAXIS   =                    2 /number of axes                                  
+NAXIS1  =                 1374 /fastest changing axis                           
+NAXIS2  =                 1099 /next to fastest changing axis                   
+BSCALE  =   1.0000000000000000 /physical = BZERO + BSCALE*array_value           
+BZERO   =   32768.000000000000 /physical = BZERO + BSCALE*array_value           
+DATE-OBS= '2016-03-18T22:21:46' /YYYY-MM-DDThh:mm:ss observation start, UT      
+EXPTIME =   300.00000000000000 /Exposure time in seconds                        
+EXPOSURE=   300.00000000000000 /Exposure time in seconds                        
+SET-TEMP=  -15.000000000000000 /CCD temperature setpoint in C                   
+CCD-TEMP=  -15.029999999999999 /CCD temperature at start of exposure in C       
+XPIXSZ  =   9.0800000000000001 /Pixel Width in microns (after binning)          
+YPIXSZ  =   9.0800000000000001 /Pixel Height in microns (after binning)         
+XBINNING=                    2 /Binning factor in width                         
+YBINNING=                    2 /Binning factor in height                        
+XORGSUBF=                    0 /Subframe X position in binned pixels            
+YORGSUBF=                    0 /Subframe Y position in binned pixels            
+IMAGETYP= 'Light Frame' /       Type of image                                   
+OBJCTRA = '08 40 07' /          Nominal Right Ascension of center of image      
+OBJCTDEC= '-20 53 14' /         Nominal Declination of center of image          
+OBJCTALT= ' 13.7044' /          Nominal altitude of center of image             
+OBJCTAZ = '213.2650' /          Nominal azimuth of center of image              
+OBJCTHA = '  2.3195' /          Nominal hour angle of center of image           
+PIERSIDE= 'EAST    ' /          Side of pier telescope is on                    
+SITELAT = '48 45 04' /          Latitude of the imaging location                
+SITELONG= '11 24 05' /          Longitude of the imaging location               
+JD      =   2457466.4317824072 /Julian Date at start of exposure                
+JD-HELIO=   2457466.4370482070 /Heliocentric Julian Date at exposure midpoint   
+AIRMASS =   4.0102848164906995 /Relative optical path length through atmosphere 
+TRAKTIME=   1.0000000000000000 /Exposure time used for autoguiding              
+FOCALLEN=   480.00000000000000 /Focal length of telescope in mm                 
+APTDIA  =   90.000000000000000 /Aperture diameter of telescope in mm            
+APTAREA =   5789.1700235009193 /Aperture area of telescope in mm^2              
+SWCREATE= 'MaxIm DL Version 5.15' /Name of software that created the image      
+SBSTDVER= 'SBFITSEXT Version 1.0' /Version of SBFITSEXT standard in effect      
+OBJECT  = '        '                                                            
+TELESCOP= '        ' /          telescope used to acquire this image            
+INSTRUME= 'ARTEMIS CCD: ATIK-460ex'                                             
+OBSERVER= '        '                                                            
+NOTES   = '        '                                                            
+FLIPSTAT= '        '                                                            
+SWOWNER = 'Andreas Bringmann' / Licensed owner of software                      
+END    

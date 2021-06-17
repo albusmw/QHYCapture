@@ -1,0 +1,54 @@
+﻿22.49.50:506|ControlValues:
+22.49.50:511|  CONTROL_BRIGHTNESS                      : -1 ... <0.1> ... 1, current: 0
+22.49.50:514|  CONTROL_CONTRAST                        : -1 ... <0.1> ... 1, current: 0
+22.49.50:516|  CONTROL_WBR                             : 1 ... <1> ... 255, current: 128
+22.49.50:519|  CONTROL_WBB                             : 1 ... <1> ... 255, current: 128
+22.49.50:522|  CONTROL_WBG                             : 1 ... <1> ... 255, current: 128
+22.49.50:524|  CONTROL_GAMMA                           : 0 ... <0.1> ... 2, current: 1
+22.49.50:527|  CONTROL_GAIN                            : 0 ... <1> ... 480, current: 10
+22.49.50:529|  CONTROL_OFFSET                          : 0 ... <1> ... 511, current: 0
+22.49.50:532|  CONTROL_EXPOSURE                        : 1 ... <1> ... 3600000000, current: 20000
+22.49.50:535|  CONTROL_SPEED                           : NOT AVAILABLE
+22.49.50:537|  CONTROL_TRANSFERBIT                     : 8 ... <8> ... 16, current: 16
+22.49.50:541|  CONTROL_CHANNELS                        : NOT AVAILABLE
+22.49.50:544|  CONTROL_USBTRAFFIC                      : 0 ... <1> ... 200, current: 50
+22.49.50:546|  CONTROL_ROWNOISERE                      : NOT AVAILABLE
+22.49.50:549|  CONTROL_CURTEMP                         : -50 ... <0.5> ... 50, current: 22.7
+22.49.50:552|  CONTROL_CURPWM                          : 0 ... <1> ... 255, current: 0
+22.49.50:555|  CONTROL_MANULPWM                        : 0 ... <1> ... 255, current: 4294967295
+22.49.50:663|  CONTROL_CFWPORT                         : Discret, current: 78
+22.49.50:673|  CONTROL_COOLER                          : -50 ... <0.5> ... 50, current: -300
+22.49.50:675|  CONTROL_ST4PORT                         : BOOL, current: TRUE
+22.49.50:678|  CAM_COLOR                               : NOT AVAILABLE
+22.49.50:681|  CAM_BIN1X1MODE                          : BOOL, current: TRUE
+22.49.50:683|  CAM_BIN2X2MODE                          : BOOL, current: TRUE
+22.49.50:686|  CAM_BIN3X3MODE                          : NOT AVAILABLE
+22.49.50:688|  CAM_BIN4X4MODE                          : NOT AVAILABLE
+22.49.50:691|  CAM_MECHANICALSHUTTER                   : NOT AVAILABLE
+22.49.50:694|  CAM_TRIGER_INTERFACE                    : NOT AVAILABLE
+22.49.50:697|  CAM_TECOVERPROTECT_INTERFACE            : NOT AVAILABLE
+22.49.50:699|  CAM_SINGNALCLAMP_INTERFACE              : NOT AVAILABLE
+22.49.50:702|  CAM_FINETONE_INTERFACE                  : NOT AVAILABLE
+22.49.50:704|  CAM_SHUTTERMOTORHEATING_INTERFACE       : NOT AVAILABLE
+22.49.50:707|  CAM_CALIBRATEFPN_INTERFACE              : NOT AVAILABLE
+22.49.50:710|  CAM_CHIPTEMPERATURESENSOR_INTERFACE     : NOT AVAILABLE
+22.49.50:713|  CAM_USBREADOUTSLOWEST_INTERFACE         : NOT AVAILABLE
+22.49.50:716|  CAM_8BITS                               : BOOL, current: TRUE
+22.49.50:718|  CAM_16BITS                              : BOOL, current: TRUE
+22.49.50:721|  CAM_GPS                                 : BOOL, current: FALSE
+22.49.50:724|  CAM_IGNOREOVERSCAN_INTERFACE            : NOT AVAILABLE
+22.49.50:728|  QHYCCD_3A_AUTOBALANCE                   : NOT AVAILABLE
+22.49.50:731|  QHYCCD_3A_AUTOEXPOSURE                  : NOT AVAILABLE
+22.49.50:734|  QHYCCD_3A_AUTOFOCUS                     : NOT AVAILABLE
+22.49.50:736|  CONTROL_AMPV                            : 0 ... <1> ... 2, current: 0
+22.49.50:739|  CONTROL_VCAM                            : BOOL, current: FALSE
+22.49.50:742|  CAM_VIEW_MODE                           : NOT AVAILABLE
+22.49.50:846|  CONTROL_CFWSLOTSNUM                     : 0 ... <1> ... 9, current: 29
+22.49.50:849|  IS_EXPOSING_DONE                        : NOT AVAILABLE
+22.49.50:852|  ScreenStretchB                          : NOT AVAILABLE
+22.49.50:860|  ScreenStretchW                          : NOT AVAILABLE
+22.49.50:863|  CONTROL_DDR                             : NOT AVAILABLE
+22.49.50:866|  CAM_LIGHT_PERFORMANCE_MODE              : NOT AVAILABLE
+22.49.50:868|  CAM_QHY5II_GUIDE_MODE                   : NOT AVAILABLE
+22.49.50:871|  DDR_BUFFER_CAPACITY                     : NOT AVAILABLE
+22.49.50:874|  DDR_BUFFER_READ_THRESHOLD               : NOT AVAILABLE

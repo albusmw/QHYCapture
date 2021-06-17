@@ -1,0 +1,11 @@
+﻿ Ideas:
+- Add statistics via horizonal and vertical lines (this I did already in another software - evaluate "Horizontal banding" as described here: https://www.qhyccd.com/index.php?m=content&c=index&a=show&catid=30&id=260)
+  DONE IN ImageStatstics software ...
+- In live mode reset statistics and clear log window
+- ETA-Anzeige für längere Sequencen
+- Time-Out für Read-Funktion (wenn diese abstürzt ...); Mail an QHY zu dem Problem
+- Auto-Focus-Aid: ROI erst voll, dann Peak suchen für z.B. 10x10 Pixel, dann hier ROI setzen und evtl. noch Auto-Brightness
+- Statistic über den Overscan-Bereich
+
+Last used SDK:
+  20.8.26.3

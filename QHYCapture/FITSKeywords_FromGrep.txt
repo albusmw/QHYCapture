@@ -1,0 +1,151 @@
+﻿8496 files found
+8496 headers read
+8394 headers parsed
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10000.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9830.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9810.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9890.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9780.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9880.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9950.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9960.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9910.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10250.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10180.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10230.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10160.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9920.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10100.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9830.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9980.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10020.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9680.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10050.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10070.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9710.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9670.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9660.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10140.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9930.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9790.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9880.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10290.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10270.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10220.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10150.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10190.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10310.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10010.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9970.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9740.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9730.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9840.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9730.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9690.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9890.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9790.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9760.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9940.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10210.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10340.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10320.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10240.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9940.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10030.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9700.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9910.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9740.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9900.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9690.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9720.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9700.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10040.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10080.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9810.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9820.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10120.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9840.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9760.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10280.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9960.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9720.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10300.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10090.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9980.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9670.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9660.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9860.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9710.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9800.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9750.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10170.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9860.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9800.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9680.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9920.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9750.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9970.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10260.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9820.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10060.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9850.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9950.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10130.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9770.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9870.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9900.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9780.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9850.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9770.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_9990.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9930.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10200.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10330.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_27 (Focus)\FOCUS_ROI_9870.FITS>
+!! Corrupt file: <\\192.168.100.10\astro\2019_10_26 (Focus)\FOCUS_ROI_10110.FITS>
+102 FITS keywords found in total
+Keyword summary: 
+  # VALUES (IF PRESENT): BITPIX: 4 values
+  # VALUES (IF PRESENT): NAXIS: 3 values
+  # VALUES (IF PRESENT): NAXIS1: 29 values
+  # VALUES (IF PRESENT): NAXIS2: 27 values
+  # VALUES (IF PRESENT): SIMPLE: 2661 values
+  # VALUES:           BITPIX: 4 values
+  # VALUES:           NAXIS: 3 values
+  # VALUES:           NAXIS1: 29 values
+  # VALUES:           NAXIS2: 27 values
+  # VALUES:           SIMPLE: 2661 values
+  ALL (IF PRESENT):   [UNKNOWN=----
+  ALL (IF PRESENT):   AUTHOR=----
+  ALL (IF PRESENT):   BAYOFFY=----
+  ALL (IF PRESENT):   BLANK=----
+  ALL (IF PRESENT):   BRIGHTN=----
+  ALL (IF PRESENT):   CBLACK=0
+  ALL (IF PRESENT):   CCDXBIN=----
+  ALL (IF PRESENT):   CCDYBIN=----
+  ALL (IF PRESENT):   CDELT1=----
+  ALL (IF PRESENT):   CDELT2=----
+  ALL (IF PRESENT):   CREATOR=----
+  ALL (IF PRESENT):   CROTA1=----
+  ALL (IF PRESENT):   CROTA2=----
+  ALL (IF PRESENT):   CTYPE1=----
+  ALL (IF PRESENT):   CTYPE2=----
+  ALL (IF PRESENT):   CTYPE3=----
+  ALL (IF PRESENT):   CWHITE=65535
+  ALL (IF PRESENT):   DATAMIN=----
+  ALL (IF PRESENT):   EXPOINUS=----
+  ALL (IF PRESENT):   EXPSTATE='125     '
+  ALL (IF PRESENT):   NAXIS3=----
+  ALL (IF PRESENT):   NOTE='        '
+  ALL (IF PRESENT):   ORIGIN=----
+  ALL (IF PRESENT):   PIXSCALE=----
+  ALL (IF PRESENT):   RESPONSE=2000
+  ALL (IF PRESENT):   SBSTDVER='SBFITSEXT Version 1.0'
+  ALL (IF PRESENT):   SCALE=----
+  ALL (IF PRESENT):   SNAPSHOT=1
+  ALL (IF PRESENT):   SWACQUIR=''SbigControl/ASCOM V 1.2 (Rev.2c) (c) 2014/2015 by Manfred Schwarz, A''
+  ALL (IF PRESENT):   SWMODIFY=''SbigControl/ASCOM V 1.2 (Rev.2c) (c) 2014/2015 by Manfred Schwarz, A''
+  ALL (IF PRESENT):   SWOWNER=----
+  ALL (IF PRESENT):   TRAKTIME=0
+  ALL (IF PRESENT):   XORGSUBF=0
+  ALL (IF PRESENT):   YORGSUBF=0

@@ -1,0 +1,16 @@
+09.27.54:401|ControlValues:
+09.27.54:404|  CONTROL_BRIGHTNESS                      : -1 ... <0.1> ... 1, current: 0
+09.27.54:409|  CONTROL_CONTRAST                        : -1 ... <0.1> ... 1, current: 0
+09.27.54:416|  CONTROL_GAMMA                           : 0 ... <0.1> ... 2, current: 1
+09.27.54:426|  CONTROL_TRANSFERBIT                     : 8 ... <8> ... 16, current: 16
+09.27.54:436|  CONTROL_CURTEMP                         : -50 ... <0.5> ... 50, current: 0.7
+09.27.54:439|  CONTROL_CURPWM                          : 0 ... <1> ... 255, current: 124
+09.27.54:443|  CONTROL_MANULPWM                        : 0 ... <1> ... 255, current: 4294967295
+09.27.54:547|  CONTROL_CFWPORT                         : Discret, current: 78
+09.27.54:554|  CONTROL_COOLER                          : -50 ... <0.5> ... 50, current: -15
+09.27.54:573|  CAM_COLOR                               : BOOL, current: TRUE
+09.27.54:578|  CAM_BIN1X1MODE                          : BOOL, current: TRUE
+09.27.54:583|  CAM_BIN2X2MODE                          : BOOL, current: TRUE
+09.27.54:631|  CAM_8BITS                               : BOOL, current: TRUE
+09.27.54:635|  CAM_16BITS                              : BOOL, current: TRUE
+09.27.54:817|  CONTROL_DDR                             : BOOL, current: FALSE

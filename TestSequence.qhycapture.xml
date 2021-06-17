@@ -1,0 +1,4 @@
+<sequence>
+  <exp ReadOutMode="Photographic" CaptureCount="0" ExposureTime="43" FilterSlot="B" Gain="70" TargetTemp="-20"/>
+  <exp ReadOutMode="Photographic" CaptureCount="1" ExposureTime="30" FilterSlot="G" Gain="10" TargetTemp="-300"/>
+</sequence>
