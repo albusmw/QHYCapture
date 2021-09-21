@@ -223,7 +223,7 @@ Partial Public Class MainForm
 
             'Calculate statistics
             Dim SingleStat As New AstroNET.Statistics.sStatistics
-            If (M.DB.StatMono = True) Or (M.DB.StatColor = True) Then SingleStat = SingleStatCalc.ImageStatistics(SingleStatCalc.DataFixFloat)
+            If (M.DB.StatMono = True) Or (M.DB.StatColor = True) Then SingleStat = SingleStatCalc.ImageStatistics()
             SingleStat.MonoStatistics_Int.Width = LastCaptureInfo.NAXIS1 : SingleStat.MonoStatistics_Int.Height = LastCaptureInfo.NAXIS2
 
             LoopStat = AstroNET.Statistics.CombineStatistics(SingleStat.DataMode, SingleStat, LoopStat)
@@ -275,10 +275,10 @@ Partial Public Class MainForm
                     FocusWindow = New cImgForm
                     FocusWindow.Show '("Focus Window <" & SingleStatCalc.Dimensions & ">")
                 End If
-                Select Case SingleStatCalc.DataMode
-                    Case AstroNET.Statistics.eDataMode.UInt16
+                Select Case SingleStatCalc.DataType
+                    Case AstroNET.Statistics.eDataType.UInt16
                         FocusWindow.ShowData(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, SingleStat.MonoStatistics_Int.Min.Key, SingleStat.MonoStatistics_Int.Max.Key)
-                    Case AstroNET.Statistics.eDataMode.UInt32
+                    Case AstroNET.Statistics.eDataType.UInt32
                         FocusWindow.ShowData(SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data, SingleStat.MonoStatistics_Int.Min.Key, SingleStat.MonoStatistics_Int.Max.Key)
                 End Select
                 M.DB.Stopper.Stamp("Focus window")
@@ -300,10 +300,10 @@ Partial Public Class MainForm
                 M.DB.LastStoredFile = MakeUnique(System.IO.Path.Combine(Path, FileNameToWrite & "." & M.DB.FITSExtension))
 
                 'Store file and display if selected
-                Select Case SingleStatCalc.DataMode
-                    Case AstroNET.Statistics.eDataMode.UInt16
+                Select Case SingleStatCalc.DataType
+                    Case AstroNET.Statistics.eDataType.UInt16
                         cFITSWriter.Write(M.DB.LastStoredFile, SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, cFITSWriter.eBitPix.Int16, CustomElement)
-                    Case AstroNET.Statistics.eDataMode.UInt32
+                    Case AstroNET.Statistics.eDataType.UInt32
                         cFITSWriter.Write(M.DB.LastStoredFile, SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data, cFITSWriter.eBitPix.Int32, CustomElement)
                 End Select
                 If M.DB.AutoOpenImage = True Then System.Diagnostics.Process.Start(M.DB.LastStoredFile)
