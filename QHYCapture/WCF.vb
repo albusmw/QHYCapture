@@ -124,6 +124,7 @@ Public Class cDB_ServiceContract : Implements IDB
 
     Public Function RunExposure() As Object Implements IDB.RunExposure
         RaiseEvent StartExposure()
+        Return Nothing
     End Function
 
     Public Function GetLog() As String() Implements IDB.GetLog
