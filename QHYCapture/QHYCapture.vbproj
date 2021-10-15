@@ -231,7 +231,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="ZedGraph">
-      <HintPath>..\..\..\src\bin\ZedGraph.dll</HintPath>
+      <HintPath>..\..\src\bin\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

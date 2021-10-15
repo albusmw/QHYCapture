@@ -43,8 +43,9 @@ Partial Class MainForm
         Me.tsmiFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_LoadSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_SaveSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_RunSequence = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_SaveAllXMLParameters = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.tsmiFile_RunSequence = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiFile_ExploreHere = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_ExploreCampaign = New System.Windows.Forms.ToolStripMenuItem()
@@ -103,7 +104,6 @@ Partial Class MainForm
         Me.sfdMain = New System.Windows.Forms.SaveFileDialog()
         Me.ofdMain = New System.Windows.Forms.OpenFileDialog()
         Me.tStatusUpdate = New System.Windows.Forms.Timer(Me.components)
-        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
         Me.ssMain.SuspendLayout()
         Me.msMain.SuspendLayout()
         Me.tsMain.SuspendLayout()
@@ -131,16 +131,16 @@ Partial Class MainForm
         Me.pgMain.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pgMain.Location = New System.Drawing.Point(3, 3)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(353, 302)
+        Me.pgMain.Size = New System.Drawing.Size(481, 541)
         Me.pgMain.TabIndex = 0
         Me.pgMain.ToolbarVisible = False
         '
         'ssMain
         '
         Me.ssMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsslLED_init, Me.tsslLED_config, Me.tsslLED_cooling, Me.tsslLED_capture, Me.tsslLED_reading, Me.tspbProgress, Me.tsslProgress, Me.tsslSplit1, Me.tsslMain, Me.tsslSplit2, Me.tsslTemperature, Me.tsmiFPSIndicator, Me.tsslMemory})
-        Me.ssMain.Location = New System.Drawing.Point(0, 490)
+        Me.ssMain.Location = New System.Drawing.Point(0, 793)
         Me.ssMain.Name = "ssMain"
-        Me.ssMain.Size = New System.Drawing.Size(943, 24)
+        Me.ssMain.Size = New System.Drawing.Size(1273, 24)
         Me.ssMain.TabIndex = 1
         Me.ssMain.Text = "StatusStrip1"
         '
@@ -248,7 +248,7 @@ Partial Class MainForm
         Me.msMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile, Me.CaptureToolStripMenuItem, Me.tsmiPreset, Me.tsmiActions, Me.tsmiTools})
         Me.msMain.Location = New System.Drawing.Point(0, 0)
         Me.msMain.Name = "msMain"
-        Me.msMain.Size = New System.Drawing.Size(943, 24)
+        Me.msMain.Size = New System.Drawing.Size(1273, 24)
         Me.msMain.TabIndex = 2
         Me.msMain.Text = "MenuStrip1"
         '
@@ -274,18 +274,23 @@ Partial Class MainForm
         Me.tsmiFile_SaveSettings.Size = New System.Drawing.Size(286, 22)
         Me.tsmiFile_SaveSettings.Text = "Save settings"
         '
+        'tsmiFile_SaveAllXMLParameters
+        '
+        Me.tsmiFile_SaveAllXMLParameters.Name = "tsmiFile_SaveAllXMLParameters"
+        Me.tsmiFile_SaveAllXMLParameters.Size = New System.Drawing.Size(286, 22)
+        Me.tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters"
+        '
+        'ToolStripMenuItem4
+        '
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(283, 6)
+        '
         'tsmiFile_RunSequence
         '
         Me.tsmiFile_RunSequence.Name = "tsmiFile_RunSequence"
         Me.tsmiFile_RunSequence.Size = New System.Drawing.Size(286, 22)
         Me.tsmiFile_RunSequence.Tag = "Run"
         Me.tsmiFile_RunSequence.Text = "Run XML sequence"
-        '
-        'tsmiFile_SaveAllXMLParameters
-        '
-        Me.tsmiFile_SaveAllXMLParameters.Name = "tsmiFile_SaveAllXMLParameters"
-        Me.tsmiFile_SaveAllXMLParameters.Size = New System.Drawing.Size(286, 22)
-        Me.tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters"
         '
         'ToolStripMenuItem6
         '
@@ -388,48 +393,48 @@ Partial Class MainForm
         'tsmiPreset_StandardCapture
         '
         Me.tsmiPreset_StandardCapture.Name = "tsmiPreset_StandardCapture"
-        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_StandardCapture.Text = "Standard capture"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(168, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'tsmiPreset_FastLive
         '
         Me.tsmiPreset_FastLive.Name = "tsmiPreset_FastLive"
-        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_FastLive.Text = "Fast live mode"
         '
         'CenterROIToolStripMenuItem
         '
         Me.CenterROIToolStripMenuItem.Name = "CenterROIToolStripMenuItem"
-        Me.CenterROIToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.CenterROIToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CenterROIToolStripMenuItem.Text = "Center ROI"
         '
         'SaveTransmissionToolStripMenuItem
         '
         Me.SaveTransmissionToolStripMenuItem.Name = "SaveTransmissionToolStripMenuItem"
-        Me.SaveTransmissionToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.SaveTransmissionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SaveTransmissionToolStripMenuItem.Text = "Save transmission"
         '
         'tsmiPreset_SkipCooling
         '
         Me.tsmiPreset_SkipCooling.Name = "tsmiPreset_SkipCooling"
-        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_SkipCooling.Text = "Skip cooling"
         '
         'tsmiPreset_DevTestMWeiss
         '
         Me.tsmiPreset_DevTestMWeiss.Name = "tsmiPreset_DevTestMWeiss"
-        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_DevTestMWeiss.Text = "Dev test (M Weiss)"
         '
         'tsmiPreset_NoOverhead
         '
         Me.tsmiPreset_NoOverhead.Name = "tsmiPreset_NoOverhead"
-        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_NoOverhead.Text = "No overhead"
         '
         'tsmiActions
@@ -518,7 +523,7 @@ Partial Class MainForm
         Me.zgcMain.ScrollMinX = 0R
         Me.zgcMain.ScrollMinY = 0R
         Me.zgcMain.ScrollMinY2 = 0R
-        Me.zgcMain.Size = New System.Drawing.Size(572, 208)
+        Me.zgcMain.Size = New System.Drawing.Size(774, 356)
         Me.zgcMain.TabIndex = 0
         '
         'tSetTemp
@@ -532,7 +537,7 @@ Partial Class MainForm
         Me.tsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbCapture, Me.tsbStopCapture, Me.ToolStripSeparator1, Me.tsbCooling})
         Me.tsMain.Location = New System.Drawing.Point(0, 24)
         Me.tsMain.Name = "tsMain"
-        Me.tsMain.Size = New System.Drawing.Size(943, 38)
+        Me.tsMain.Size = New System.Drawing.Size(1273, 38)
         Me.tsMain.TabIndex = 5
         Me.tsMain.Text = "ToolStrip1"
         '
@@ -585,7 +590,7 @@ Partial Class MainForm
         Me.tbLogOutput.Multiline = True
         Me.tbLogOutput.Name = "tbLogOutput"
         Me.tbLogOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.tbLogOutput.Size = New System.Drawing.Size(367, 85)
+        Me.tbLogOutput.Size = New System.Drawing.Size(495, 149)
         Me.tbLogOutput.TabIndex = 4
         Me.tbLogOutput.WordWrap = False
         '
@@ -599,7 +604,7 @@ Partial Class MainForm
         Me.tcMain.Location = New System.Drawing.Point(0, 0)
         Me.tcMain.Name = "tcMain"
         Me.tcMain.SelectedIndex = 0
-        Me.tcMain.Size = New System.Drawing.Size(367, 335)
+        Me.tcMain.Size = New System.Drawing.Size(495, 574)
         Me.tcMain.TabIndex = 6
         '
         'TabPage1
@@ -608,7 +613,7 @@ Partial Class MainForm
         Me.TabPage1.Location = New System.Drawing.Point(4, 23)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(359, 308)
+        Me.TabPage1.Size = New System.Drawing.Size(487, 547)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Exposure"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -670,8 +675,8 @@ Partial Class MainForm
         'scMain.Panel2
         '
         Me.scMain.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.scMain.Size = New System.Drawing.Size(943, 424)
-        Me.scMain.SplitterDistance = 367
+        Me.scMain.Size = New System.Drawing.Size(1273, 727)
+        Me.scMain.SplitterDistance = 495
         Me.scMain.TabIndex = 7
         '
         'SplitContainer2
@@ -688,8 +693,8 @@ Partial Class MainForm
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.tbLogOutput)
-        Me.SplitContainer2.Size = New System.Drawing.Size(367, 424)
-        Me.SplitContainer2.SplitterDistance = 335
+        Me.SplitContainer2.Size = New System.Drawing.Size(495, 727)
+        Me.SplitContainer2.SplitterDistance = 574
         Me.SplitContainer2.TabIndex = 0
         '
         'SplitContainer3
@@ -706,8 +711,8 @@ Partial Class MainForm
         'SplitContainer3.Panel2
         '
         Me.SplitContainer3.Panel2.Controls.Add(Me.rtbStatistics)
-        Me.SplitContainer3.Size = New System.Drawing.Size(572, 424)
-        Me.SplitContainer3.SplitterDistance = 208
+        Me.SplitContainer3.Size = New System.Drawing.Size(774, 727)
+        Me.SplitContainer3.SplitterDistance = 356
         Me.SplitContainer3.TabIndex = 0
         '
         'rtbStatistics
@@ -717,7 +722,7 @@ Partial Class MainForm
         Me.rtbStatistics.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rtbStatistics.Location = New System.Drawing.Point(0, 0)
         Me.rtbStatistics.Name = "rtbStatistics"
-        Me.rtbStatistics.Size = New System.Drawing.Size(572, 212)
+        Me.rtbStatistics.Size = New System.Drawing.Size(774, 367)
         Me.rtbStatistics.TabIndex = 0
         Me.rtbStatistics.Text = ""
         Me.rtbStatistics.WordWrap = False
@@ -731,16 +736,11 @@ Partial Class MainForm
         Me.tStatusUpdate.Enabled = True
         Me.tStatusUpdate.Interval = 250
         '
-        'ToolStripMenuItem4
-        '
-        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(283, 6)
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(943, 514)
+        Me.ClientSize = New System.Drawing.Size(1273, 817)
         Me.Controls.Add(Me.scMain)
         Me.Controls.Add(Me.tsMain)
         Me.Controls.Add(Me.ssMain)
