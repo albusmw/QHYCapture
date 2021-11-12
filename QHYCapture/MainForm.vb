@@ -591,15 +591,25 @@ Partial Public Class MainForm
         M.DB.INI.Load(M.DB.MyINI)
 
         'Load IPP
+        cFITSWriter.UseIPPForWriting = False
         Dim IPPLoadError As String = String.Empty
         Dim IPPPathToUse As String = cIntelIPP.SearchDLLToUse(cIntelIPP.PossiblePaths(M.DB.EXEPath).ToArray, IPPLoadError)
-        If String.IsNullOrEmpty(IPPLoadError) = True Then
-            M.DB.IPP = New cIntelIPP(IPPPathToUse)
-            cFITSWriter.UseIPPForWriting = True
+        If String.IsNullOrEmpty(IPPPathToUse) = True Then
+            Log("Intel IPP not installed!")
         Else
-            cFITSWriter.UseIPPForWriting = False
+            If String.IsNullOrEmpty(IPPLoadError) = False Then
+                Log("Intel IPP found in <" & IPPPathToUse & "> but could not be loaded: <" & IPPLoadError & ">")
+            Else
+                M.DB.IPP = New cIntelIPP(IPPPathToUse)
+                cFITSWriter.UseIPPForWriting = True
+                cFITSWriter.IPPPath = M.DB.IPP.IPPPath
+                Dim TestResult As String = M.DB.IPP.TestIPP
+                If String.IsNullOrEmpty(TestResult) = False Then
+                    Log("Error calling Intel IPP: <" & TestResult & ">")
+                End If
+            End If
         End If
-        cFITSWriter.IPPPath = M.DB.IPP.IPPPath
+
 
         'Start WCF
         'netsh http add urlacl url=http://+:1250/ user=DESKTOP-I7\albusmw
