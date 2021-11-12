@@ -234,16 +234,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AstroCam.Nativ.NET\ASICamera.NET.csproj">
+    <ProjectReference Include="..\..\AstroCam.Nativ.NET\AstroCam.Nativ.NET.csproj">
       <Project>{e71c232d-0152-4dff-ab70-41bdf43e8bbe}</Project>
-      <Name>ASICamera.NET</Name>
+      <Name>AstroCam.Nativ.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\src\bin\ASI_ZWO\ASICamera2_x64.dll">
-      <Link>ASICamera2_x64.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\..\src\bin\Everything64.dll">
       <Link>Everything64.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

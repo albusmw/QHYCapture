@@ -225,7 +225,7 @@ Public Class cDB
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.EnumDesciptionConverter))>
     Public Property StreamMode As eStreamMode = eStreamMode.SingleFrame
 
-    '''<summary>Target temperature to cool to; enter <-100 for do-not-use</summary>
+    '''<summary>Target temperature to cool to; enter less then -100 for do-not-use</summary>
     <ComponentModel.Category(Cat1)>
     <ComponentModel.DisplayName(Indent & "4.1. Target Temp")>
     <ComponentModel.Description("Target temperature to cool to; enter <= -100 for do-not-use")>
