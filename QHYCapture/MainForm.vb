@@ -462,15 +462,6 @@ Partial Public Class MainForm
     ' Logging and error handling
     '===============================================================================================
 
-    Private Function CallOK(ByVal ErrorCode As ZWO.ASICameraDll.ASI_ERROR_CODE) As Boolean
-        If ErrorCode = ZWO.ASICameraDll.ASI_ERROR_CODE.ASI_SUCCESS Then
-            Return True
-        Else
-            LogError("ZWO ASI ERROR: <" & ErrorCode.ToString.Trim & "> #####")
-            Return False
-        End If
-    End Function
-
     Private Function CallOK(ByVal ErrorCode As UInteger) As Boolean
         Return CallOK(String.Empty, ErrorCode)
     End Function

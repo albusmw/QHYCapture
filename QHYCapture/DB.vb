@@ -194,9 +194,6 @@ Public Class cDB
     Const Cat2_Exposure As String = "2. Exposure"
     Const Cat3 As String = "3. Image storage"
     Const Cat4 As String = "4. Statistics calculation"
-    Const Cat5 As String = "5. Debug and logging"
-    Const Cat6 As String = "6. Exposure - Advanced"
-    Const Cat7 As String = "7. Focus star search"
     Const Indent As String = "  "
     Const NotSet As String = "-----"
 
@@ -289,8 +286,8 @@ Public Class cDB
     <ComponentModel.Category(Cat1)>
     <ComponentModel.DisplayName(Indent & "9. DDR RAM")>
     <ComponentModel.Description("Use DDR RAM?")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property DDR_RAM As Boolean = True
 
     '===================================================================================================
@@ -328,8 +325,8 @@ Public Class cDB
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "2.1. Filter wheel")>
     <ComponentModel.Description("Configure if a real filter wheel should be controlled or if filter is just used in meta data, ....")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property UseFilterWheel As Boolean = True
 
     '''<summaryFilter slot to select</summary>
@@ -366,23 +363,23 @@ Public Class cDB
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "6. Remove overscan")>
     <ComponentModel.Description("Remove the overscan area in the stored data and file")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property RemoveOverscan As Boolean = True
 
     '''<summary>Write all exposure data to the camera on each exposure start (takes some ms ...)</summary>
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "7. Config for each capture")>
     <ComponentModel.Description("Write all exposure data to the camera on each exposure start (takes some ms ...)")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property ConfigAlways As Boolean = True
 
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "8. Close cam on each xml exp")>
     <ComponentModel.Description("Close and re-open the camera after each exposure XML entry")>
-    <ComponentModel.DefaultValue(False)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(False)>
     Public Property CloseCam As Boolean = False
 
     '===================================================================================================
@@ -390,8 +387,8 @@ Public Class cDB
     <ComponentModel.Category(Cat3)>
     <ComponentModel.DisplayName(Indent & "1. Store captured image")>
     <ComponentModel.Description("Store the captured image on harddisc")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property StoreImage As Boolean = True
 
     <ComponentModel.Category(Cat3)>
@@ -415,15 +412,15 @@ Public Class cDB
     <ComponentModel.Category(Cat3)>
     <ComponentModel.DisplayName(Indent & "5. Open image automatically?")>
     <ComponentModel.Description("Automaticall open a stored FITS file with the default editor")>
-    <ComponentModel.DefaultValue(False)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(False)>
     Public Property AutoOpenImage As Boolean = False
 
     <ComponentModel.Category(Cat3)>
     <ComponentModel.DisplayName(Indent & "6. Show live image")>
     <ComponentModel.Description("Show a live image?")>
-    <ComponentModel.DefaultValue(False)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(False)>
     Public Property ShowLiveImage As Boolean = False
 
     '===================================================================================================
@@ -431,22 +428,22 @@ Public Class cDB
     <ComponentModel.Category(Cat4)>
     <ComponentModel.DisplayName(Indent & "1. Calculate mono statistics")>
     <ComponentModel.Description("Clear statistics log on every measurement")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property StatMono As Boolean = True
 
     <ComponentModel.Category(Cat4)>
     <ComponentModel.DisplayName(Indent & "2. Calculate color statistics")>
     <ComponentModel.Description("Clear statistics log on every measurement")>
-    <ComponentModel.DefaultValue(True)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(True)>
     Public Property StatColor As Boolean = True
 
     <ComponentModel.Category(Cat4)>
     <ComponentModel.DisplayName(Indent & "3. Infinit stack mode")>
     <ComponentModel.Description("Stack all images (use for focus or drift analysis)")>
-    <ComponentModel.DefaultValue(False)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
+    <ComponentModel.DefaultValue(False)>
     Public Property StackAll As Boolean = False
 
     '===================================================================================================
