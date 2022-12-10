@@ -239,7 +239,7 @@ Partial Public Class MainForm
                 RTFGen.AddEntry("Capture #" & LastCaptureInfo.CaptureIdx.ValRegIndep & " statistics:", Drawing.Color.Black, True, True)
                 For Idx As Integer = 0 To SingleStatReport.Count - 1
                     Dim Line As String = SingleStatReport(Idx)
-                    If DisplaySumStat = True Then Line &= "|" & LoopStatReport(Idx).Substring(AstroNET.Statistics.sSingleChannelStatistics_Int.ReportHeaderLength + 1)
+                    If DisplaySumStat = True Then Line &= "|" & LoopStatReport(Idx).Substring(AstroNET.Statistics.cSingleChannelStatistics_Int.ReportHeaderLength + 1)
                     RTFGen.AddEntry(Line, Drawing.Color.Black, True, False)
                 Next Idx
                 RTFGen.ForceRefresh()
