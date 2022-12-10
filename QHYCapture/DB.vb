@@ -69,16 +69,6 @@ Public Enum eReadResolution
     Res16Bit = 16
 End Enum
 
-'''<summary>Mode for X axis scaling mode.</summary>
-Public Enum eXAxisScalingMode
-    <ComponentModel.Description("Automatic")>
-    Auto
-    <ComponentModel.Description("Full 16 bit range")>
-    FullRange16Bit
-    <ComponentModel.Description("Leave as is")>
-    LeaveAsIs
-End Enum
-
 '''<summary>Filter as to be send as ASCII string.</summary>
 Public Enum eFilter As Byte
     <ComponentModel.Description("Unchanged")>
