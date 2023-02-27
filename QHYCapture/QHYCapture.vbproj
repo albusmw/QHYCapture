@@ -161,6 +161,12 @@
     <Compile Include="frmCooling.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmImageForm.Designer.vb">
+      <DependentUpon>frmImageForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmImageForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmXMLGeneration.Designer.vb">
       <DependentUpon>frmXMLGeneration.vb</DependentUpon>
     </Compile>
@@ -226,6 +232,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmCooling.resx">
       <DependentUpon>frmCooling.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImageForm.resx">
+      <DependentUpon>frmImageForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmXMLGeneration.resx">
       <DependentUpon>frmXMLGeneration.vb</DependentUpon>

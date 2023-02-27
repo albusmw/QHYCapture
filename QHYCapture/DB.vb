@@ -477,7 +477,7 @@ Public Class cDB_meta
     <ComponentModel.Category(Cat1_SiteAndMount)>
     <ComponentModel.DisplayName(Indent & "1.2. 10Micron LAN IP")>
     <ComponentModel.Description("IP of the 10Micron mount.")>
-    Public Property IP_10Micron As String = "192.168.10.119"
+    Public Property IP_10Micron As String = "192.168.10.105"
 
     '''<summary>LAN port of the 10Micron mount</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
@@ -761,10 +761,10 @@ Public Class cDB_meta
     Public Property StarSearch As Boolean = False
 
     <ComponentModel.Category(Cat6_Focus)>
-    <ComponentModel.DisplayName(Indent & "2. Auto-star search ROI size")>
+    <ComponentModel.DisplayName(Indent & "2. Auto-star search binning factor")>
     <ComponentModel.Description("Size [pixel] of the ROI during start search")>
     <ComponentModel.DefaultValue(5)>
-    Public Property StarSearch_Blur As Integer = 5
+    Public Property StarSearch_Binning As Integer = 5
 
     <ComponentModel.Category(Cat6_Focus)>
     <ComponentModel.DisplayName(Indent & "3. Auto-star search ROI size")>

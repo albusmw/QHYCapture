@@ -11,7 +11,7 @@ Partial Public Class MainForm
     '''<summary>RTF report generator.</summary>
     Private RTFGen As New Ato.cRTFGenerator
     '''<summary>Focus window.</summary>
-    Private FocusWindow As cImgForm = Nothing
+    Private FocusWindow As frmImageForm = Nothing
     '''<summary>Accumulated statistics.</summary>
     Private LoopStat As AstroNET.Statistics.sStatistics
     '''<summary>Monitor for the MIDI events.</summary>
@@ -194,10 +194,11 @@ Partial Public Class MainForm
                 SingleStatCalc.Reset_UInt16()
             End If
 
+            'Search star on 1st run
             If M.Meta.StarSearch = True Then
-                Dim ROICenter As Point = ImageProcessing.BrightStarDetect(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, M.Meta.StarSearch_Blur, M.Meta.StarSearch_Blur)
+                Dim ROICenter As Point = ImageProcessing.BrightStarDetect(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, -1, M.Meta.StarSearch_Binning)
                 M.DB.ROI = AdjustAndCorrectROI(ROICenter, M.Meta.StarSearch_ROI, M.Meta.StarSearch_ROI)
-                CallOK("SetQHYCCDResolution", QHY.QHY.SetQHYCCDResolution(M.DB.CamHandle, CUInt(M.DB.ROI.X), CUInt(M.DB.ROI.Y), CUInt(M.DB.ROI.Width \ M.DB.HardwareBinning), CUInt(M.DB.ROI.Height \ M.DB.HardwareBinning)))
+                Dim ROISet As Boolean = CallOK("SetQHYCCDResolution", QHY.QHY.SetQHYCCDResolution(M.DB.CamHandle, CUInt(M.DB.ROI.X), CUInt(M.DB.ROI.Y), CUInt(M.DB.ROI.Width \ M.DB.HardwareBinning), CUInt(M.DB.ROI.Height \ M.DB.HardwareBinning)))
                 M.Meta.StarSearch = False
             End If
 
@@ -269,12 +270,12 @@ Partial Public Class MainForm
                 If IsNothing(FocusWindow) = True Then
                     NewWindowRequired = True
                 Else
-                    If FocusWindow.Hoster.IsDisposed = True Then NewWindowRequired = True
+                    If FocusWindow.IsDisposed = True Then NewWindowRequired = True
                 End If
                 If NewWindowRequired = True Then
-                    FocusWindow = New cImgForm
-                    FocusWindow.Show '("Focus Window <" & SingleStatCalc.Dimensions & ">")
+                    FocusWindow = New frmImageForm
                 End If
+                FocusWindow.Show() '("Focus Window <" & SingleStatCalc.Dimensions & ">")
                 Select Case SingleStatCalc.DataType
                     Case AstroNET.Statistics.eDataType.UInt16
                         FocusWindow.ShowData(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, SingleStat.MonoStatistics_Int.Min.Key, SingleStat.MonoStatistics_Int.Max.Key)
@@ -1144,6 +1145,34 @@ Partial Public Class MainForm
         PropGridToXML(Exp, M.Meta)
         FileOut.Save(sfdMain.FileName)
         Process.Start(sfdMain.FileName)
+    End Sub
+
+    Private Sub tsmiActions_FocusInteractive_Click(sender As Object, e As EventArgs)
+        Dim ROISize As Integer = CInt(InputBox("Size:", "ROI size", "100")) : ROISize = ROISize \ 2
+        If ROISize > 0 Then
+            With M.DB
+                .ROI = New Drawing.Rectangle((9600 \ 2) - ROISize, (6422 \ 2) - ROISize, 2 * ROISize, 2 * ROISize)
+            End With
+        End If
+        RefreshProperties()
+    End Sub
+
+    Private Sub tsmiPreset_FocusMode_Click(sender As Object, e As EventArgs) Handles tsmiPreset_FocusMode.Click
+        tsmiPreset_FastLive_Click(Nothing, Nothing)
+        M.DB.StreamMode = eStreamMode.LiveFrame
+        M.DB.ConfigAlways = False
+        M.DB.DDR_RAM = True
+        With M.Meta
+            .StarSearch = True
+        End With
+        With M.Report.Prop
+            .Log_ClearStat = True
+            .PlotStatisticsColor = False
+            .PlotStatisticsMono = False
+            .PlotMeanStatistics = False
+            .PlotSingleStatistics = False
+        End With
+        RefreshProperties()
     End Sub
 
 End Class
