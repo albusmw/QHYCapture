@@ -22,7 +22,7 @@ Partial Class frmImageForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.pbeMain = New QHYCapture.PictureBoxEx()
+        Me.pbeMain = New PictureBoxEx()
         Me.tbFocus = New System.Windows.Forms.TextBox()
         Me.scMain = New System.Windows.Forms.SplitContainer()
         CType(Me.pbeMain, System.ComponentModel.ISupportInitialize).BeginInit()

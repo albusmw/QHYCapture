@@ -8,6 +8,8 @@ Public Class frmImageForm
     Public Property ImageBackColor As Drawing.Color = Drawing.Color.Black
     '''<summary>Color map to use.</summary>
     Public Property ColorMap As cColorMaps.eMaps = cColorMaps.eMaps.Jet
+    '''<summary>Color map to use.</summary>
+    Public Property PixelLimit As Integer = 10000
 
     '''<summary>Update the content of the focus window.</summary>
     '''<param name="Form">Focus window.</param>
@@ -54,13 +56,13 @@ Public Class frmImageForm
 
     Public Sub DataAnalysis(ByRef Data(,) As UInt32)
         Dim Pixel As Long = Data.LongLength
-        If Pixel <= 10000 Then
+        If Pixel <= PixelLimit Then
             Dim SortedData As New List(Of UInt32)
-            Dim Total As UInt64 = 0
+            Dim TotalEnergy As UInt64 = 0
             For X As Integer = 0 To Data.GetUpperBound(0)
                 For Y As Integer = 0 To Data.GetUpperBound(1)
                     SortedData.Add(Data(X, Y))
-                    Total += Data(X, Y)
+                    TotalEnergy += Data(X, Y)
                 Next Y
             Next X
             SortedData.Sort() : SortedData.Reverse()
@@ -80,15 +82,15 @@ Public Class frmImageForm
                 If SumPoints.ContainsKey(Idx + 1) Then SumPoints(Idx + 1) = SumFromMax
             Next Idx
             Dim OutText As New List(Of String)
-            OutText.Add("Total: <" & Total.ValRegIndep & ">")
+            OutText.Add("Total energy: " & TotalEnergy.ValRegIndep & " ADU")
             For Each Key As Integer In SumPoints.Keys
-                Dim Percentage As Double = 100 * (SumPoints(Key) / Total)
+                Dim Percentage As Double = 100 * (SumPoints(Key) / TotalEnergy)
                 Dim PercentageText As String = Percentage.ValRegIndep("0.00") & " %"
-                OutText.Add(("Max <" & Key.ValRegIndep & "> pixel: ").PadRight(20) & SumPoints(Key).ValRegIndep.PadLeft(7) & " = " & PercentageText)
+                OutText.Add(("Sum of top " & Key.ValRegIndep & " pixel: ").PadRight(20) & SumPoints(Key).ValRegIndep.PadLeft(7) & " = " & PercentageText & " of total")
             Next Key
             tbFocus.Text = Join(OutText.ToArray, System.Environment.NewLine)
         Else
-            tbFocus.Text = "Too much data ..."
+            tbFocus.Text = "Too much data (>" & PixelLimit.ValRegIndep & " pixel..."
         End If
     End Sub
 
