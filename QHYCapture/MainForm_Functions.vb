@@ -223,12 +223,19 @@ Partial Public Class MainForm
     End Sub
 
     Private Function IsColorCamera() As Boolean
-        Dim RGBPattern As UInt32 = CUInt(QHY.QHY.IsQHYCCDControlAvailable(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CAM_COLOR))
-        Select Case CType(RGBPattern, QHYCamera.QHY.BAYER_ID)
-            Case QHYCamera.QHY.BAYER_ID.BAYER_BG, QHYCamera.QHY.BAYER_ID.BAYER_GB, QHYCamera.QHY.BAYER_ID.BAYER_GR, QHYCamera.QHY.BAYER_ID.BAYER_RG
-                Return True
-            Case Else
+        Dim CanQueryColorCam As QHYCamera.QHY.QHYCCD_ERROR = QHY.QHY.IsQHYCCDControlAvailable(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CAM_COLOR)
+        Select Case CanQueryColorCam
+            Case QHYCamera.QHY.QHYCCD_ERROR.QHYCCD_ERROR
                 Return False
+            Case QHYCamera.QHY.QHYCCD_ERROR.QHYCCD_ERROR_NO_DEVICE
+                Return False
+            Case Else
+                Select Case CType(CanQueryColorCam, QHYCamera.QHY.BAYER_ID)
+                    Case QHYCamera.QHY.BAYER_ID.BAYER_BG, QHYCamera.QHY.BAYER_ID.BAYER_GB, QHYCamera.QHY.BAYER_ID.BAYER_GR, QHYCamera.QHY.BAYER_ID.BAYER_RG
+                        Return True
+                    Case Else
+                        Return False
+                End Select
         End Select
     End Function
 
