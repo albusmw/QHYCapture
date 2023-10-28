@@ -1,6 +1,8 @@
 ﻿Option Explicit On
 Option Strict On
+Imports System.IO
 Imports System.Windows.Forms
+Imports DocumentFormat.OpenXml.Bibliography
 
 Partial Public Class MainForm
 
@@ -102,9 +104,9 @@ Partial Public Class MainForm
         M.DB.Stopper.Stamp("Prepare buffers")
 
         'Select filter
-        Dim FilterActive As eFilter = eFilter.Invalid
-        If M.DB.FilterSlot <> eFilter.Invalid And M.DB.UseFilterWheel = True Then
-            FilterActive = ActiveFilter(M.DB.CamHandle, M.DB.FilterSlot, M.Meta.FilterWheelTimeOut)
+        Dim FilterActive As Integer = -1
+        If M.DB.FilterType <> eFilter.Unchanged And M.DB.UseFilterWheel = True Then
+            FilterActive = ActiveFilter(M.DB.CamHandle, M.Meta.FilterWheelTimeOut)
         End If
         M.DB.Stopper.Stamp("Select filter")
 
@@ -120,7 +122,7 @@ Partial Public Class MainForm
             '================================================================================
 
             If CaptureLoopCount = 1 Then
-                RunningCaptureInfo = StartExposure(CaptureLoopCount, FilterActive)
+                RunningCaptureInfo = StartExposure(CaptureLoopCount, M.DB.FilterType)
             End If
 
             '================================================================================
@@ -208,7 +210,7 @@ Partial Public Class MainForm
 
             Dim LastCaptureInfo As cSingleCaptureInfo = RunningCaptureInfo
             If (CaptureLoopCount < M.DB.CaptureCount) And (M.DB.StopFlag = False) Then
-                RunningCaptureInfo = StartExposure(CUInt(CaptureLoopCount + 1), FilterActive)
+                RunningCaptureInfo = StartExposure(CUInt(CaptureLoopCount + 1), M.DB.FilterType)
             End If
 
             '================================================================================
@@ -307,7 +309,7 @@ Partial Public Class MainForm
                     Case AstroNET.Statistics.eDataType.UInt32
                         cFITSWriter.Write(M.DB.LastStoredFile, SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data, cFITSWriter.eBitPix.Int32, CustomElement)
                 End Select
-                If M.DB.AutoOpenImage = True Then System.Diagnostics.Process.Start(M.DB.LastStoredFile)
+                If M.DB.AutoOpenImage = True Then Ato.Utils.StartWithItsEXE(M.DB.LastStoredFile)
 
             End If
             M.DB.Stopper.Stamp("Store image")
@@ -560,7 +562,7 @@ Partial Public Class MainForm
     End Sub
 
     Private Sub tsmiFile_ExploreHere_Click(sender As Object, e As EventArgs) Handles tsmiFile_ExploreHere.Click
-        Diagnostics.Process.Start(M.DB.EXEPath)
+        Ato.Utils.StartWithItsEXE(M.DB.EXEPath)
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -578,9 +580,6 @@ Partial Public Class MainForm
         Next Entry
 
         Me.Text &= BuildDate
-
-        'Load INI
-        M.DB.INI.Load(M.DB.MyINI)
 
         'Load IPP
         cFITSWriter.UseIPPForWriting = False
@@ -602,13 +601,11 @@ Partial Public Class MainForm
             End If
         End If
 
-
         'Start WCF
         'netsh http add urlacl url=http://+:1250/ user=DESKTOP-I7\albusmw
         DB_ServiceContract = New cDB_ServiceContract(M.DB, M.Meta)
-        Dim WebServicePort As String = M.DB.INI.Get("Connections", "WebInterfacePort", "1250")
-        If WebServicePort <> "0" Then
-            Dim WebServiceAdr As String = "http://localhost:" & WebServicePort & "/"
+        If M.Meta.WebInterfacePort <> "0" Then
+            Dim WebServiceAdr As String = "http://localhost:" & M.Meta.WebInterfacePort & "/"
             M.DB.SetupWCF = New ServiceModel.Web.WebServiceHost(GetType(cDB_ServiceContract), New Uri(WebServiceAdr))
             M.DB.serviceBehavior = M.DB.SetupWCF.Description.Behaviors.Find(Of ServiceModel.Description.ServiceDebugBehavior)
             M.DB.serviceBehavior.HttpHelpPageEnabled = True
@@ -731,7 +728,7 @@ Partial Public Class MainForm
             .StoreImage = False
             .DDR_RAM = False
             .ConfigAlways = False
-            .FilterSlot = eFilter.Invalid
+            .FilterType = eFilter.Unchanged
             .ShowLiveImage = True
             .USBTraffic = 0
             .Temp_Target = -100
@@ -788,7 +785,7 @@ Partial Public Class MainForm
             If ReadOutMode <> eReadOutMode.Invalid Then
                 M.DB.ReadOutModeEnum = ReadOutMode
                 For Each Filter As eFilter In New eFilter() {eFilter.H_alpha}
-                    M.DB.FilterSlot = Filter
+                    M.DB.FilterType = Filter
                     For Gain As Double = 0 To 200 Step 1
                         M.DB.Gain = Gain
                         Load10MicronData()
@@ -911,7 +908,7 @@ Partial Public Class MainForm
     End Function
 
     Private Sub tsmiFile_OpenLastFile_Click(sender As Object, e As EventArgs) Handles tsmiFile_OpenLastFile.Click
-        If System.IO.File.Exists(M.DB.LastStoredFile) Then Process.Start(M.DB.LastStoredFile)
+        If System.IO.File.Exists(M.DB.LastStoredFile) Then Ato.Utils.StartWithItsEXE(M.DB.LastStoredFile)
     End Sub
 
     Private Sub SaveTransmissionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveTransmissionToolStripMenuItem.Click
@@ -946,12 +943,14 @@ Partial Public Class MainForm
     End Sub
 
     Private Sub tsmiFile_SaveAllXMLParameters_Click(sender As Object, e As EventArgs) Handles tsmiFile_SaveAllXMLParameters.Click
+        'Write all available properties
         Dim FileOut As New List(Of String)
-        FileOut.AddRange(GetAllPropertyNames(M.DB.GetType))
-        FileOut.AddRange(GetAllPropertyNames(M.Meta.GetType))
+        FileOut.AddRange(GetAllPropertyNames(DB_Type, True))
+        FileOut.AddRange(GetAllPropertyNames(DB_meta_Type, True))
+        FileOut.AddRange(GetAllPropertyNames(DB_report_Type, True))
         Dim XMLXMLParameterFile As String = System.IO.Path.Combine(M.DB.EXEPath, "AllXMLParameters.txt")
         System.IO.File.WriteAllLines(XMLXMLParameterFile, FileOut)
-        Process.Start(XMLXMLParameterFile)
+        Ato.Utils.StartWithItsEXE(XMLXMLParameterFile)
     End Sub
 
     Private Sub tsmiFile_CreateXML_Click(sender As Object, e As EventArgs) Handles tsmiFile_CreateXML.Click
@@ -981,7 +980,7 @@ Partial Public Class MainForm
                     PropName = pgPlotAndText.SelectedGridItem.PropertyDescriptor.Name
             End Select
             If MsgBox(PropName & System.Environment.NewLine & "Copy to clipboard?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question Or MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
-                Clipboard.Clear() :
+                Clipboard.Clear()
                 Clipboard.SetText(PropName)
             End If
         End If
@@ -1049,7 +1048,7 @@ Partial Public Class MainForm
     Private Sub tsmiTools_Log_Store_Click(sender As Object, e As EventArgs) Handles tsmiTools_Log_Store.Click
         Dim LogFile As String = System.IO.Path.Combine(M.DB.EXEPath, "QHYDLLCalls.log")
         System.IO.File.WriteAllLines(LogFile, QHY.QHY.GetCallLog.ToArray)
-        Process.Start(LogFile)
+        Ato.Utils.StartWithItsEXE(LogFile)
     End Sub
 
     Private Sub tsmiTools_Log_Clear_Click(sender As Object, e As EventArgs) Handles tsmiTools_Log_Clear.Click
@@ -1144,7 +1143,7 @@ Partial Public Class MainForm
         PropGridToXML(Exp, M.DB)
         PropGridToXML(Exp, M.Meta)
         FileOut.Save(sfdMain.FileName)
-        Process.Start(sfdMain.FileName)
+        Ato.Utils.StartWithItsEXE(sfdMain.FileName)
     End Sub
 
     Private Sub tsmiActions_FocusInteractive_Click(sender As Object, e As EventArgs)
@@ -1173,6 +1172,36 @@ Partial Public Class MainForm
             .PlotSingleStatistics = False
         End With
         RefreshProperties()
+    End Sub
+
+    Private Sub tsmiFile_OpenINI_Click(sender As Object, e As EventArgs)
+        If System.IO.File.Exists(M.DB.MyINI) Then
+            Ato.Utils.StartWithItsEXE(M.DB.MyINI)
+        Else
+            MsgBox("INI file <" & M.DB.MyINI & "> NOT found!", vbCritical Or MsgBoxStyle.OkOnly, "File not found")
+        End If
+    End Sub
+
+    Private Sub FromFileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromFileToolStripMenuItem.Click
+        Dim MemStream As New MemoryStream
+        Dim SettingDoc As New Xml.XmlDocument
+        Using XMLContent As Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
+            XMLContent.WriteStartDocument()
+            XMLContent.WriteStartElement("sequence")
+            XMLContent.WriteStartElement("exp")
+            XMLContent.WriteAttributeString("Load10MicronDataAlways", "false")
+            XMLContent.WriteAttributeString("SiteLongitude", "-70:51:11.8'")
+            XMLContent.WriteAttributeString("SiteLatitude", "-30:31:34.7'")
+            XMLContent.WriteAttributeString("Origin", "Deep Sky Chile")
+            XMLContent.WriteAttributeString("Telescope", "DeltaRho350")
+            XMLContent.WriteAttributeString("TelescopeAperture", "350.0")
+            XMLContent.WriteAttributeString("TelescopeFocalLength", "1050.0")
+            XMLContent.WriteAttributeString("FilterOrder", "L-R-G-B-S-H-O")
+            XMLContent.WriteEndElement()
+            XMLContent.WriteEndElement()
+            XMLContent.WriteEndDocument()
+        End Using
+        RunXMLSequence(SettingDoc, False)
     End Sub
 
 End Class

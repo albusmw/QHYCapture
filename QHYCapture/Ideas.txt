@@ -7,5 +7,10 @@
 - Auto-Focus-Aid: ROI erst voll, dann Peak suchen für z.B. 10x10 Pixel, dann hier ROI setzen und evtl. noch Auto-Brightness
 - Statistic über den Overscan-Bereich
 
+ToDo:
+- Bei der Filter-Auswahl muß noch eine Function von Filter-Slot auf Filter-Typ eingebaut werden.
+  Aktuell wird z.B. in die Exposure-Routine der im GUI gewählte Filter geschrieben; falls dieser nicht gewählt werden konnte ist die Info falsch
+- Auslesen aus der PWI4-Software implementieren
+
 Last used SDK:
   20.8.26.3

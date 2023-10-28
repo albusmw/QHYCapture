@@ -18,9 +18,9 @@ Public Class cSingleCaptureInfo
     '''<summary>Temperature [°C] at start of exposure.</summary>
     Public ObsStartTemp As Double = Double.NaN
     '''<summary>Selected filter.</summary>
-    Public FilterActive As eFilter = eFilter.Invalid
+    Public FilterActive As eFilter = eFilter.Unchanged
     '''<summary>Telescope focus position.</summary>
-    Public TelescopeFocus As Double = Double.NaN
+    Public TelescopeFocus As Integer = 0
     '''<summary>Time at observation start.</summary>
     Public ObsStart As DateTime = Now
     '''<summary>Time at observation end.</summary>
@@ -70,9 +70,10 @@ Public Enum eReadResolution
 End Enum
 
 '''<summary>Filter as to be send as ASCII string.</summary>
+'''<remarks>Filter must NOT be in this order in the filter wheel !!!!</remarks>
 Public Enum eFilter As Byte
     <ComponentModel.Description("Unchanged")>
-    Invalid = 0
+    Unchanged = 0
     <ComponentModel.Description("Light")>
     L = 1
     <ComponentModel.Description("Red")>
@@ -81,7 +82,7 @@ Public Enum eFilter As Byte
     G = 3
     <ComponentModel.Description("Blue")>
     B = 4
-    <ComponentModel.Description("H alpha")>
+    <ComponentModel.Description("H-alpha")>
     H_alpha = 5
     <ComponentModel.Description("S-II")>
     S_II = 6
@@ -161,9 +162,6 @@ Public Class cDB
 
     <ComponentModel.Browsable(False)>
     Public Log_Generic As New Text.StringBuilder
-
-    '''<summary>INI access object.</summary>
-    Public INI As New Ato.cINI_IO
 
     '''<summary>Flag that indicates the sequence is running.</summary>
     <ComponentModel.Browsable(False)>
@@ -319,13 +317,19 @@ Public Class cDB
     <ComponentModel.DefaultValue(True)>
     Public Property UseFilterWheel As Boolean = True
 
-    '''<summaryFilter slot to select</summary>
     <ComponentModel.Category(Cat2_Exposure)>
-    <ComponentModel.DisplayName(Indent & "2.2. Filter slot")>
-    <ComponentModel.Description("Filter slot to select")>
-    <ComponentModel.DefaultValue(eFilter.Invalid)>
+    <ComponentModel.DisplayName(Indent & "2.2. Filter order")>
+    <ComponentModel.Description("Order of the filters in the filter wheel")>
+    <ComponentModel.DefaultValue("L-R-G-B-H-S-O")>
+    Public Property FilterOrder As String = "L-R-G-B-H-S-O"
+
+    '''<summaryFilter to select.</summary>
+    <ComponentModel.Category(Cat2_Exposure)>
+    <ComponentModel.DisplayName(Indent & "2.3. Filter")>
+    <ComponentModel.Description("Filter to select")>
+    <ComponentModel.DefaultValue(eFilter.Unchanged)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.EnumDesciptionConverter))>
-    Public Property FilterSlot As eFilter = eFilter.Invalid
+    Public Property FilterType As eFilter = eFilter.Unchanged
 
     '''<summary>Exposure time [s].</summary>
     <ComponentModel.Category(Cat2_Exposure)>
@@ -450,6 +454,20 @@ Public Class cDB
         End Get
     End Property
 
+    '===================================================================================================
+
+    '''<summary>Get the filter slot (starting with 1) for the requested filter.</summary>
+    Public ReadOnly Property FilterSlot() As Integer
+        Get
+            Dim FilterToSearch As String = [Enum].GetName(GetType(eFilter), FilterType).Substring(0, 1).ToUpper
+            Dim FiltersInSlot As String() = Split(FilterOrder, "-")
+            For Idx As Integer = 0 To FiltersInSlot.GetUpperBound(0)
+                If FiltersInSlot(Idx) = FilterToSearch Then Return Idx + 1
+            Next Idx
+            Return -1
+        End Get
+    End Property
+
 End Class
 
 '''<summary>Database holding meta data information.</summary>
@@ -465,10 +483,10 @@ Public Class cDB_meta
     Const Indent As String = "  "
     Const NotSet As String = "-----"
 
-    '''<summary>Automatically oad mount data via LAN?.</summary>
+    '''<summary>Automatically load mount data via LAN?.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
     <ComponentModel.DisplayName(Indent & "1.1. Use 10Micron LAN?")>
-    <ComponentModel.Description("Automatically oad mount data via LAN?")>
+    <ComponentModel.Description("Automatically load mount data via LAN?")>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
     <ComponentModel.DefaultValue(True)>
     Public Property Load10MicronDataAlways As Boolean = True
@@ -594,8 +612,8 @@ Public Class cDB_meta
     <ComponentModel.Category(Cat2_ObjectAndInstrument)>
     <ComponentModel.DisplayName(Indent & "5.3. Telescope focus position")>
     <ComponentModel.Description("Focuser position reported by the telescope.")>
-    <ComponentModel.DefaultValue(Double.NaN)>
-    Public Property TelescopeFocus As Double = Double.NaN
+    <ComponentModel.DefaultValue(0)>
+    Public Property TelescopeFocus As Integer = 0
 
     '===================================================================================================
 
@@ -794,5 +812,12 @@ Public Class cDB_meta
         End Get
     End Property
     Public MyColorStatOffForMono As Boolean = True
+
+    '''<summary>Time [s] after which the filter wheel movement is stoped and the software goes on even if the filter is NOT in place.</summary>
+    <ComponentModel.Category(Cat7_MiscSettings)>
+    <ComponentModel.DisplayName(Indent & "3. Web interface port")>
+    <ComponentModel.Description("Wen interface port to control the software via a web interface.")>
+    <ComponentModel.DefaultValue("1250")>
+    Public Property WebInterfacePort As String = "1250"
 
 End Class

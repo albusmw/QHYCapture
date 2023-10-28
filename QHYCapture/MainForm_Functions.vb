@@ -1,10 +1,23 @@
 ﻿Option Explicit On
 Option Strict On
+Imports System.Reflection
 Imports System.Windows.Forms
 
 Partial Public Class MainForm
 
     Private Delegate Sub InvokeDelegate()
+
+    'Reflect database
+    Public ReadOnly DB_Type As Type = M.DB.GetType
+    Public ReadOnly DB_props As List(Of String) = GetAllPropertyNames(DB_Type, False)
+    'Reflect meta database
+    Public ReadOnly DB_meta_Type As Type = M.Meta.GetType
+    Public ReadOnly DB_meta_props As List(Of String) = GetAllPropertyNames(DB_meta_Type, False)
+    'Reflect report database
+    '''<summary>Type holding all report parameters.</summary>
+    Public ReadOnly DB_report_Type As Type = M.Report.Prop.GetType
+    '''<summary>List of all report parameters.</summary>
+    Public ReadOnly DB_report_props As List(Of String) = GetAllPropertyNames(DB_report_Type, False)
 
     '''<summary>Execute an XML file sequence.</summary>
     '''<param name="SpecFile">File to load specifications from.</param>
@@ -12,25 +25,24 @@ Partial Public Class MainForm
     '''<returns>List of errors during sequence execution.</returns>
     Private Function RunXMLSequence(ByVal SpecFile As String, ByVal RunExposure As Boolean) As List(Of String)
         Dim RetVal As New List(Of String)
-        Dim BoolTrue As New List(Of String)({"TRUE", "YES", "1"})
-        Dim BindFlagsSet As Reflection.BindingFlags = Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.SetProperty
-        'Reflect database
-        Dim DB_Type As Type = M.DB.GetType
-        Dim DB_props As List(Of String) = GetAllPropertyNames(DB_Type)
-        'Reflect meta database
-        Dim DB_meta_Type As Type = M.Meta.GetType
-        Dim DB_meta_props As List(Of String) = GetAllPropertyNames(DB_meta_Type)
-        'Reflect report database
-        Dim DB_report_Type As Type = M.Report.Prop.GetType
-        Dim DB_report_props As List(Of String) = GetAllPropertyNames(DB_report_Type)
         'Move over all exposure specifications in the file
         Dim SpecDoc As New Xml.XmlDocument
         Try
             SpecDoc.Load(SpecFile)
         Catch ex As Exception
-            RetVal.Add("XML error: [" & ex.Message & "]")
-            Return RetVal
+            Return New List(Of String)({"XML error: [" & ex.Message & "]"})
         End Try
+        Return RunXMLSequence(SpecDoc, RunExposure)
+    End Function
+
+    '''<summary>Execute an XML document sequence.</summary>
+    '''<param name="SpecFile">XML document to load specifications from.</param>
+    '''<param name="RunExposure">TRUE to run exposure sequence, FALSE for only load parameters.</param>
+    '''<returns>List of errors during sequence execution.</returns>
+    Private Function RunXMLSequence(ByVal SpecDoc As Xml.XmlDocument, ByVal RunExposure As Boolean) As List(Of String)
+        Dim RetVal As New List(Of String)
+        Dim BoolTrue As New List(Of String)({"TRUE", "YES", "1"})
+        Dim BindFlagsSet As Reflection.BindingFlags = Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.SetProperty
         For Each ExpNode As Xml.XmlNode In SpecDoc.SelectNodes("/sequence/exp")
             'Load all attributes from the file
             For Each ExpAttrib As Xml.XmlAttribute In ExpNode.Attributes
@@ -94,10 +106,19 @@ Partial Public Class MainForm
     End Function
 
     '''<summary>Get a list of all available property names.</summary>
-    Private Function GetAllPropertyNames(ByRef TypeToReflect As Type) As List(Of String)
+    '''<param name="TypeToReflect">Type to get parameter names from.</param>
+    '''<param name="AddDescription">TRUE to add description, ...</param>
+    Private Function GetAllPropertyNames(ByRef TypeToReflect As Type, ByVal AddDescription As Boolean) As List(Of String)
+        Dim Desc_Type As Type = GetType(System.ComponentModel.DescriptionAttribute)
         Dim RetVal As New List(Of String)
         For Each SingleProperty As Reflection.PropertyInfo In TypeToReflect.GetProperties()
             Dim PropertyName As String = SingleProperty.Name
+            If AddDescription = True Then
+                Dim DescriptionAtr As Attribute = SingleProperty.GetCustomAttribute(Desc_Type)
+                If IsNothing(DescriptionAtr) = False Then
+                    PropertyName &= " (" & CType(DescriptionAtr, System.ComponentModel.DescriptionAttribute).Description & ")"
+                End If
+            End If
             RetVal.Add(PropertyName)
         Next SingleProperty
         Return RetVal
@@ -173,6 +194,7 @@ Partial Public Class MainForm
             .Offset = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_OFFSET)
             .Brightness = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_BRIGHTNESS)
             .ObsStartTemp = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CURTEMP)
+            .TelescopeFocus = M.Meta.TelescopeFocus
         End With
 
         'Start expose (single or live frame mode)
@@ -409,19 +431,20 @@ Partial Public Class MainForm
     '''<param name="CamHandle">Handle to the camera.</param>
     '''<param name="FilterToSelect">Filter to select.</param>
     '''<param name="TimeOut">Time [s] to complete the operation.</param>
-    Private Function ActiveFilter(ByRef CamHandle As IntPtr, ByVal FilterToSelect As eFilter, ByVal TimeOut As Double) As eFilter
-        Dim RetVal As eFilter = eFilter.Invalid
+    Private Function ActiveFilter(ByRef CamHandle As IntPtr, ByVal TimeOut As Double) As Integer
+        Dim RetVal As Integer = -1
         Dim TimeOutT As New Diagnostics.Stopwatch : TimeOutT.Reset() : TimeOutT.Start()
         Dim NumberOfSlots As Double = QHY.QHY.GetQHYCCDParam(CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CFWSLOTSNUM)
         LogVerbose("Filter wheel with <" & NumberOfSlots.ValRegIndep & "> sloted detected")
-        If CheckFilter(CamHandle) <> FilterToSelect Then
+        'Here, a translation between the filter type and the filter slot needs to take place
+        If CurrentFilterSlot(CamHandle) <> M.DB.FilterSlot Then
             Do
-                SelectFilter(CamHandle)
+                MoveToFilterSlot(CamHandle, M.DB.FilterSlot)
                 System.Threading.Thread.Sleep(500)
-                RetVal = CheckFilter(CamHandle)
-            Loop Until RetVal = FilterToSelect Or M.DB.StopFlag = True Or M.DB.FilterSlot = eFilter.Invalid Or TimeOutT.ElapsedMilliseconds > TimeOut * 1000
+                RetVal = CurrentFilterSlot(CamHandle)
+            Loop Until RetVal = M.DB.FilterSlot Or M.DB.StopFlag = True Or M.DB.FilterType = eFilter.Unchanged Or TimeOutT.ElapsedMilliseconds > TimeOut * 1000
         Else
-            RetVal = FilterToSelect
+            RetVal = M.DB.FilterSlot
         End If
         Return RetVal
     End Function
@@ -430,8 +453,8 @@ Partial Public Class MainForm
     '''<param name="CamHandle">Handle to the camera.</param>
     '''<returns>Filter that is IN or invalid if there was something wrong.</returns>
     '''<seealso cref="https://note.youdao.com/share/?token=48C579B49B5840609AB9B6D7D375B742&gid=7195236"/>
-    Private Function CheckFilter(ByRef CamHandle As IntPtr) As eFilter
-        Dim RetVal As eFilter = eFilter.Invalid
+    Private Function CurrentFilterSlot(ByRef CamHandle As IntPtr) As Integer
+        Dim RetVal As Integer = -1
         Dim FilterState(63) As Byte
         Dim Pinner As New cIntelIPP.cPinHandler
         Dim FilterStatePtr As IntPtr = Pinner.Pin(FilterState)
@@ -439,8 +462,14 @@ Partial Public Class MainForm
             Dim Filter As Char = Chr(FilterState(0))        ' '0' means filter position 1, '1' means filter position 2, ...
             Select Case Filter
                 Case "0"c To "9"c
-                    RetVal = CType(Val(Filter.ToString) + 1, eFilter)
-                    Log("Filter wheel position <" & [Enum].GetName(GetType(eFilter), RetVal) & ">")
+                    RetVal = CInt(Val(Filter.ToString) + 1)
+                    Log("Filter wheel position <Slot " & RetVal.ValRegIndep & ">")
+                Case "A"c
+                    RetVal = 11
+                    Log("Filter wheel position <Slot " & RetVal.ValRegIndep & ">")
+                Case "B"c
+                    RetVal = 11
+                    Log("Filter wheel position <Slot " & RetVal.ValRegIndep & ">")
                 Case "N"c
                     Log("Filter wheel running ...")
                 Case Else
@@ -453,20 +482,21 @@ Partial Public Class MainForm
         Return RetVal
     End Function
 
-    '''<summary>Select a certain filter.</summary>
+    '''<summary>Select a certain filter slot from the filter wheel.</summary>
+    '''<param name="SlotToSelect">Physical filter slot to select.</param>
     '''<param name="CamHandle">Camera handle to use.</param>
-    Private Function SelectFilter(ByRef CamHandle As IntPtr) As eFilter
-        Dim RetVal As eFilter = eFilter.Invalid
+    Private Function MoveToFilterSlot(ByRef CamHandle As IntPtr, ByVal SlotToSelect As Integer) As Integer
+        Dim RetVal As Integer = -1
         Dim FilterState(63) As Byte
         Dim Pinner As New cIntelIPP.cPinHandler
         Dim FilterStatePtr As IntPtr = Pinner.Pin(FilterState)
-        If M.DB.FilterSlot <> eFilter.Invalid Then
-            FilterState(0) = CByte(Asc((M.DB.FilterSlot - 1).ToString.Trim))
+        If SlotToSelect <> -1 Then
+            FilterState(0) = CByte(Asc((SlotToSelect - 1).ToString.Trim))
             If QHY.QHY.SendOrder2QHYCCDCFW(CamHandle, FilterStatePtr, 1) = QHYCamera.QHY.QHYCCD_ERROR.QHYCCD_SUCCESS Then
-                Log("  Filter requested: " & M.DB.FilterSlot.ToString.Trim)
-                RetVal = M.DB.FilterSlot
+                Log("  Filter slot requested: " & SlotToSelect.ToString.Trim)
+                RetVal = SlotToSelect
             Else
-                LogError("  !!! Filter select failed: " & M.DB.FilterSlot.ToString.Trim)
+                LogError("  !!! Filter select failed: " & SlotToSelect.ToString.Trim)
             End If
         End If
         Pinner = Nothing

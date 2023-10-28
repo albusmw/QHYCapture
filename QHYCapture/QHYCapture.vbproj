@@ -141,6 +141,9 @@
     <Compile Include="..\..\src\atomics\RTFTextBox.vb">
       <Link>RTFTextBox.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\Utils.vb">
+      <Link>Utils.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\ZedGraphService.vb">
       <Link>ZedGraphService.vb</Link>
     </Compile>

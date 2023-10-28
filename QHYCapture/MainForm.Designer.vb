@@ -46,7 +46,6 @@ Partial Class MainForm
         Me.tsmiFile_SaveAllXMLParameters = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiFile_RunSequence = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiFile_ExploreHere = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_ExploreCampaign = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_OpenLastFile = New System.Windows.Forms.ToolStripMenuItem()
@@ -63,6 +62,7 @@ Partial Class MainForm
         Me.GainVariationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiPreset = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiPreset_StandardCapture = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiPreset_FocusMode = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiPreset_FastLive = New System.Windows.Forms.ToolStripMenuItem()
         Me.CenterROIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -104,7 +104,8 @@ Partial Class MainForm
         Me.sfdMain = New System.Windows.Forms.SaveFileDialog()
         Me.ofdMain = New System.Windows.Forms.OpenFileDialog()
         Me.tStatusUpdate = New System.Windows.Forms.Timer(Me.components)
-        Me.tsmiPreset_FocusMode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FromFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator()
         Me.ssMain.SuspendLayout()
         Me.msMain.SuspendLayout()
         Me.tsMain.SuspendLayout()
@@ -129,10 +130,10 @@ Partial Class MainForm
         'pgMain
         '
         Me.pgMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pgMain.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pgMain.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pgMain.Location = New System.Drawing.Point(3, 3)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(481, 541)
+        Me.pgMain.Size = New System.Drawing.Size(481, 542)
         Me.pgMain.TabIndex = 0
         Me.pgMain.ToolbarVisible = False
         '
@@ -255,7 +256,7 @@ Partial Class MainForm
         '
         'tsmiFile
         '
-        Me.tsmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile_LoadSettings, Me.tsmiFile_SaveSettings, Me.tsmiFile_SaveAllXMLParameters, Me.ToolStripMenuItem4, Me.tsmiFile_RunSequence, Me.ToolStripMenuItem6, Me.tsmiFile_ExploreHere, Me.tsmiFile_ExploreCampaign, Me.tsmiFile_OpenLastFile, Me.ToolStripMenuItem1, Me.tsmiFile_CreateXML, Me.tsmiFile_TestWebInterface, Me.tsmiFile_StoreEXCELStat, Me.ToolStripMenuItem5, Me.tsmiFile_Exit})
+        Me.tsmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile_LoadSettings, Me.tsmiFile_RunSequence, Me.ToolStripMenuItem6, Me.tsmiFile_SaveSettings, Me.tsmiFile_SaveAllXMLParameters, Me.ToolStripMenuItem4, Me.tsmiFile_ExploreHere, Me.tsmiFile_ExploreCampaign, Me.tsmiFile_OpenLastFile, Me.ToolStripMenuItem1, Me.tsmiFile_CreateXML, Me.tsmiFile_TestWebInterface, Me.tsmiFile_StoreEXCELStat, Me.ToolStripMenuItem5, Me.tsmiFile_Exit})
         Me.tsmiFile.Name = "tsmiFile"
         Me.tsmiFile.Size = New System.Drawing.Size(37, 20)
         Me.tsmiFile.Text = "File"
@@ -264,9 +265,9 @@ Partial Class MainForm
         '
         Me.tsmiFile_LoadSettings.Name = "tsmiFile_LoadSettings"
         Me.tsmiFile_LoadSettings.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.tsmiFile_LoadSettings.Size = New System.Drawing.Size(284, 22)
+        Me.tsmiFile_LoadSettings.Size = New System.Drawing.Size(311, 22)
         Me.tsmiFile_LoadSettings.Tag = "Load"
-        Me.tsmiFile_LoadSettings.Text = "Load settings (does not expose)"
+        Me.tsmiFile_LoadSettings.Text = "Load XML settings (does not expose)"
         '
         'tsmiFile_SaveSettings
         '
@@ -278,8 +279,8 @@ Partial Class MainForm
         'tsmiFile_SaveAllXMLParameters
         '
         Me.tsmiFile_SaveAllXMLParameters.Name = "tsmiFile_SaveAllXMLParameters"
-        Me.tsmiFile_SaveAllXMLParameters.Size = New System.Drawing.Size(284, 22)
-        Me.tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters"
+        Me.tsmiFile_SaveAllXMLParameters.Size = New System.Drawing.Size(311, 22)
+        Me.tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters (for reference)"
         '
         'ToolStripMenuItem4
         '
@@ -289,33 +290,28 @@ Partial Class MainForm
         'tsmiFile_RunSequence
         '
         Me.tsmiFile_RunSequence.Name = "tsmiFile_RunSequence"
-        Me.tsmiFile_RunSequence.Size = New System.Drawing.Size(284, 22)
+        Me.tsmiFile_RunSequence.Size = New System.Drawing.Size(311, 22)
         Me.tsmiFile_RunSequence.Tag = "Run"
-        Me.tsmiFile_RunSequence.Text = "Run XML sequence"
-        '
-        'ToolStripMenuItem6
-        '
-        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(281, 6)
+        Me.tsmiFile_RunSequence.Text = "Run XML settings (does expose)"
         '
         'tsmiFile_ExploreHere
         '
         Me.tsmiFile_ExploreHere.Name = "tsmiFile_ExploreHere"
-        Me.tsmiFile_ExploreHere.Size = New System.Drawing.Size(284, 22)
-        Me.tsmiFile_ExploreHere.Text = "Explorer @ EXE path"
+        Me.tsmiFile_ExploreHere.Size = New System.Drawing.Size(311, 22)
+        Me.tsmiFile_ExploreHere.Text = "Open - EXE path"
         '
         'tsmiFile_ExploreCampaign
         '
         Me.tsmiFile_ExploreCampaign.Name = "tsmiFile_ExploreCampaign"
         Me.tsmiFile_ExploreCampaign.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.tsmiFile_ExploreCampaign.Size = New System.Drawing.Size(284, 22)
-        Me.tsmiFile_ExploreCampaign.Text = "Explorer @ current campaign"
+        Me.tsmiFile_ExploreCampaign.Size = New System.Drawing.Size(311, 22)
+        Me.tsmiFile_ExploreCampaign.Text = "Open - Current campaign folder"
         '
         'tsmiFile_OpenLastFile
         '
         Me.tsmiFile_OpenLastFile.Name = "tsmiFile_OpenLastFile"
-        Me.tsmiFile_OpenLastFile.Size = New System.Drawing.Size(284, 22)
-        Me.tsmiFile_OpenLastFile.Text = "Open last stored file"
+        Me.tsmiFile_OpenLastFile.Size = New System.Drawing.Size(311, 22)
+        Me.tsmiFile_OpenLastFile.Text = "Open - Last stored file"
         '
         'ToolStripMenuItem1
         '
@@ -386,7 +382,7 @@ Partial Class MainForm
         '
         'tsmiPreset
         '
-        Me.tsmiPreset.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiPreset_StandardCapture, Me.tsmiPreset_FocusMode, Me.ToolStripMenuItem3, Me.tsmiPreset_FastLive, Me.CenterROIToolStripMenuItem, Me.SaveTransmissionToolStripMenuItem, Me.tsmiPreset_SkipCooling, Me.tsmiPreset_DevTestMWeiss, Me.tsmiPreset_NoOverhead})
+        Me.tsmiPreset.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiPreset_StandardCapture, Me.tsmiPreset_FocusMode, Me.ToolStripMenuItem3, Me.tsmiPreset_FastLive, Me.CenterROIToolStripMenuItem, Me.SaveTransmissionToolStripMenuItem, Me.tsmiPreset_SkipCooling, Me.tsmiPreset_DevTestMWeiss, Me.tsmiPreset_NoOverhead, Me.FromFileToolStripMenuItem})
         Me.tsmiPreset.Name = "tsmiPreset"
         Me.tsmiPreset.Size = New System.Drawing.Size(56, 20)
         Me.tsmiPreset.Text = "Presets"
@@ -396,6 +392,12 @@ Partial Class MainForm
         Me.tsmiPreset_StandardCapture.Name = "tsmiPreset_StandardCapture"
         Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_StandardCapture.Text = "Standard capture"
+        '
+        'tsmiPreset_FocusMode
+        '
+        Me.tsmiPreset_FocusMode.Name = "tsmiPreset_FocusMode"
+        Me.tsmiPreset_FocusMode.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiPreset_FocusMode.Text = "Focus mode"
         '
         'ToolStripMenuItem3
         '
@@ -601,7 +603,7 @@ Partial Class MainForm
         Me.tcMain.Controls.Add(Me.TabPage2)
         Me.tcMain.Controls.Add(Me.TabPage3)
         Me.tcMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcMain.Font = New System.Drawing.Font("Courier New", 8.25!)
+        Me.tcMain.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tcMain.Location = New System.Drawing.Point(0, 0)
         Me.tcMain.Name = "tcMain"
         Me.tcMain.SelectedIndex = 0
@@ -611,10 +613,10 @@ Partial Class MainForm
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.pgMain)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 23)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(487, 547)
+        Me.TabPage1.Size = New System.Drawing.Size(487, 548)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Exposure"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -737,11 +739,16 @@ Partial Class MainForm
         Me.tStatusUpdate.Enabled = True
         Me.tStatusUpdate.Interval = 250
         '
-        'tsmiPreset_FocusMode
+        'FromFileToolStripMenuItem
         '
-        Me.tsmiPreset_FocusMode.Name = "tsmiPreset_FocusMode"
-        Me.tsmiPreset_FocusMode.Size = New System.Drawing.Size(180, 22)
-        Me.tsmiPreset_FocusMode.Text = "Focus mode"
+        Me.FromFileToolStripMenuItem.Name = "FromFileToolStripMenuItem"
+        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FromFileToolStripMenuItem.Text = "DSC (XML based)"
+        '
+        'ToolStripMenuItem6
+        '
+        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(308, 6)
         '
         'MainForm
         '
@@ -827,7 +834,6 @@ Partial Class MainForm
     Friend WithEvents sfdMain As Windows.Forms.SaveFileDialog
     Friend WithEvents tsmiNewGUID As Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiFile_RunSequence As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem6 As ToolStripSeparator
     Friend WithEvents ToolStripMenuItem5 As ToolStripSeparator
     Friend WithEvents tsmiLoad10MicronData As ToolStripMenuItem
     Friend WithEvents ofdMain As OpenFileDialog
@@ -865,4 +871,6 @@ Partial Class MainForm
     Friend WithEvents tsmiFile_SaveSettings As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem4 As ToolStripSeparator
     Friend WithEvents tsmiPreset_FocusMode As ToolStripMenuItem
+    Friend WithEvents FromFileToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem6 As ToolStripSeparator
 End Class
