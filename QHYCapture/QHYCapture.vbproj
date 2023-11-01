@@ -66,6 +66,12 @@
     <Compile Include="..\..\src\atomics\cDLLDynCall.vb">
       <Link>cDLLDynCall.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\cDownloader.vb">
+      <Link>cDownloader.vb</Link>
+    </Compile>
+    <Compile Include="..\..\src\atomics\cPWI4.vb">
+      <Link>cPWI4.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\QHYDLLWrapper.vb">
       <Link>QHYDLLWrapper.vb</Link>
     </Compile>
@@ -211,6 +217,9 @@
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -259,7 +268,6 @@
     </Content>
     <Content Include="FITSKeywords_FromGrep.txt" />
     <Content Include="QHY600.ico" />
-    <EmbeddedResource Include="BuildDate.txt" />
     <Content Include="..\BiasCapture.qhycapture.xml">
       <Link>XML Examples\BiasCapture.qhycapture.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -291,10 +299,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PreBuildEvent>echo %25date%25 %25time%25 &gt; "$(ProjectDir)\BuildDate.txt"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>del "$(ProjectDir)\BuildDate.txt"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

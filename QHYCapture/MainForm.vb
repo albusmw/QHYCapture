@@ -1204,4 +1204,29 @@ Partial Public Class MainForm
         RunXMLSequence(SettingDoc, False)
     End Sub
 
+    Private Sub LoadPWI4DataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadPWI4DataToolStripMenuItem.Click
+
+        Dim Getter As New cDownloader
+        Dim PWI_data As String() = Getter.GetResponse("http://localhost:8220/status").Split(CChar(vbLf))
+        For Each Line As String In PWI_data
+            Dim Splitter As Integer = Line.IndexOf("=")
+            If Splitter > -1 Then
+                Dim Parameter As String = Line.Substring(0, Splitter)
+                Dim Value As String = Line.Substring(Splitter + 1)
+                Select Case M.DB.PWI4.GetEnumFromString(Parameter)
+                    Case ePWI4.mount__is_connected
+                        Select Case Value.ToUpper
+                            Case "TRUE" : M.DB.PWI4.SetValue(Parameter, 0)
+                            Case "FALSE" : M.DB.PWI4.SetValue(Parameter, 1)
+                            Case Else : M.DB.PWI4.SetValue(Parameter, "<" & Value & ">")
+                        End Select
+                    Case Else
+                        M.DB.PWI4.SetValue(Parameter, Value)
+                End Select
+
+            End If
+        Next Line
+
+    End Sub
+
 End Class

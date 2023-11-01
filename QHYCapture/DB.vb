@@ -178,6 +178,9 @@ Public Class cDB
     '''<summary>Intel IPP access.</summary>
     Public IPP As cIntelIPP
 
+    '''<summary>PlaneWave Interface 4 class.</summary>
+    Public PWI4 As New cPWI4
+
     Const Cat1 As String = "1. Imaging hardware"
     Const Cat2_Exposure As String = "2. Exposure"
     Const Cat3 As String = "3. Image storage"
