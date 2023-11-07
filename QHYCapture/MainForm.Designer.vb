@@ -79,6 +79,7 @@ Partial Class MainForm
         Me.tsmiClearLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiActions_AllCoolersOff = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadPWI4DataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiTools_AllQHYDLLs = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiTools_Log = New System.Windows.Forms.ToolStripMenuItem()
@@ -106,7 +107,6 @@ Partial Class MainForm
         Me.sfdMain = New System.Windows.Forms.SaveFileDialog()
         Me.ofdMain = New System.Windows.Forms.OpenFileDialog()
         Me.tStatusUpdate = New System.Windows.Forms.Timer(Me.components)
-        Me.LoadPWI4DataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssMain.SuspendLayout()
         Me.msMain.SuspendLayout()
         Me.tsMain.SuspendLayout()
@@ -365,7 +365,7 @@ Partial Class MainForm
         '
         Me.SeriesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AllReadoutModesToolStripMenuItem, Me.ExposureTimeSeriesToolStripMenuItem, Me.GainVariationToolStripMenuItem})
         Me.SeriesToolStripMenuItem.Name = "SeriesToolStripMenuItem"
-        Me.SeriesToolStripMenuItem.Size = New System.Drawing.Size(104, 22)
+        Me.SeriesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SeriesToolStripMenuItem.Text = "Series"
         '
         'AllReadoutModesToolStripMenuItem
@@ -493,6 +493,12 @@ Partial Class MainForm
         Me.tsmiActions_AllCoolersOff.Name = "tsmiActions_AllCoolersOff"
         Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(180, 22)
         Me.tsmiActions_AllCoolersOff.Text = "All coolers off"
+        '
+        'LoadPWI4DataToolStripMenuItem
+        '
+        Me.LoadPWI4DataToolStripMenuItem.Name = "LoadPWI4DataToolStripMenuItem"
+        Me.LoadPWI4DataToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LoadPWI4DataToolStripMenuItem.Text = "Load PWI4 data"
         '
         'tsmiTools
         '
@@ -750,12 +756,6 @@ Partial Class MainForm
         '
         Me.tStatusUpdate.Enabled = True
         Me.tStatusUpdate.Interval = 250
-        '
-        'LoadPWI4DataToolStripMenuItem
-        '
-        Me.LoadPWI4DataToolStripMenuItem.Name = "LoadPWI4DataToolStripMenuItem"
-        Me.LoadPWI4DataToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.LoadPWI4DataToolStripMenuItem.Text = "Load PWI4 data"
         '
         'MainForm
         '
