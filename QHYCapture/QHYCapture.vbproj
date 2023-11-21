@@ -72,6 +72,9 @@
     <Compile Include="..\..\src\atomics\cPWI4.vb">
       <Link>cPWI4.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\ForHardware\QHY.vb">
+      <Link>QHY.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\QHYDLLWrapper.vb">
       <Link>QHYDLLWrapper.vb</Link>
     </Compile>

@@ -21,6 +21,8 @@ Partial Public Class MainForm
 
     Private WithEvents ZWOASI As New cZWOASI
 
+    Private WithEvents QHYFunction As New cQHYFunction
+
     '''<summary>Run a single capture.</summary>
     Private Sub RunCaptureToolStripMenuItem_Click(sender As Object, e As EventArgs)
         QHYCapture(True)
@@ -106,7 +108,7 @@ Partial Public Class MainForm
         'Select filter
         Dim FilterActive As Integer = -1
         If M.DB.FilterType <> eFilter.Unchanged And M.DB.UseFilterWheel = True Then
-            FilterActive = ActiveFilter(M.DB.CamHandle, M.Meta.FilterWheelTimeOut)
+            FilterActive = QHYFunction.ActivateFilter(M.DB.CamHandle, M.DB.FilterSlot, M.Meta.FilterWheelTimeOut)
         End If
         M.DB.Stopper.Stamp("Select filter")
 
@@ -194,14 +196,6 @@ Partial Public Class MainForm
                 M.DB.IPP.Add(AsUInt32, InfinitBuffer)
                 M.DB.IPP.Copy(InfinitBuffer, SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data)
                 SingleStatCalc.Reset_UInt16()
-            End If
-
-            'Search star on 1st run
-            If M.Meta.StarSearch = True Then
-                Dim ROICenter As Point = ImageProcessing.BrightStarDetect(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, -1, M.Meta.StarSearch_Binning)
-                M.DB.ROI = AdjustAndCorrectROI(ROICenter, M.Meta.StarSearch_ROI, M.Meta.StarSearch_ROI)
-                Dim ROISet As Boolean = CallOK("SetQHYCCDResolution", QHY.QHY.SetQHYCCDResolution(M.DB.CamHandle, CUInt(M.DB.ROI.X), CUInt(M.DB.ROI.Y), CUInt(M.DB.ROI.Width \ M.DB.HardwareBinning), CUInt(M.DB.ROI.Height \ M.DB.HardwareBinning)))
-                M.Meta.StarSearch = False
             End If
 
             '================================================================================
@@ -1156,24 +1150,6 @@ Partial Public Class MainForm
         RefreshProperties()
     End Sub
 
-    Private Sub tsmiPreset_FocusMode_Click(sender As Object, e As EventArgs) Handles tsmiPreset_FocusMode.Click
-        tsmiPreset_FastLive_Click(Nothing, Nothing)
-        M.DB.StreamMode = eStreamMode.LiveFrame
-        M.DB.ConfigAlways = False
-        M.DB.DDR_RAM = True
-        With M.Meta
-            .StarSearch = True
-        End With
-        With M.Report.Prop
-            .Log_ClearStat = True
-            .PlotStatisticsColor = False
-            .PlotStatisticsMono = False
-            .PlotMeanStatistics = False
-            .PlotSingleStatistics = False
-        End With
-        RefreshProperties()
-    End Sub
-
     Private Sub tsmiFile_OpenINI_Click(sender As Object, e As EventArgs)
         If System.IO.File.Exists(M.DB.MyINI) Then
             Ato.Utils.StartWithItsEXE(M.DB.MyINI)
@@ -1227,6 +1203,18 @@ Partial Public Class MainForm
             End If
         Next Line
 
+    End Sub
+
+    Private Sub QHYFunction_Log(Text As String) Handles QHYFunction.Log
+        Log(Text)
+    End Sub
+
+    Private Sub QHYFunction_LogError(Text As String) Handles QHYFunction.LogError
+        LogError(Text)
+    End Sub
+
+    Private Sub QHYFunction_LogVerbose(Text As String) Handles QHYFunction.LogVerbose
+        LogVerbose(Text)
     End Sub
 
 End Class

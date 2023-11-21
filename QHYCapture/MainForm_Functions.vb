@@ -427,81 +427,11 @@ Partial Public Class MainForm
         Return RetVal
     End Function
 
-    '''<summary>Activate a certain filter.</summary>
-    '''<param name="CamHandle">Handle to the camera.</param>
-    '''<param name="FilterToSelect">Filter to select.</param>
-    '''<param name="TimeOut">Time [s] to complete the operation.</param>
-    Private Function ActiveFilter(ByRef CamHandle As IntPtr, ByVal TimeOut As Double) As Integer
-        Dim RetVal As Integer = -1
-        Dim TimeOutT As New Diagnostics.Stopwatch : TimeOutT.Reset() : TimeOutT.Start()
-        Dim NumberOfSlots As Double = QHY.QHY.GetQHYCCDParam(CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CFWSLOTSNUM)
-        LogVerbose("Filter wheel with <" & NumberOfSlots.ValRegIndep & "> sloted detected")
-        'Here, a translation between the filter type and the filter slot needs to take place
-        If CurrentFilterSlot(CamHandle) <> M.DB.FilterSlot Then
-            Do
-                MoveToFilterSlot(CamHandle, M.DB.FilterSlot)
-                System.Threading.Thread.Sleep(500)
-                RetVal = CurrentFilterSlot(CamHandle)
-            Loop Until RetVal = M.DB.FilterSlot Or M.DB.StopFlag = True Or M.DB.FilterType = eFilter.Unchanged Or TimeOutT.ElapsedMilliseconds > TimeOut * 1000
-        Else
-            RetVal = M.DB.FilterSlot
-        End If
-        Return RetVal
-    End Function
 
-    '''<summary>Read the current filter wheel position.</summary>
-    '''<param name="CamHandle">Handle to the camera.</param>
-    '''<returns>Filter that is IN or invalid if there was something wrong.</returns>
-    '''<seealso cref="https://note.youdao.com/share/?token=48C579B49B5840609AB9B6D7D375B742&gid=7195236"/>
-    Private Function CurrentFilterSlot(ByRef CamHandle As IntPtr) As Integer
-        Dim RetVal As Integer = -1
-        Dim FilterState(63) As Byte
-        Dim Pinner As New cIntelIPP.cPinHandler
-        Dim FilterStatePtr As IntPtr = Pinner.Pin(FilterState)
-        If QHY.QHY.GetQHYCCDCFWStatus(CamHandle, FilterStatePtr) = QHYCamera.QHY.QHYCCD_ERROR.QHYCCD_SUCCESS Then
-            Dim Filter As Char = Chr(FilterState(0))        ' '0' means filter position 1, '1' means filter position 2, ...
-            Select Case Filter
-                Case "0"c To "9"c
-                    RetVal = CInt(Val(Filter.ToString) + 1)
-                    Log("Filter wheel position <Slot " & RetVal.ValRegIndep & ">")
-                Case "A"c
-                    RetVal = 11
-                    Log("Filter wheel position <Slot " & RetVal.ValRegIndep & ">")
-                Case "B"c
-                    RetVal = 11
-                    Log("Filter wheel position <Slot " & RetVal.ValRegIndep & ">")
-                Case "N"c
-                    Log("Filter wheel running ...")
-                Case Else
-                    Log("Filter wheel position answer <" & Filter.ToString & "> is ??????")
-            End Select
-        Else
-            LogError("Filter wheel found but could not read status!")
-        End If
-        Pinner = Nothing
-        Return RetVal
-    End Function
 
-    '''<summary>Select a certain filter slot from the filter wheel.</summary>
-    '''<param name="SlotToSelect">Physical filter slot to select.</param>
-    '''<param name="CamHandle">Camera handle to use.</param>
-    Private Function MoveToFilterSlot(ByRef CamHandle As IntPtr, ByVal SlotToSelect As Integer) As Integer
-        Dim RetVal As Integer = -1
-        Dim FilterState(63) As Byte
-        Dim Pinner As New cIntelIPP.cPinHandler
-        Dim FilterStatePtr As IntPtr = Pinner.Pin(FilterState)
-        If SlotToSelect <> -1 Then
-            FilterState(0) = CByte(Asc((SlotToSelect - 1).ToString.Trim))
-            If QHY.QHY.SendOrder2QHYCCDCFW(CamHandle, FilterStatePtr, 1) = QHYCamera.QHY.QHYCCD_ERROR.QHYCCD_SUCCESS Then
-                Log("  Filter slot requested: " & SlotToSelect.ToString.Trim)
-                RetVal = SlotToSelect
-            Else
-                LogError("  !!! Filter select failed: " & SlotToSelect.ToString.Trim)
-            End If
-        End If
-        Pinner = Nothing
-        Return RetVal
-    End Function
+
+
+
 
     ''<summary>Set the exposure parameters</summary>
     Private Sub SetExpParameters()

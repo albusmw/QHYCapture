@@ -63,7 +63,6 @@ Partial Class MainForm
         Me.GainVariationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiPreset = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiPreset_StandardCapture = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_FocusMode = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiPreset_FastLive = New System.Windows.Forms.ToolStripMenuItem()
         Me.CenterROIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -365,7 +364,7 @@ Partial Class MainForm
         '
         Me.SeriesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AllReadoutModesToolStripMenuItem, Me.ExposureTimeSeriesToolStripMenuItem, Me.GainVariationToolStripMenuItem})
         Me.SeriesToolStripMenuItem.Name = "SeriesToolStripMenuItem"
-        Me.SeriesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SeriesToolStripMenuItem.Size = New System.Drawing.Size(104, 22)
         Me.SeriesToolStripMenuItem.Text = "Series"
         '
         'AllReadoutModesToolStripMenuItem
@@ -388,7 +387,7 @@ Partial Class MainForm
         '
         'tsmiPreset
         '
-        Me.tsmiPreset.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiPreset_StandardCapture, Me.tsmiPreset_FocusMode, Me.ToolStripMenuItem3, Me.tsmiPreset_FastLive, Me.CenterROIToolStripMenuItem, Me.SaveTransmissionToolStripMenuItem, Me.tsmiPreset_SkipCooling, Me.tsmiPreset_DevTestMWeiss, Me.tsmiPreset_NoOverhead, Me.FromFileToolStripMenuItem})
+        Me.tsmiPreset.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiPreset_StandardCapture, Me.ToolStripMenuItem3, Me.tsmiPreset_FastLive, Me.CenterROIToolStripMenuItem, Me.SaveTransmissionToolStripMenuItem, Me.tsmiPreset_SkipCooling, Me.tsmiPreset_DevTestMWeiss, Me.tsmiPreset_NoOverhead, Me.FromFileToolStripMenuItem})
         Me.tsmiPreset.Name = "tsmiPreset"
         Me.tsmiPreset.Size = New System.Drawing.Size(56, 20)
         Me.tsmiPreset.Text = "Presets"
@@ -396,60 +395,54 @@ Partial Class MainForm
         'tsmiPreset_StandardCapture
         '
         Me.tsmiPreset_StandardCapture.Name = "tsmiPreset_StandardCapture"
-        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_StandardCapture.Text = "Standard capture"
-        '
-        'tsmiPreset_FocusMode
-        '
-        Me.tsmiPreset_FocusMode.Name = "tsmiPreset_FocusMode"
-        Me.tsmiPreset_FocusMode.Size = New System.Drawing.Size(171, 22)
-        Me.tsmiPreset_FocusMode.Text = "Focus mode"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(168, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'tsmiPreset_FastLive
         '
         Me.tsmiPreset_FastLive.Name = "tsmiPreset_FastLive"
-        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_FastLive.Text = "Fast live mode"
         '
         'CenterROIToolStripMenuItem
         '
         Me.CenterROIToolStripMenuItem.Name = "CenterROIToolStripMenuItem"
-        Me.CenterROIToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.CenterROIToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CenterROIToolStripMenuItem.Text = "Center ROI"
         '
         'SaveTransmissionToolStripMenuItem
         '
         Me.SaveTransmissionToolStripMenuItem.Name = "SaveTransmissionToolStripMenuItem"
-        Me.SaveTransmissionToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.SaveTransmissionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SaveTransmissionToolStripMenuItem.Text = "Save transmission"
         '
         'tsmiPreset_SkipCooling
         '
         Me.tsmiPreset_SkipCooling.Name = "tsmiPreset_SkipCooling"
-        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_SkipCooling.Text = "Skip cooling"
         '
         'tsmiPreset_DevTestMWeiss
         '
         Me.tsmiPreset_DevTestMWeiss.Name = "tsmiPreset_DevTestMWeiss"
-        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_DevTestMWeiss.Text = "Dev test (M Weiss)"
         '
         'tsmiPreset_NoOverhead
         '
         Me.tsmiPreset_NoOverhead.Name = "tsmiPreset_NoOverhead"
-        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(171, 22)
+        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(180, 22)
         Me.tsmiPreset_NoOverhead.Text = "No overhead"
         '
         'FromFileToolStripMenuItem
         '
         Me.FromFileToolStripMenuItem.Name = "FromFileToolStripMenuItem"
-        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FromFileToolStripMenuItem.Text = "DSC (XML based)"
         '
         'tsmiActions
@@ -462,42 +455,42 @@ Partial Class MainForm
         'tsmiResetLoopStat
         '
         Me.tsmiResetLoopStat.Name = "tsmiResetLoopStat"
-        Me.tsmiResetLoopStat.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiResetLoopStat.Size = New System.Drawing.Size(179, 22)
         Me.tsmiResetLoopStat.Text = "Reset loop statistics"
         '
         'tsmiNewGUID
         '
         Me.tsmiNewGUID.Name = "tsmiNewGUID"
-        Me.tsmiNewGUID.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiNewGUID.Size = New System.Drawing.Size(179, 22)
         Me.tsmiNewGUID.Text = "New GUID"
         '
         'tsmiLoad10MicronData
         '
         Me.tsmiLoad10MicronData.Name = "tsmiLoad10MicronData"
-        Me.tsmiLoad10MicronData.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiLoad10MicronData.Size = New System.Drawing.Size(179, 22)
         Me.tsmiLoad10MicronData.Text = "Load 10Micron data"
         '
         'tsmiClearLog
         '
         Me.tsmiClearLog.Name = "tsmiClearLog"
-        Me.tsmiClearLog.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiClearLog.Size = New System.Drawing.Size(179, 22)
         Me.tsmiClearLog.Text = "Clear log"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(176, 6)
         '
         'tsmiActions_AllCoolersOff
         '
         Me.tsmiActions_AllCoolersOff.Name = "tsmiActions_AllCoolersOff"
-        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(179, 22)
         Me.tsmiActions_AllCoolersOff.Text = "All coolers off"
         '
         'LoadPWI4DataToolStripMenuItem
         '
         Me.LoadPWI4DataToolStripMenuItem.Name = "LoadPWI4DataToolStripMenuItem"
-        Me.LoadPWI4DataToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LoadPWI4DataToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
         Me.LoadPWI4DataToolStripMenuItem.Text = "Load PWI4 data"
         '
         'tsmiTools
@@ -510,14 +503,14 @@ Partial Class MainForm
         'tsmiTools_AllQHYDLLs
         '
         Me.tsmiTools_AllQHYDLLs.Name = "tsmiTools_AllQHYDLLs"
-        Me.tsmiTools_AllQHYDLLs.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiTools_AllQHYDLLs.Size = New System.Drawing.Size(163, 22)
         Me.tsmiTools_AllQHYDLLs.Text = "Get all QHY DLLs"
         '
         'tsmiTools_Log
         '
         Me.tsmiTools_Log.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiTools_Log_Store, Me.tsmiTools_Log_Clear})
         Me.tsmiTools_Log.Name = "tsmiTools_Log"
-        Me.tsmiTools_Log.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiTools_Log.Size = New System.Drawing.Size(163, 22)
         Me.tsmiTools_Log.Text = "DLL Log"
         '
         'tsmiTools_Log_Store
@@ -877,7 +870,6 @@ Partial Class MainForm
     Friend WithEvents ToolStripMenuItem3 As ToolStripSeparator
     Friend WithEvents tsmiFile_SaveSettings As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem4 As ToolStripSeparator
-    Friend WithEvents tsmiPreset_FocusMode As ToolStripMenuItem
     Friend WithEvents FromFileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem6 As ToolStripSeparator
     Friend WithEvents LoadPWI4DataToolStripMenuItem As ToolStripMenuItem

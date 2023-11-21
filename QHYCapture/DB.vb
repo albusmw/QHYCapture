@@ -774,27 +774,6 @@ Public Class cDB_meta
 
     '===================================================================================================
 
-    <ComponentModel.Category(Cat6_Focus)>
-    <ComponentModel.DisplayName(Indent & "1. Auto-star search for auto-focus")>
-    <ComponentModel.Description("Auto-select ROI and center on found maximum")>
-    <ComponentModel.DefaultValue(False)>
-    <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
-    Public Property StarSearch As Boolean = False
-
-    <ComponentModel.Category(Cat6_Focus)>
-    <ComponentModel.DisplayName(Indent & "2. Auto-star search binning factor")>
-    <ComponentModel.Description("Size [pixel] of the ROI during start search")>
-    <ComponentModel.DefaultValue(5)>
-    Public Property StarSearch_Binning As Integer = 5
-
-    <ComponentModel.Category(Cat6_Focus)>
-    <ComponentModel.DisplayName(Indent & "3. Auto-star search ROI size")>
-    <ComponentModel.Description("Size [pixel] of the ROI during start search")>
-    <ComponentModel.DefaultValue(41)>
-    Public Property StarSearch_ROI As Integer = 41
-
-    '===================================================================================================
-
     '''<summary>Time [s] after which the filter wheel movement is stoped and the software goes on even if the filter is NOT in place.</summary>
     <ComponentModel.Category(Cat7_MiscSettings)>
     <ComponentModel.DisplayName(Indent & "1. Filter wheel time-out")>
