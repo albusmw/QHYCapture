@@ -63,6 +63,12 @@
     <Folder Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\MyLib\Download.vb">
+      <Link>MyLib\Download.vb</Link>
+    </Compile>
+    <Compile Include="..\..\MyLib\Extensions.vb">
+      <Link>MyLib\Extensions.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\cDLLDynCall.vb">
       <Link>cDLLDynCall.vb</Link>
     </Compile>
@@ -134,9 +140,6 @@
     </Compile>
     <Compile Include="..\..\src\atomics\Everything.vb">
       <Link>Everything.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\Extensions.vb">
-      <Link>Extensions.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\FileHash.vb">
       <Link>FileHash.vb</Link>

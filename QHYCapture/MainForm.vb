@@ -1182,8 +1182,7 @@ Partial Public Class MainForm
 
     Private Sub LoadPWI4DataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadPWI4DataToolStripMenuItem.Click
 
-        Dim Getter As New cDownloader
-        Dim PWI_data As String() = Getter.GetResponse("http://localhost:8220/status").Split(CChar(vbLf))
+        Dim PWI_data As String() = Download.GetResponse("http://localhost:8220/status").Split(CChar(vbLf))
         For Each Line As String In PWI_data
             Dim Splitter As Integer = Line.IndexOf("=")
             If Splitter > -1 Then
