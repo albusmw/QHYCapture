@@ -69,6 +69,9 @@
     <Compile Include="..\..\src\atomics\cDownloader.vb">
       <Link>cDownloader.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\cHardwareState.vb">
+      <Link>cHardwareState.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\cPWI4.vb">
       <Link>cPWI4.vb</Link>
     </Compile>
