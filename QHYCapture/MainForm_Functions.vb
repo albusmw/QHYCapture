@@ -7,17 +7,39 @@ Partial Public Class MainForm
 
     Private Delegate Sub InvokeDelegate()
 
-    'Reflect database
-    Public ReadOnly DB_Type As Type = M.DB.GetType
-    Public ReadOnly DB_props As List(Of String) = GetAllPropertyNames(DB_Type, False)
-    'Reflect meta database
-    Public ReadOnly DB_meta_Type As Type = M.Meta.GetType
-    Public ReadOnly DB_meta_props As List(Of String) = GetAllPropertyNames(DB_meta_Type, False)
-    'Reflect report database
-    '''<summary>Type holding all report parameters.</summary>
-    Public ReadOnly DB_report_Type As Type = M.Report.Prop.GetType
-    '''<summary>List of all report parameters.</summary>
-    Public ReadOnly DB_report_props As List(Of String) = GetAllPropertyNames(DB_report_Type, False)
+    Public Class cReflectHelp
+        Public ReadOnly Type As Type = Nothing
+        Public ReadOnly Properties As New List(Of String)
+        Public Sub New(ByVal ElementToLoad As Object)
+            Type = ElementToLoad.GetType
+            Properties = GetAllPropertyNames(Type, False)
+        End Sub
+        '''<summary>Get a list of all available property names.</summary>
+        '''<param name="TypeToReflect">Type to get parameter names from.</param>
+        Public Function GetAllPropertyNames(ByVal AddDescription As Boolean) As List(Of String)
+            Return GetAllPropertyNames(Type, False)
+        End Function
+        '''<summary>Get a list of all available property names.</summary>
+        '''<param name="TypeToReflect">Type to get parameter names from.</param>
+        '''<param name="AddDescription">TRUE to add description, ...</param>
+        Public Shared Function GetAllPropertyNames(ByRef TypeToReflect As Type, ByVal AddDescription As Boolean) As List(Of String)
+            Dim Desc_Type As Type = GetType(System.ComponentModel.DescriptionAttribute)
+            Dim RetVal As New List(Of String)
+            For Each SingleProperty As Reflection.PropertyInfo In TypeToReflect.GetProperties()
+                Dim PropertyName As String = SingleProperty.Name
+                If AddDescription = True Then
+                    Dim DescriptionAtr As Attribute = SingleProperty.GetCustomAttribute(Desc_Type)
+                    If IsNothing(DescriptionAtr) = False Then
+                        PropertyName &= " (" & CType(DescriptionAtr, System.ComponentModel.DescriptionAttribute).Description & ")"
+                    End If
+                End If
+                RetVal.Add(PropertyName)
+            Next SingleProperty
+            Return RetVal
+        End Function
+    End Class
+
+
 
     '''<summary>Execute an XML file sequence.</summary>
     '''<param name="SpecFile">File to load specifications from.</param>
@@ -51,9 +73,9 @@ Partial Public Class MainForm
                 Dim PropValue As Object = Nothing
                 'Get property type and value
                 Try
-                    If DB_props.Contains(PropName) Then PropType = DB_Type.GetProperty(PropName).PropertyType
-                    If DB_meta_props.Contains(PropName) Then PropType = DB_meta_Type.GetProperty(PropName).PropertyType
-                    If DB_report_props.Contains(PropName) Then PropType = DB_report_Type.GetProperty(PropName).PropertyType
+                    If DB_config.Properties.Contains(PropName) Then PropType = DB_config.Type.GetProperty(PropName).PropertyType
+                    If DB_meta.Properties.Contains(PropName) Then PropType = DB_meta.Type.GetProperty(PropName).PropertyType
+                    If DB_report.Properties.Contains(PropName) Then PropType = DB_report.Type.GetProperty(PropName).PropertyType
                     Select Case PropType
                         Case GetType(Int32)
                             PropValue = CType(ExpAttrib.Value, Int32)
@@ -65,6 +87,14 @@ Partial Public Class MainForm
                             PropValue = ExpAttrib.Value
                         Case GetType(Boolean)
                             If BoolTrue.Contains(ExpAttrib.Value.ToUpper) Then PropValue = True Else PropValue = False
+                        Case GetType(eExposureType)
+                            Dim ParsedValue As eExposureType = eExposureType.Invalid
+                            Dim Parsed As Boolean = [Enum].TryParse(Of eExposureType)(ExpAttrib.Value, ParsedValue)
+                            If Parsed = True Then
+                                PropValue = ParsedValue
+                            Else
+                                Throw New Exception("eExposureType can not be parsed")
+                            End If
                         Case Else
                             'Dim X As Type = Type.GetType(PropTypeName)
                             PropValue = [Enum].Parse(PropType, ExpAttrib.Value)
@@ -74,14 +104,14 @@ Partial Public Class MainForm
                 End Try
                 If IsNothing(PropValue) = False Then
                     Try
-                        If DB_props.Contains(PropName) Then
-                            DB_Type.InvokeMember(PropName, BindFlagsSet, Type.DefaultBinder, M.DB, New Object() {PropValue})
+                        If DB_config.Properties.Contains(PropName) Then
+                            DB_config.Type.InvokeMember(PropName, BindFlagsSet, Type.DefaultBinder, M.Config, New Object() {PropValue})
                         Else
-                            If DB_meta_props.Contains(PropName) Then
-                                DB_meta_Type.InvokeMember(PropName, BindFlagsSet, Type.DefaultBinder, M.Meta, New Object() {PropValue})
+                            If DB_meta.Properties.Contains(PropName) Then
+                                DB_meta.Type.InvokeMember(PropName, BindFlagsSet, Type.DefaultBinder, M.Meta, New Object() {PropValue})
                             Else
-                                If DB_report_props.Contains(PropName) Then
-                                    DB_report_Type.InvokeMember(PropName, BindFlagsSet, Type.DefaultBinder, M.Report.Prop, New Object() {PropValue})
+                                If DB_report.Properties.Contains(PropName) Then
+                                    DB_report.Type.InvokeMember(PropName, BindFlagsSet, Type.DefaultBinder, M.Report.Config, New Object() {PropValue})
                                 Else
                                     RetVal.Add("Error processing property <" & PropName & ">: Property is not defined")
                                 End If
@@ -96,31 +126,12 @@ Partial Public Class MainForm
             Next ExpAttrib
             RefreshProperties()
             'Start exposure if specified
-            If M.DB.CaptureCount > 0 And RunExposure Then
-                QHYCapture(M.DB.CloseCam)
+            If M.Config.CaptureCount > 0 And RunExposure Then
+                QHYCapture(M.Config.CloseCam)
             End If
             If M.DB.StopFlag = True Then Exit For
         Next ExpNode
         If RunExposure Then CloseCamera()
-        Return RetVal
-    End Function
-
-    '''<summary>Get a list of all available property names.</summary>
-    '''<param name="TypeToReflect">Type to get parameter names from.</param>
-    '''<param name="AddDescription">TRUE to add description, ...</param>
-    Private Function GetAllPropertyNames(ByRef TypeToReflect As Type, ByVal AddDescription As Boolean) As List(Of String)
-        Dim Desc_Type As Type = GetType(System.ComponentModel.DescriptionAttribute)
-        Dim RetVal As New List(Of String)
-        For Each SingleProperty As Reflection.PropertyInfo In TypeToReflect.GetProperties()
-            Dim PropertyName As String = SingleProperty.Name
-            If AddDescription = True Then
-                Dim DescriptionAtr As Attribute = SingleProperty.GetCustomAttribute(Desc_Type)
-                If IsNothing(DescriptionAtr) = False Then
-                    PropertyName &= " (" & CType(DescriptionAtr, System.ComponentModel.DescriptionAttribute).Description & ")"
-                End If
-            End If
-            RetVal.Add(PropertyName)
-        Next SingleProperty
         Return RetVal
     End Function
 
@@ -157,38 +168,37 @@ Partial Public Class MainForm
     '''<summary>Start the exposure.</summary>
     '''<param name="CaptureIdx">Capture index to run.</param>
     '''<param name="FilterActive">Filter selected.</param>
-    Private Function StartExposure(ByVal CaptureIdx As UInt32, ByVal FilterActive As eFilter) As cSingleCaptureInfo
+    Private Function StartExposure(ByVal FilterActive As eFilter) As cSingleCaptureInfo
 
         Dim SingleCaptureData As New cSingleCaptureInfo
 
         'Set exposure parameters (first time / on property change / always if configured)
         LED_update(tsslLED_config, True)
-        If (CaptureIdx = 1) Or (M.DB.ConfigAlways = True) Or PropertyChanged = True Then
-            M.DB.ROI = AdjustAndCorrectROI()
+        If (M.DB.CaptureIndex = 1) Or (M.Config.ConfigAlways = True) Or PropertyChanged = True Then
+            M.Config.ROI = AdjustAndCorrectROI()
             SetExpParameters()
         End If
         LED_update(tsslLED_config, False)
         M.DB.Stopper.Stamp("Set exposure parameters")
 
         'Cancel any running exposure
-        If M.DB.StreamMode = eStreamMode.SingleFrame Then
+        If M.Config.StreamMode = eStreamMode.SingleFrame Then
             CallOK("CancelQHYCCDExposing", QHY.QHY.CancelQHYCCDExposing(M.DB.CamHandle))
             CallOK("CancelQHYCCDExposingAndReadout", QHY.QHY.CancelQHYCCDExposingAndReadout(M.DB.CamHandle))
             M.DB.Stopper.Stamp("Cancel exposure")
         End If
 
-        'Temperature
+        'Ensure the temperature is set correct
         SetTemperature()
 
-        'Load all parameter from the camera
-        tsslMain.Text = "Taking capture " & CaptureIdx.ValRegIndep & "/" & M.DB.CaptureCount.ValRegIndep
-
+        'Load parameters from the mount
         If M.Meta.Load10MicronDataAlways = True Then Load10MicronData()
 
+        'Load all parameter from the camera
         With SingleCaptureData
-            .CaptureIdx = CaptureIdx
+            .CaptureIdx = M.DB.CaptureIndex
             .FilterActive = FilterActive
-            .CamReadOutMode = New Text.StringBuilder : QHY.QHY.GetQHYCCDReadModeName(M.DB.CamHandle, M.DB.ReadOutModeEnum, .CamReadOutMode)
+            .CamReadOutMode = New Text.StringBuilder : QHY.QHY.GetQHYCCDReadModeName(M.DB.CamHandle, M.Config.ReadOutModeEnum, .CamReadOutMode)
             .ExpTime = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_EXPOSURE) / 1000000
             .Gain = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_GAIN)
             .Offset = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_OFFSET)
@@ -197,10 +207,11 @@ Partial Public Class MainForm
             .TelescopeFocus = M.Meta.TelescopeFocus
         End With
 
-        'Start expose (single or live frame mode)
+        'Start exposure (single or live frame mode)
+        tsslMain.Text = "Taking capture " & M.DB.CaptureIndex.ValRegIndep & "/" & M.Config.CaptureCount.ValRegIndep
         LED_update(tsslLED_capture, True)
         M.DB.Stopper.Start()
-        If M.DB.StreamMode = eStreamMode.SingleFrame Then
+        If M.Config.StreamMode = eStreamMode.SingleFrame Then
             CallOK("ExpQHYCCDSingleFrame", QHY.QHY.ExpQHYCCDSingleFrame(M.DB.CamHandle))
             M.DB.Stopper.Stamp("ExpQHYCCDSingleFrame")
         Else
@@ -332,12 +343,12 @@ Partial Public Class MainForm
 
                         'Run the start-up init sequence
                         Log("Init QHY camera  <" & M.DB.UsedCameraId.ToString & "> ...")
-                        If CallOK(QHY.QHY.SetQHYCCDReadMode(M.DB.CamHandle, M.DB.ReadOutModeEnum)) = True Then
-                            If CallOK(QHY.QHY.SetQHYCCDStreamMode(M.DB.CamHandle, M.DB.StreamMode)) = True Then                   'Set single capture mode
+                        If CallOK(QHY.QHY.SetQHYCCDReadMode(M.DB.CamHandle, M.Config.ReadOutModeEnum)) = True Then
+                            If CallOK(QHY.QHY.SetQHYCCDStreamMode(M.DB.CamHandle, M.Config.StreamMode)) = True Then                   'Set single capture mode
                                 If CallOK(QHY.QHY.InitQHYCCD(M.DB.CamHandle)) = True Then                                       'Init the camera with the selected mode, ...
                                     'Camera was opened correct
-                                    M.DB.UsedReadMode = M.DB.ReadOutModeEnum
-                                    M.DB.UsedStreamMode = M.DB.StreamMode
+                                    M.DB.UsedReadMode = M.Config.ReadOutModeEnum
+                                    M.DB.UsedStreamMode = M.Config.StreamMode
                                     M.DB.LiveModeInitiated = False
                                 Else
                                     LogError("InitQHYCCD FAILED!")
@@ -348,7 +359,7 @@ Partial Public Class MainForm
                                 M.DB.CamHandle = IntPtr.Zero
                             End If
                         Else
-                            LogError("SetQHYCCDReadMode to <" & M.DB.ReadOutModeEnum & "> FAILED!")
+                            LogError("SetQHYCCDReadMode to <" & M.Config.ReadOutModeEnum & "> FAILED!")
                         End If
                     Else
                         LogError("OpenQHYCCD FAILED!")
@@ -371,11 +382,11 @@ Partial Public Class MainForm
 
     End Function
 
-    '''<summary>Returns tru if reasonable temeprature settings are configured..</summary>
+    '''<summary>Returns true if reasonable temperature settings are configured.</summary>
     Private Function TargetTempResonable() As Boolean
-        If M.DB.Temp_Target <= -100.0 Then Return False
-        If M.DB.Temp_Target >= 100.0 Then Return False
-        If M.DB.Temp_Tolerance >= 100.0 Then Return False
+        If M.Config.Temp_Target <= -50.0 Then Return False
+        If M.Config.Temp_Target >= 50.0 Then Return False
+        If M.Config.Temp_Tolerance >= 100.0 Then Return False
         Return True
     End Function
 
@@ -384,65 +395,42 @@ Partial Public Class MainForm
         If TargetTempResonable() = False Then Exit Sub
         LED_update(tsslLED_cooling, True)
         Dim TimeOutT As New Diagnostics.Stopwatch : TimeOutT.Reset() : TimeOutT.Start()
-        Dim CurrentTemp As Double = Double.NaN
-        Dim FirstInToleranceTime As DateTime = DateTime.MaxValue
-        If M.DB.Temp_Target > -100 Then
+        If M.Config.Temp_Target > -50 Then
             Do
-                If CCDTempOK(CurrentTemp) = True Then
-                    If FirstInToleranceTime = DateTime.MaxValue Then
-                        FirstInToleranceTime = DateTime.Now
-                    Else
-                        tsslTemperature.Text &= ", " & (Now - FirstInToleranceTime).TotalSeconds.ValRegIndep("0.0") & " s within tolerance"
-                    End If
-                Else
-                    FirstInToleranceTime = DateTime.MaxValue
-                End If
+                Dim CurrentTemp As Double = ReadTemperature()
+                TempConfig.SetTemp(CurrentTemp, M.Config.Temp_Target, M.Config.Temp_Tolerance)
+                If TempConfig.InRangeSeconds > -1 Then tsslTemperature.Text &= ", " & TempConfig.InRangeSeconds.ValRegIndep("0.0") & " s within tolerance"
                 System.Threading.Thread.Sleep(500)
                 DE()
-            Loop Until (TimeOutT.ElapsedMilliseconds > M.DB.Temp_TimeOutAndOK * 1000) Or (M.DB.StopFlag = True) Or (Now - FirstInToleranceTime).TotalSeconds >= M.DB.Temp_StableTime
+            Loop Until (TimeOutT.ElapsedMilliseconds > M.Config.Temp_TimeOutAndOK * 1000) Or (M.DB.StopFlag = True) Or TempConfig.InRangeSeconds >= M.Config.Temp_StableTime
         End If
         M.DB.Stopper.Stamp("Set temperature")
         LED_update(tsslLED_cooling, False)
     End Sub
 
-    '''<summary>Get and display the requested temperature.</summary>
-    Private Function CCDTempOK() As Boolean
-        Dim DontCare As Double = Double.NaN
-        Return CCDTempOK(DontCare)
-    End Function
-
-    '''<summary>Get and display the requested temperature.</summary>
-    Private Function CCDTempOK(ByRef CurrentTemp As Double) As Boolean
-        Dim RetVal As Boolean = False
-        CurrentTemp = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CURTEMP)
+    '''<summary>Get and display temperature and cooler power from the QHY CCD.</summary>
+    Private Function ReadTemperature() As Double
+        Dim RetVal As Double = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CURTEMP)
         Dim CurrentPWM As Double = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CURPWM)
-        tsslTemperature.Text = "T = " & CurrentTemp.ValRegIndep & " °C (-> " & M.DB.Temp_Target.ValRegIndep & " °C, cooler @ " & CurrentPWM.ValRegIndep & " %)"
-        If System.Math.Abs(CurrentTemp - M.DB.Temp_Target) <= M.DB.Temp_Tolerance Then
-            RetVal = True
+        tsslTemperature.Text = "T = " & RetVal.ValRegIndep & " °C (-> " & M.Config.Temp_Target.ValRegIndep & " °C, cooler @ " & CurrentPWM.ValRegIndep & " %)"
+        If System.Math.Abs(RetVal - M.Config.Temp_Target) <= M.Config.Temp_Tolerance Then
             tsslTemperature.BackColor = Color.Green
         Else
-            RetVal = False
             tsslTemperature.BackColor = Color.Red
         End If
         Return RetVal
     End Function
 
-
-
-
-
-
-
     ''<summary>Set the exposure parameters</summary>
     Private Sub SetExpParameters()
-        CallOK("SetQHYCCDBinMode", QHY.QHY.SetQHYCCDBinMode(M.DB.CamHandle, CUInt(M.DB.HardwareBinning), CUInt(M.DB.HardwareBinning)))
-        CallOK("SetQHYCCDResolution", QHY.QHY.SetQHYCCDResolution(M.DB.CamHandle, CUInt(M.DB.ROI.X), CUInt(M.DB.ROI.Y), CUInt(M.DB.ROI.Width \ M.DB.HardwareBinning), CUInt(M.DB.ROI.Height \ M.DB.HardwareBinning)))
-        CallOK("CONTROL_TRANSFERBIT", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_TRANSFERBIT, M.DB.ReadResolution))
-        CallOK("CONTROL_GAIN", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_GAIN, M.DB.Gain))
-        CallOK("CONTROL_OFFSET", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_OFFSET, M.DB.Offset))
-        CallOK("CONTROL_USBTRAFFIC", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_USBTRAFFIC, M.DB.USBTraffic))
-        CallOK("CONTROL_DDR", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_DDR, CInt(IIf(M.DB.DDR_RAM = True, 1.0, 0.0))))
-        CallOK("CONTROL_EXPOSURE", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_EXPOSURE, M.DB.ExposureTime * 1000000))
+        CallOK("SetQHYCCDBinMode", QHY.QHY.SetQHYCCDBinMode(M.DB.CamHandle, CUInt(M.Config.HardwareBinning), CUInt(M.Config.HardwareBinning)))
+        CallOK("SetQHYCCDResolution", QHY.QHY.SetQHYCCDResolution(M.DB.CamHandle, CUInt(M.Config.ROI.X), CUInt(M.Config.ROI.Y), CUInt(M.Config.ROI.Width \ M.Config.HardwareBinning), CUInt(M.Config.ROI.Height \ M.Config.HardwareBinning)))
+        CallOK("CONTROL_TRANSFERBIT", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_TRANSFERBIT, M.Config.ReadResolution))
+        CallOK("CONTROL_GAIN", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_GAIN, M.Config.Gain))
+        CallOK("CONTROL_OFFSET", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_OFFSET, M.Config.Offset))
+        CallOK("CONTROL_USBTRAFFIC", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_USBTRAFFIC, M.Config.USBTraffic))
+        CallOK("CONTROL_DDR", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_DDR, CInt(IIf(M.Config.DDR_RAM = True, 1.0, 0.0))))
+        CallOK("CONTROL_EXPOSURE", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_EXPOSURE, M.Config.ExposureTime * 1000000))
         CallOK("CONTROL_BRIGHTNESS", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_BRIGHTNESS, M.Meta.Brightness))
         CallOK("CONTROL_CONTRAST", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CONTRAST, M.Meta.Contrast))
         CallOK("CONTROL_WBR", QHY.QHY.SetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_WBR, M.Meta.WhiteBalance_Red))
@@ -540,12 +528,12 @@ Partial Public Class MainForm
         CustomElement.Add(eFITSKeywords.CRPIX1, 0.5 * (SingleCaptureData.NAXIS1 + 1))
         CustomElement.Add(eFITSKeywords.CRPIX2, 0.5 * (SingleCaptureData.NAXIS2 + 1))
 
-        CustomElement.Add(eFITSKeywords.IMAGETYP, M.DB.ExposureTypeString)
+        CustomElement.Add(eFITSKeywords.IMAGETYP, M.Config.ExposureTypeString)
         CustomElement.Add(eFITSKeywords.EXPTIME, SingleCaptureData.ExpTime)
         CustomElement.Add(eFITSKeywords.GAIN, SingleCaptureData.Gain)
         CustomElement.Add(eFITSKeywords.OFFSET, SingleCaptureData.Offset)
         CustomElement.Add(eFITSKeywords.BRIGHTNESS, SingleCaptureData.Brightness)
-        CustomElement.Add(eFITSKeywords.SETTEMP, M.DB.Temp_Target)
+        CustomElement.Add(eFITSKeywords.SETTEMP, M.Config.Temp_Target)
         CustomElement.Add(eFITSKeywords.CCDTEMP, SingleCaptureData.ObsStartTemp)
         CustomElement.Add(eFITSKeywords.FOCUS, SingleCaptureData.TelescopeFocus)
 
@@ -553,12 +541,12 @@ Partial Public Class MainForm
 
         'Create FITS file name
         FileNameToWrite = FileNameToWrite.Replace("$IDX$", Format(SingleCaptureData.CaptureIdx, "000"))
-        FileNameToWrite = FileNameToWrite.Replace("$CNT$", Format(M.DB.CaptureCount, "000"))
+        FileNameToWrite = FileNameToWrite.Replace("$CNT$", Format(M.Config.CaptureCount, "000"))
         FileNameToWrite = FileNameToWrite.Replace("$EXP$", SingleCaptureData.ExpTime.ValRegIndep)
         FileNameToWrite = FileNameToWrite.Replace("$GAIN$", SingleCaptureData.Gain.ValRegIndep)
         FileNameToWrite = FileNameToWrite.Replace("$OFFS$", SingleCaptureData.Offset.ValRegIndep)
         FileNameToWrite = FileNameToWrite.Replace("$FILT$", FilterName)
-        FileNameToWrite = FileNameToWrite.Replace("$RMODE$", [Enum].GetName(GetType(eReadOutMode), M.DB.ReadOutModeEnum))
+        FileNameToWrite = FileNameToWrite.Replace("$RMODE$", [Enum].GetName(GetType(eReadOutMode), M.Config.ReadOutModeEnum))
 
         Return CustomElement
 

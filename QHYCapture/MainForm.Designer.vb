@@ -37,8 +37,9 @@ Partial Class MainForm
         Me.tsslMain = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tsslSplit2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tsslTemperature = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsmiFPSIndicator = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tsslMemory = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tsslETA = New System.Windows.Forms.ToolStripStatusLabel()
         Me.msMain = New System.Windows.Forms.MenuStrip()
         Me.tsmiFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiFile_LoadSettings = New System.Windows.Forms.ToolStripMenuItem()
@@ -139,7 +140,7 @@ Partial Class MainForm
         '
         'ssMain
         '
-        Me.ssMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsslLED_init, Me.tsslLED_config, Me.tsslLED_cooling, Me.tsslLED_capture, Me.tsslLED_reading, Me.tspbProgress, Me.tsslProgress, Me.tsslSplit1, Me.tsslMain, Me.tsslSplit2, Me.tsslTemperature, Me.tsmiFPSIndicator, Me.tsslMemory})
+        Me.ssMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsslLED_init, Me.tsslLED_config, Me.tsslLED_cooling, Me.tsslLED_capture, Me.tsslLED_reading, Me.tspbProgress, Me.tsslProgress, Me.tsslSplit1, Me.tsslMain, Me.tsslSplit2, Me.tsslTemperature, Me.tsslMemory, Me.ToolStripStatusLabel1, Me.tsslETA})
         Me.ssMain.Location = New System.Drawing.Point(0, 793)
         Me.ssMain.Name = "ssMain"
         Me.ssMain.Size = New System.Drawing.Size(1273, 24)
@@ -233,17 +234,23 @@ Partial Class MainForm
         Me.tsslTemperature.Size = New System.Drawing.Size(58, 19)
         Me.tsslTemperature.Text = "T = ??? °C"
         '
-        'tsmiFPSIndicator
-        '
-        Me.tsmiFPSIndicator.Name = "tsmiFPSIndicator"
-        Me.tsmiFPSIndicator.Size = New System.Drawing.Size(47, 19)
-        Me.tsmiFPSIndicator.Text = "FPS: ???"
-        '
         'tsslMemory
         '
         Me.tsslMemory.Name = "tsslMemory"
         Me.tsslMemory.Size = New System.Drawing.Size(73, 19)
         Me.tsslMemory.Text = "Memory: ???"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(10, 19)
+        Me.ToolStripStatusLabel1.Text = "|"
+        '
+        'tsslETA
+        '
+        Me.tsslETA.Name = "tsslETA"
+        Me.tsslETA.Size = New System.Drawing.Size(47, 19)
+        Me.tsslETA.Text = "ETA: ???"
         '
         'msMain
         '
@@ -425,13 +432,13 @@ Partial Class MainForm
         '
         Me.tsmiPreset_SkipCooling.Name = "tsmiPreset_SkipCooling"
         Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(180, 22)
-        Me.tsmiPreset_SkipCooling.Text = "Skip cooling"
+        Me.tsmiPreset_SkipCooling.Text = "Skip cooling (XML)"
         '
         'tsmiPreset_DevTestMWeiss
         '
         Me.tsmiPreset_DevTestMWeiss.Name = "tsmiPreset_DevTestMWeiss"
-        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(180, 22)
-        Me.tsmiPreset_DevTestMWeiss.Text = "Dev test (M Weiss)"
+        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(206, 22)
+        Me.tsmiPreset_DevTestMWeiss.Text = "Dev test (M Weiss - XML)"
         '
         'tsmiPreset_NoOverhead
         '
@@ -443,7 +450,7 @@ Partial Class MainForm
         '
         Me.FromFileToolStripMenuItem.Name = "FromFileToolStripMenuItem"
         Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.FromFileToolStripMenuItem.Text = "DSC (XML based)"
+        Me.FromFileToolStripMenuItem.Text = "DSC (XML)"
         '
         'tsmiActions
         '
@@ -829,7 +836,6 @@ Partial Class MainForm
     Friend WithEvents tsmiActions As Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiResetLoopStat As Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As Windows.Forms.ToolStripSeparator
-    Friend WithEvents tsmiFPSIndicator As Windows.Forms.ToolStripStatusLabel
     Friend WithEvents tsmiFile_StoreEXCELStat As Windows.Forms.ToolStripMenuItem
     Friend WithEvents sfdMain As Windows.Forms.SaveFileDialog
     Friend WithEvents tsmiNewGUID As Windows.Forms.ToolStripMenuItem
@@ -873,4 +879,6 @@ Partial Class MainForm
     Friend WithEvents FromFileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem6 As ToolStripSeparator
     Friend WithEvents LoadPWI4DataToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents tsslETA As ToolStripStatusLabel
 End Class

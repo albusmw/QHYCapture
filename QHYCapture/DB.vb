@@ -2,13 +2,16 @@
 Option Strict On
 Imports System.Runtime.InteropServices
 
+'''<summary>All separat databases.</summary>
 Public Class M
-    '''<summary>DB that holds all relevant information.</summary>
-    Public Shared WithEvents DB As New cDB
+    '''<summary>DB that holds all user information entered.</summary>
+    Public Shared WithEvents Config As New cConfig
     '''<summary>DB that holds meta information.</summary>
     Public Shared WithEvents Meta As New cDB_meta
     '''<summary>DB that holds report information.</summary>
     Public Shared WithEvents Report As New cAstroStatDisp
+    '''<summary>DB that holds all relevant information.</summary>
+    Public Shared WithEvents DB As New cDB
 End Class
 
 '''<summary>Characteristics data of one single capture.</summary>
@@ -130,14 +133,19 @@ Public Enum eExposureType As UInteger
     DarkFlat = 5
     <ComponentModel.Description("Test")>
     Test = 99
-    <ComponentModel.Description("Custom)")>
+    <ComponentModel.Description("Custom")>
     Custom = 100
     <ComponentModel.Description("Invalid")>
     Invalid = UInteger.MaxValue
 End Enum
 
-'''<summary>Database holding relevant information.</summary>
 Public Class cDB
+
+    '''<summary>Path of the EXE.</summary>
+    Public ReadOnly Property EXEPath As String = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
+
+    '''<summary>Path of the INI file.</summary>
+    Public ReadOnly Property MyINI As String = System.IO.Path.Combine(New String() {EXEPath, "Config.INI"})
 
     '''<summary>Handle to the camera.</summary>
     Public CamHandle As IntPtr = IntPtr.Zero
@@ -151,35 +159,31 @@ Public Class cDB
     Public LiveModeInitiated As Boolean = False
     '''<summary>Used to call BeginQHYLiveMode only once.</summary>
     Public LastStoredFile As String = String.Empty
-
-    Public Stopper As New cStopper
-
-    <ComponentModel.Browsable(False)>
-    Public ReadOnly Property EXEPath As String = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
-
-    <ComponentModel.Browsable(False)>
-    Public ReadOnly Property MyINI As String = System.IO.Path.Combine(New String() {EXEPath, "Config.INI"})
-
-    <ComponentModel.Browsable(False)>
-    Public Log_Generic As New Text.StringBuilder
+    '''<summary>Intel IPP access.</summary>
+    Public IPP As cIntelIPP
+    '''<summary>PlaneWave Interface 4 class.</summary>
+    Public PWI4 As New cPWI4
 
     '''<summary>Flag that indicates the sequence is running.</summary>
-    <ComponentModel.Browsable(False)>
     Public Property RunningFlag As Boolean = False
-
     '''<summary>Flag that indicates to halt the capture sequence.</summary>
-    <ComponentModel.Browsable(False)>
     Public Property StopFlag As Boolean = False
+
+    '''<summary>Current capture index - 1 if 1st capture is running.</summary>
+    Public CaptureIndex As UInt32 = 0
+    '''<summary>Stopwatch.</summary>
+    Public Stopper As New cStopper
+    '''<summary>Logger.</summary>
+    Public Log_Generic As New Text.StringBuilder
 
     'WCF
     Public SetupWCF As ServiceModel.Web.WebServiceHost
     Public serviceBehavior As ServiceModel.Description.ServiceDebugBehavior
 
-    '''<summary>Intel IPP access.</summary>
-    Public IPP As cIntelIPP
+End Class
 
-    '''<summary>PlaneWave Interface 4 class.</summary>
-    Public PWI4 As New cPWI4
+'''<summary>Database holding relevant information.</summary>
+Public Class cConfig
 
     Const Cat1 As String = "1. Imaging hardware"
     Const Cat2_Exposure As String = "2. Exposure"
@@ -305,14 +309,6 @@ Public Class cDB
     <ComponentModel.DefaultValue(NotSet)>
     Public Property ExposureTypeCustom As String = NotSet
 
-    '''<summary>String representation of the exposure type enum.</summary>
-    <ComponentModel.Browsable(False)>
-    Public ReadOnly Property ExposureTypeString As String
-        Get
-            If ExposureTypeEnum = eExposureType.Custom Then Return ExposureTypeCustom Else Return [Enum].GetName(GetType(eExposureType), ExposureTypeEnum)
-        End Get
-    End Property
-
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "2.1. Filter wheel")>
     <ComponentModel.Description("Configure if a real filter wheel should be controlled or if filter is just used in meta data, ....")>
@@ -401,12 +397,6 @@ Public Class cDB
     Public Property FileName As String = "QHY600_$FILT$_$EXP$_$GAIN$_$OFFS$_$IDX$_$CNT$_$RMODE$"
 
     <ComponentModel.Category(Cat3)>
-    <ComponentModel.DisplayName(Indent & "4. FITS extenstion")>
-    <ComponentModel.Description("Extension to use for FITS files")>
-    <ComponentModel.DefaultValue("fits")>
-    Public Property FITSExtension As String = "fits"
-
-    <ComponentModel.Category(Cat3)>
     <ComponentModel.DisplayName(Indent & "5. Open image automatically?")>
     <ComponentModel.Description("Automaticall open a stored FITS file with the default editor")>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
@@ -443,6 +433,11 @@ Public Class cDB
     <ComponentModel.DefaultValue(False)>
     Public Property StackAll As Boolean = False
 
+    '''<summary>String representation of the exposure type enum.</summary>
+    Public Function ExposureTypeString() As String
+        If ExposureTypeEnum = eExposureType.Custom Then Return ExposureTypeCustom Else Return [Enum].GetName(GetType(eExposureType), ExposureTypeEnum)
+    End Function
+
     '===================================================================================================
 
     '''<summary>Property indicating if the ROI is set.</summary>
@@ -460,14 +455,30 @@ Public Class cDB
     '===================================================================================================
 
     '''<summary>Get the filter slot (starting with 1) for the requested filter.</summary>
+    <ComponentModel.Browsable(False)>
     Public ReadOnly Property FilterSlot() As Integer
         Get
-            Dim FilterToSearch As String = [Enum].GetName(GetType(eFilter), FilterType).Substring(0, 1).ToUpper
             Dim FiltersInSlot As String() = Split(FilterOrder, "-")
             For Idx As Integer = 0 To FiltersInSlot.GetUpperBound(0)
-                If FiltersInSlot(Idx) = FilterToSearch Then Return Idx + 1
+                If FiltersInSlot(Idx) = FilterNameShort Then Return Idx + 1
             Next Idx
             Return -1
+        End Get
+    End Property
+
+    '''<summary>Get the selected filter name (from the enum).</summary>
+    <ComponentModel.Browsable(False)>
+    Public ReadOnly Property FilterNameLong() As String
+        Get
+            Return [Enum].GetName(GetType(eFilter), FilterType)
+        End Get
+    End Property
+
+    '''<summary>Get the 1st letter from the selected filter name (from the enum).</summary>
+    <ComponentModel.Browsable(False)>
+    Public ReadOnly Property FilterNameShort() As String
+        Get
+            Return FilterNameLong.Substring(0, 1).ToUpper
         End Get
     End Property
 
@@ -801,5 +812,11 @@ Public Class cDB_meta
     <ComponentModel.Description("Wen interface port to control the software via a web interface.")>
     <ComponentModel.DefaultValue("1250")>
     Public Property WebInterfacePort As String = "1250"
+
+    <ComponentModel.Category(Cat7_MiscSettings)>
+    <ComponentModel.DisplayName(Indent & "4. FITS extenstion")>
+    <ComponentModel.Description("Extension to use for FITS files")>
+    <ComponentModel.DefaultValue("fits")>
+    Public Property FITSExtension As String = "fits"
 
 End Class
