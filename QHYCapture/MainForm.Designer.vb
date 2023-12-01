@@ -107,6 +107,7 @@ Partial Class MainForm
         Me.sfdMain = New System.Windows.Forms.SaveFileDialog()
         Me.ofdMain = New System.Windows.Forms.OpenFileDialog()
         Me.tStatusUpdate = New System.Windows.Forms.Timer(Me.components)
+        Me.tbItemName = New System.Windows.Forms.TextBox()
         Me.ssMain.SuspendLayout()
         Me.msMain.SuspendLayout()
         Me.tsMain.SuspendLayout()
@@ -134,7 +135,7 @@ Partial Class MainForm
         Me.pgMain.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pgMain.Location = New System.Drawing.Point(3, 3)
         Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(481, 542)
+        Me.pgMain.Size = New System.Drawing.Size(481, 512)
         Me.pgMain.TabIndex = 0
         Me.pgMain.ToolbarVisible = False
         '
@@ -402,36 +403,36 @@ Partial Class MainForm
         'tsmiPreset_StandardCapture
         '
         Me.tsmiPreset_StandardCapture.Name = "tsmiPreset_StandardCapture"
-        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(206, 22)
         Me.tsmiPreset_StandardCapture.Text = "Standard capture"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(203, 6)
         '
         'tsmiPreset_FastLive
         '
         Me.tsmiPreset_FastLive.Name = "tsmiPreset_FastLive"
-        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(206, 22)
         Me.tsmiPreset_FastLive.Text = "Fast live mode"
         '
         'CenterROIToolStripMenuItem
         '
         Me.CenterROIToolStripMenuItem.Name = "CenterROIToolStripMenuItem"
-        Me.CenterROIToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CenterROIToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.CenterROIToolStripMenuItem.Text = "Center ROI"
         '
         'SaveTransmissionToolStripMenuItem
         '
         Me.SaveTransmissionToolStripMenuItem.Name = "SaveTransmissionToolStripMenuItem"
-        Me.SaveTransmissionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveTransmissionToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.SaveTransmissionToolStripMenuItem.Text = "Save transmission"
         '
         'tsmiPreset_SkipCooling
         '
         Me.tsmiPreset_SkipCooling.Name = "tsmiPreset_SkipCooling"
-        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(206, 22)
         Me.tsmiPreset_SkipCooling.Text = "Skip cooling (XML)"
         '
         'tsmiPreset_DevTestMWeiss
@@ -443,13 +444,13 @@ Partial Class MainForm
         'tsmiPreset_NoOverhead
         '
         Me.tsmiPreset_NoOverhead.Name = "tsmiPreset_NoOverhead"
-        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(206, 22)
         Me.tsmiPreset_NoOverhead.Text = "No overhead"
         '
         'FromFileToolStripMenuItem
         '
         Me.FromFileToolStripMenuItem.Name = "FromFileToolStripMenuItem"
-        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FromFileToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
         Me.FromFileToolStripMenuItem.Text = "DSC (XML)"
         '
         'tsmiActions
@@ -617,15 +618,17 @@ Partial Class MainForm
         '
         'tcMain
         '
+        Me.tcMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tcMain.Controls.Add(Me.TabPage1)
         Me.tcMain.Controls.Add(Me.TabPage2)
         Me.tcMain.Controls.Add(Me.TabPage3)
-        Me.tcMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tcMain.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tcMain.Location = New System.Drawing.Point(0, 0)
         Me.tcMain.Name = "tcMain"
         Me.tcMain.SelectedIndex = 0
-        Me.tcMain.Size = New System.Drawing.Size(495, 574)
+        Me.tcMain.Size = New System.Drawing.Size(495, 544)
         Me.tcMain.TabIndex = 6
         '
         'TabPage1
@@ -634,7 +637,7 @@ Partial Class MainForm
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(487, 548)
+        Me.TabPage1.Size = New System.Drawing.Size(487, 518)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Exposure"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -709,6 +712,7 @@ Partial Class MainForm
         '
         'SplitContainer2.Panel1
         '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.tbItemName)
         Me.SplitContainer2.Panel1.Controls.Add(Me.tcMain)
         '
         'SplitContainer2.Panel2
@@ -757,6 +761,16 @@ Partial Class MainForm
         Me.tStatusUpdate.Enabled = True
         Me.tStatusUpdate.Interval = 250
         '
+        'tbItemName
+        '
+        Me.tbItemName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbItemName.Location = New System.Drawing.Point(7, 547)
+        Me.tbItemName.Name = "tbItemName"
+        Me.tbItemName.ReadOnly = True
+        Me.tbItemName.Size = New System.Drawing.Size(481, 20)
+        Me.tbItemName.TabIndex = 7
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -785,6 +799,7 @@ Partial Class MainForm
         CType(Me.scMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scMain.ResumeLayout(False)
         Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.PerformLayout()
         Me.SplitContainer2.Panel2.ResumeLayout(False)
         Me.SplitContainer2.Panel2.PerformLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -881,4 +896,5 @@ Partial Class MainForm
     Friend WithEvents LoadPWI4DataToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents tsslETA As ToolStripStatusLabel
+    Friend WithEvents tbItemName As TextBox
 End Class

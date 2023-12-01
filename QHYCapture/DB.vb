@@ -1,6 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
 Imports System.Runtime.InteropServices
+Imports QHYCapture.ComponentModelEx
 
 '''<summary>All separat databases.</summary>
 Public Class M
@@ -21,7 +22,7 @@ Public Class cSingleCaptureInfo
     '''<summary>Temperature [°C] at start of exposure.</summary>
     Public ObsStartTemp As Double = Double.NaN
     '''<summary>Selected filter.</summary>
-    Public FilterActive As eFilter = eFilter.Unchanged
+    Public FilterActive As cFilterWheelHelper.eFilter = cFilterWheelHelper.eFilter.Unchanged
     '''<summary>Telescope focus position.</summary>
     Public TelescopeFocus As Integer = 0
     '''<summary>Time at observation start.</summary>
@@ -72,28 +73,7 @@ Public Enum eReadResolution
     Res16Bit = 16
 End Enum
 
-'''<summary>Filter as to be send as ASCII string.</summary>
-'''<remarks>Filter must NOT be in this order in the filter wheel !!!!</remarks>
-Public Enum eFilter As Byte
-    <ComponentModel.Description("Unchanged")>
-    Unchanged = 0
-    <ComponentModel.Description("Light")>
-    L = 1
-    <ComponentModel.Description("Red")>
-    R = 2
-    <ComponentModel.Description("Green")>
-    G = 3
-    <ComponentModel.Description("Blue")>
-    B = 4
-    <ComponentModel.Description("H-alpha")>
-    H_alpha = 5
-    <ComponentModel.Description("S-II")>
-    S_II = 6
-    <ComponentModel.Description("O-III")>
-    O_III = 7
-    <ComponentModel.Description("Empty")>
-    Empty = 9
-End Enum
+
 
 '''<summary>Available stream modes.</summary>
 Public Enum eStreamMode As UInteger
@@ -170,7 +150,7 @@ Public Class cDB
     Public Property StopFlag As Boolean = False
 
     '''<summary>Current capture index - 1 if 1st capture is running.</summary>
-    Public CaptureIndex As UInt32 = 0
+    Public CurrentExposureIndex As UInt32 = 0
     '''<summary>Stopwatch.</summary>
     Public Stopper As New cStopper
     '''<summary>Logger.</summary>
@@ -191,6 +171,8 @@ Public Class cConfig
     Const Cat4 As String = "4. Statistics calculation"
     Const Indent As String = "  "
     Const NotSet As String = "-----"
+
+    Public FilterWheelHelper As cFilterWheelHelper = Nothing
 
     '''<summary>Camera to search for.</summary>
     <ComponentModel.Category(Cat1)>
@@ -292,7 +274,7 @@ Public Class cConfig
     <ComponentModel.DisplayName(Indent & "1.1. # of captures")>
     <ComponentModel.Description("Number of exposured to take with identical settings.")>
     <ComponentModel.DefaultValue(1)>
-    Public Property CaptureCount As Integer = 1
+    Public Property CaptureCount As UInteger = 1
 
     '''<summary>Light, Bias, Dark, Flat, Tricolor or TestOnly.</summary>
     <ComponentModel.Category(Cat2_Exposure)>
@@ -316,6 +298,7 @@ Public Class cConfig
     <ComponentModel.DefaultValue(True)>
     Public Property UseFilterWheel As Boolean = True
 
+    '' <summary>Order of the filters in the filter wheel</summary>
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "2.2. Filter order")>
     <ComponentModel.Description("Order of the filters in the filter wheel")>
@@ -326,9 +309,9 @@ Public Class cConfig
     <ComponentModel.Category(Cat2_Exposure)>
     <ComponentModel.DisplayName(Indent & "2.3. Filter")>
     <ComponentModel.Description("Filter to select")>
-    <ComponentModel.DefaultValue(eFilter.Unchanged)>
+    <ComponentModel.DefaultValue(cFilterWheelHelper.eFilter.Unchanged)>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.EnumDesciptionConverter))>
-    Public Property FilterType As eFilter = eFilter.Unchanged
+    Public Property Filter As cFilterWheelHelper.eFilter = cFilterWheelHelper.eFilter.Unchanged
 
     '''<summary>Exposure time [s].</summary>
     <ComponentModel.Category(Cat2_Exposure)>
@@ -453,34 +436,6 @@ Public Class cConfig
     End Property
 
     '===================================================================================================
-
-    '''<summary>Get the filter slot (starting with 1) for the requested filter.</summary>
-    <ComponentModel.Browsable(False)>
-    Public ReadOnly Property FilterSlot() As Integer
-        Get
-            Dim FiltersInSlot As String() = Split(FilterOrder, "-")
-            For Idx As Integer = 0 To FiltersInSlot.GetUpperBound(0)
-                If FiltersInSlot(Idx) = FilterNameShort Then Return Idx + 1
-            Next Idx
-            Return -1
-        End Get
-    End Property
-
-    '''<summary>Get the selected filter name (from the enum).</summary>
-    <ComponentModel.Browsable(False)>
-    Public ReadOnly Property FilterNameLong() As String
-        Get
-            Return [Enum].GetName(GetType(eFilter), FilterType)
-        End Get
-    End Property
-
-    '''<summary>Get the 1st letter from the selected filter name (from the enum).</summary>
-    <ComponentModel.Browsable(False)>
-    Public ReadOnly Property FilterNameShort() As String
-        Get
-            Return FilterNameLong.Substring(0, 1).ToUpper
-        End Get
-    End Property
 
 End Class
 

@@ -166,15 +166,13 @@ Partial Public Class MainForm
     End Function
 
     '''<summary>Start the exposure.</summary>
-    '''<param name="CaptureIdx">Capture index to run.</param>
-    '''<param name="FilterActive">Filter selected.</param>
-    Private Function StartExposure(ByVal FilterActive As eFilter) As cSingleCaptureInfo
+    Private Function StartExposure() As cSingleCaptureInfo
 
         Dim SingleCaptureData As New cSingleCaptureInfo
 
         'Set exposure parameters (first time / on property change / always if configured)
         LED_update(tsslLED_config, True)
-        If (M.DB.CaptureIndex = 1) Or (M.Config.ConfigAlways = True) Or PropertyChanged = True Then
+        If (M.DB.CurrentExposureIndex = 1) Or (M.Config.ConfigAlways = True) Or PropertyChanged = True Then
             M.Config.ROI = AdjustAndCorrectROI()
             SetExpParameters()
         End If
@@ -196,8 +194,8 @@ Partial Public Class MainForm
 
         'Load all parameter from the camera
         With SingleCaptureData
-            .CaptureIdx = M.DB.CaptureIndex
-            .FilterActive = FilterActive
+            .CaptureIdx = M.DB.CurrentExposureIndex
+            .FilterActive = M.Config.Filter
             .CamReadOutMode = New Text.StringBuilder : QHY.QHY.GetQHYCCDReadModeName(M.DB.CamHandle, M.Config.ReadOutModeEnum, .CamReadOutMode)
             .ExpTime = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_EXPOSURE) / 1000000
             .Gain = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_GAIN)
@@ -208,7 +206,7 @@ Partial Public Class MainForm
         End With
 
         'Start exposure (single or live frame mode)
-        tsslMain.Text = "Taking capture " & M.DB.CaptureIndex.ValRegIndep & "/" & M.Config.CaptureCount.ValRegIndep
+        tsslMain.Text = "Taking capture " & M.DB.CurrentExposureIndex.ValRegIndep & "/" & M.Config.CaptureCount.ValRegIndep
         LED_update(tsslLED_capture, True)
         M.DB.Stopper.Start()
         If M.Config.StreamMode = eStreamMode.SingleFrame Then
@@ -488,7 +486,7 @@ Partial Public Class MainForm
         Dim PLATESZ2 As Double = (M.Meta.Pixel_Size.Height * SingleCaptureData.NAXIS2) / 1000                          '[mm]
         Dim FOV1 As Double = 2 * Math.Atan(PLATESZ1 / (2 * M.Meta.TelescopeFocalLength)) * (180 / Math.PI)
         Dim FOV2 As Double = 2 * Math.Atan(PLATESZ2 / (2 * M.Meta.TelescopeFocalLength)) * (180 / Math.PI)
-        Dim FilterName As String = [Enum].GetName(GetType(eFilter), SingleCaptureData.FilterActive)
+        Dim FilterName As String = M.Config.FilterWheelHelper.FilterNameLong(SingleCaptureData.FilterActive)
 
         CustomElement.Add(eFITSKeywords.OBS_ID, (M.Meta.GUID))
 

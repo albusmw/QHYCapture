@@ -144,28 +144,28 @@ Partial Public Class MainForm
 
         'Select filter
         Dim FilterActive As Integer = -1
-        If M.Config.FilterType <> eFilter.Unchanged And M.Config.UseFilterWheel = True Then
-            FilterActive = QHYFunction.ActivateFilter(M.DB.CamHandle, M.Config.FilterSlot, M.Meta.FilterWheelTimeOut)
+        M.Config.FilterWheelHelper = New cFilterWheelHelper(M.Config.FilterOrder)
+        If M.Config.Filter <> cFilterWheelHelper.eFilter.Unchanged And M.Config.UseFilterWheel = True Then
+            FilterActive = QHYFunction.ActivateFilter(M.DB.CamHandle, M.Config.FilterWheelHelper.FilterSlot(M.Config.Filter), M.Meta.FilterWheelTimeOut, M.Config.FilterWheelHelper.VerboseFilterList)
         End If
         M.DB.Stopper.Stamp("Select filter")
 
         'Enter capture loop
         Dim EndTimeStamps As New List(Of DateTime)
         Dim TotalCaptureTime As Double = 0
-        Dim RunningCaptureInfo As New cSingleCaptureInfo
+        Dim CaptureInfo_running As New cSingleCaptureInfo
+        Dim CaptureInfo_finished As New cSingleCaptureInfo
 
         Dim OneCapture As UInt32 = CType(1, UInt32)
-        M.DB.CaptureIndex = 0
+        M.DB.CurrentExposureIndex = 1
         Do
-
-            M.DB.CaptureIndex += OneCapture
 
             '================================================================================
             ' START EXPOSURE ON FIRST ENTRY
             '================================================================================
 
-            If M.DB.CaptureIndex = 1 Then
-                RunningCaptureInfo = StartExposure(M.Config.FilterType)
+            If M.DB.CurrentExposureIndex = 1 Then
+                CaptureInfo_running = StartExposure()
             End If
 
             '================================================================================
@@ -201,8 +201,8 @@ Partial Public Class MainForm
                 Loop Until (LiveModeReady = QHYCamera.QHY.QHYCCD_ERROR.QHYCCD_SUCCESS) Or M.DB.StopFlag = True
             End If
             LED_update(tsslLED_reading, False)
-            RunningCaptureInfo.ObsEnd = Now
-            EndTimeStamps.Add(RunningCaptureInfo.ObsEnd)
+            CaptureInfo_running.ObsEnd = Now
+            EndTimeStamps.Add(CaptureInfo_running.ObsEnd)
 
             Dim BytesToTransfer_calculated As Long = Captured_W * Captured_H * CInt(BitPerPixel / BitsPerByte)
             LogVerbose("Calculation says       : " & BytesToTransfer_calculated.ValRegIndep.PadLeft(12) & " byte to transfer.")
@@ -220,13 +220,13 @@ Partial Public Class MainForm
                     LogError("Overscan removal FAILED")
                 End If
             End If
-            RunningCaptureInfo.NAXIS1 = SingleStatCalc.DataProcessor_UInt16.ImageData(0).NAXIS1
-            RunningCaptureInfo.NAXIS2 = SingleStatCalc.DataProcessor_UInt16.ImageData(0).NAXIS2
+            CaptureInfo_running.NAXIS1 = SingleStatCalc.DataProcessor_UInt16.ImageData(0).NAXIS1
+            CaptureInfo_running.NAXIS2 = SingleStatCalc.DataProcessor_UInt16.ImageData(0).NAXIS2
             M.DB.Stopper.Stamp("ChangeAspect")
 
             'Software binning - if > 1 data type is moved from UInt16 to UInt32
             If M.Config.SoftwareBinning > 1 Then
-                SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data = ImageProcessing.Binning(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, M.Config.SoftwareBinning)
+                SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data = ImageProcessing.BinSum(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, M.Config.SoftwareBinning)
                 SingleStatCalc.Reset_UInt16()
             End If
 
@@ -240,12 +240,13 @@ Partial Public Class MainForm
             End If
 
             '================================================================================
-            'RETRIGGER CAPTURE
+            'RETRIGGER CAPTURE (done already here to capture while the data are processed)
             '================================================================================
 
-            Dim LastCaptureInfo As cSingleCaptureInfo = RunningCaptureInfo
-            If (M.DB.CaptureIndex < M.Config.CaptureCount) And (M.DB.StopFlag = False) Then
-                RunningCaptureInfo = StartExposure(M.Config.FilterType)
+            CaptureInfo_finished = CaptureInfo_running
+            If (M.DB.CurrentExposureIndex < M.Config.CaptureCount) And (M.DB.StopFlag = False) Then
+                M.DB.CurrentExposureIndex += OneCapture
+                CaptureInfo_running = StartExposure()
             End If
 
             '================================================================================
@@ -255,7 +256,7 @@ Partial Public Class MainForm
             'Calculate statistics
             Dim SingleStat As New AstroNET.Statistics.sStatistics
             If (M.Config.StatMono = True) Or (M.Config.StatColor = True) Then SingleStat = SingleStatCalc.ImageStatistics()
-            SingleStat.MonoStatistics_Int.Width = LastCaptureInfo.NAXIS1 : SingleStat.MonoStatistics_Int.Height = LastCaptureInfo.NAXIS2
+            SingleStat.MonoStatistics_Int.Width = CaptureInfo_finished.NAXIS1 : SingleStat.MonoStatistics_Int.Height = CaptureInfo_finished.NAXIS2
 
             LoopStat = AstroNET.Statistics.CombineStatistics(SingleStat.DataMode, SingleStat, LoopStat)
             M.DB.Stopper.Stamp("Statistics - calc")
@@ -267,7 +268,7 @@ Partial Public Class MainForm
             Dim SingleStatReport As List(Of String) = SingleStat.StatisticsReport(M.Config.StatMono, M.Config.StatColor, M.Report.Config.BayerPatternNames)
             Dim LoopStatReport As List(Of String) = LoopStat.StatisticsReport(M.Config.StatMono, M.Config.StatColor, M.Report.Config.BayerPatternNames)
             If IsNothing(SingleStatReport) = False Then
-                RTFGen.AddEntry("Capture #" & LastCaptureInfo.CaptureIdx.ValRegIndep & " statistics:", Drawing.Color.Black, True, True)
+                RTFGen.AddEntry("Capture #" & CaptureInfo_finished.CaptureIdx.ValRegIndep & " statistics:", Drawing.Color.Black, True, True)
                 For Idx As Integer = 0 To SingleStatReport.Count - 1
                     Dim Line As String = SingleStatReport(Idx)
                     If DisplaySumStat = True Then Line &= "|" & LoopStatReport(Idx).Substring(AstroNET.Statistics.cSingleChannelStatistics_Int.ReportHeaderLength + 1)
@@ -284,10 +285,10 @@ Partial Public Class MainForm
             'Set caption
             Dim PlotTitle As New List(Of String)
             PlotTitle.Add(M.DB.UsedCameraId.ToString)
-            PlotTitle.Add(RunningCaptureInfo.ExpTime.ToString.Trim & " s")
-            PlotTitle.Add("Gain " & RunningCaptureInfo.Gain.ToString.Trim)
-            PlotTitle.Add("Filter " & [Enum].GetName(GetType(eFilter), RunningCaptureInfo.FilterActive))
-            PlotTitle.Add("Temperature " & RunningCaptureInfo.ObsStartTemp.ToString.Trim & " °C")
+            PlotTitle.Add(CaptureInfo_finished.ExpTime.ToString.Trim & " s")
+            PlotTitle.Add("Gain " & CaptureInfo_finished.Gain.ToString.Trim)
+            PlotTitle.Add("Filter " & [Enum].GetName(GetType(cFilterWheelHelper.eFilter), CaptureInfo_finished.FilterActive))
+            PlotTitle.Add("Temperature " & CaptureInfo_finished.ObsStartTemp.ToString.Trim & " °C")
             M.Report.Plotter.SetCaptions(Join(PlotTitle.ToArray, ", "), "ADU value", "# of pixel")
             M.Report.Plot(M.Config.CaptureCount, SingleStat, LoopStat)
 
@@ -325,7 +326,7 @@ Partial Public Class MainForm
 
                 'Compose all FITS keyword entries and replace placeholders in filename ($EXP$, ...)
                 Dim FileNameToWrite As String = M.Config.FileName
-                Dim CustomElement As Dictionary(Of eFITSKeywords, Object) = GenerateFITSHeader(LastCaptureInfo, FileNameToWrite)
+                Dim CustomElement As Dictionary(Of eFITSKeywords, Object) = GenerateFITSHeader(CaptureInfo_finished, FileNameToWrite)
 
                 'Generate final filename
                 M.DB.LastStoredFile = MakeUnique(System.IO.Path.Combine(Path, FileNameToWrite & "." & M.Meta.FITSExtension))
@@ -343,7 +344,7 @@ Partial Public Class MainForm
             M.DB.Stopper.Stamp("Store image")
 
             'Stop conditions
-            If M.DB.CaptureIndex >= CUInt(M.Config.CaptureCount) Then Exit Do
+            If M.DB.CurrentExposureIndex >= M.Config.CaptureCount Then Exit Do
             If M.DB.StopFlag = True Then Exit Do
 
         Loop Until 1 = 0
@@ -434,7 +435,7 @@ Partial Public Class MainForm
 
     '''<summary>Calculate the total time for the running exposure and the estimated ETA.</summary>
     Private Function TimeToGo() As TimeSpan
-        Return TimeSpan.FromSeconds((M.Config.CaptureCount - M.DB.CaptureIndex) * M.Config.ExposureTime)
+        Return TimeSpan.FromSeconds((M.Config.CaptureCount - M.DB.CurrentExposureIndex) * M.Config.ExposureTime)
     End Function
 
     '''<summary>Calculate the total time for the running exposure and the estimated ETA.</summary>
@@ -765,7 +766,7 @@ Partial Public Class MainForm
             .StoreImage = False
             .DDR_RAM = False
             .ConfigAlways = False
-            .FilterType = eFilter.Unchanged
+            .Filter = cFilterWheelHelper.eFilter.Unchanged
             .ShowLiveImage = True
             .USBTraffic = 0
             .Temp_Target = -100
@@ -811,8 +812,8 @@ Partial Public Class MainForm
         For Each ReadOutMode As eReadOutMode In [Enum].GetValues(GetType(eReadOutMode))
             If ReadOutMode <> eReadOutMode.Invalid Then
                 M.Config.ReadOutModeEnum = ReadOutMode
-                For Each Filter As eFilter In New eFilter() {eFilter.H_alpha}
-                    M.Config.FilterType = Filter
+                For Each Filter As cFilterWheelHelper.eFilter In New cFilterWheelHelper.eFilter() {cFilterWheelHelper.eFilter.H_alpha}
+                    M.Config.Filter = Filter
                     For Gain As Double = 0 To 200 Step 1
                         M.Config.Gain = Gain
                         Load10MicronData()
@@ -1202,20 +1203,28 @@ Partial Public Class MainForm
         Dim MemStream As New MemoryStream
         Dim SettingDoc As New Xml.XmlDocument
         Using XMLContent As Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
-            XMLContent.WriteStartDocument()
-            XMLContent.WriteStartElement("sequence")
-            XMLContent.WriteStartElement("exp")
-            XMLContent.WriteAttributeString("Load10MicronDataAlways", "false")
-            XMLContent.WriteAttributeString("SiteLongitude", "-70:51:11.8'")
-            XMLContent.WriteAttributeString("SiteLatitude", "-30:31:34.7'")
-            XMLContent.WriteAttributeString("Origin", "Deep Sky Chile")
-            XMLContent.WriteAttributeString("Telescope", "DeltaRho350")
-            XMLContent.WriteAttributeString("TelescopeAperture", "350.0")
-            XMLContent.WriteAttributeString("TelescopeFocalLength", "1050.0")
-            XMLContent.WriteAttributeString("FilterOrder", "L-R-G-B-S-H-O")
-            XMLContent.WriteEndElement()
-            XMLContent.WriteEndElement()
-            XMLContent.WriteEndDocument()
+            With XMLContent
+                .WriteStartDocument()
+                .WriteStartElement("sequence")
+                .WriteStartElement("exp")
+                .WriteAttributeString("Load10MicronDataAlways", "false")
+                .WriteAttributeString("SiteLongitude", "-70:51:11.8'")
+                .WriteAttributeString("SiteLatitude", "-30:31:34.7'")
+                .WriteAttributeString("Origin", "Deep Sky Chile")
+                .WriteAttributeString("Telescope", "DeltaRho350")
+                .WriteAttributeString("TelescopeAperture", "350.0")
+                .WriteAttributeString("TelescopeFocalLength", "1050.0")
+                .WriteAttributeString("FilterOrder", "L-R-G-B-S-H-O")
+                .WriteAttributeString("ExposureTypeEnum", "Light")
+                .WriteAttributeString("ExposureTime", "180")
+                .WriteAttributeString("CaptureCount", "30")
+                .WriteAttributeString("Temp_Target", "-15")
+                .WriteAttributeString("Temp_Tolerance", "0.5")
+                .WriteAttributeString("Gain", "50")
+                .WriteEndElement()
+                .WriteEndElement()
+                .WriteEndDocument()
+            End With
         End Using
         LogError(RunXMLSequence(SettingDoc, False))
     End Sub
@@ -1254,6 +1263,10 @@ Partial Public Class MainForm
 
     Private Sub QHYFunction_LogVerbose(Text As String) Handles QHYFunction.LogVerbose
         LogVerbose(Text)
+    End Sub
+
+    Private Sub pgMain_SelectedGridItemChanged(sender As Object, e As SelectedGridItemChangedEventArgs) Handles pgMain.SelectedGridItemChanged
+        tbItemName.Text = "Item name: " & pgMain.SelectedGridItem.PropertyDescriptor.Name
     End Sub
 
 End Class
