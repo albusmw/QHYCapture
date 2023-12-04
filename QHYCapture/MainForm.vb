@@ -640,6 +640,11 @@ Partial Public Class MainForm
             End If
         End If
 
+        'Set FITS viewer
+        Dim FileName As String = "FITSWork4.exe"
+        Dim Locations As List(Of String) = Everything.GetExactMatch(FileName, Everything.GetSearchResult(FileName))
+        If Locations.Count > 0 Then M.Meta.FITSViewer = Locations(0)
+
         'Start WCF
         'netsh http add urlacl url=http://+:1250/ user=DESKTOP-I7\albusmw
         DB_ServiceContract = New cDB_ServiceContract(M.DB, M.Meta)
@@ -937,7 +942,13 @@ Partial Public Class MainForm
     End Function
 
     Private Sub tsmiFile_OpenLastFile_Click(sender As Object, e As EventArgs) Handles tsmiFile_OpenLastFile.Click
-        If System.IO.File.Exists(M.DB.LastStoredFile) Then Ato.Utils.StartWithItsEXE(M.DB.LastStoredFile)
+        If System.IO.File.Exists(M.DB.LastStoredFile) Then
+            If String.IsNullOrEmpty(M.Meta.FITSViewer) = True Then
+                Ato.Utils.StartWithItsEXE(M.DB.LastStoredFile)
+            Else
+                Process.Start(M.Meta.FITSViewer, M.DB.LastStoredFile)
+            End If
+        End If
     End Sub
 
     Private Sub SaveTransmissionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveTransmissionToolStripMenuItem.Click

@@ -114,6 +114,9 @@
     <Compile Include="..\..\src\atomics\cStopper.vb">
       <Link>common\cStopper.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\Everything.vb">
+      <Link>common\Everything.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\ForHardware\QHY.vb">
       <Link>QHY.vb</Link>
     </Compile>
@@ -134,9 +137,6 @@
     </Compile>
     <Compile Include="..\..\src\atomics\cStatMultiThread.vb">
       <Link>cStatMultiThread.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\Everything.vb">
-      <Link>Everything.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\FileHash.vb">
       <Link>FileHash.vb</Link>

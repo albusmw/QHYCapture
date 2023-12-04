@@ -774,4 +774,9 @@ Public Class cDB_meta
     <ComponentModel.DefaultValue("fits")>
     Public Property FITSExtension As String = "fits"
 
+    <ComponentModel.Category(Cat7_MiscSettings)>
+    <ComponentModel.DisplayName(Indent & "5. FITS viewer")>
+    <ComponentModel.Description("Viewer for stored FITS files - delete to use default viewer")>
+    Public Property FITSViewer As String = String.Empty
+
 End Class
