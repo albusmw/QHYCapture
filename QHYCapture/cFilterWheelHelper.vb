@@ -1,6 +1,5 @@
 ﻿Option Explicit On
 Option Strict On
-Imports QHYCapture.ComponentModelEx
 
 Public Class cFilterWheelHelper
 
