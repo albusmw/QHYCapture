@@ -95,6 +95,14 @@ Partial Public Class MainForm
                             Else
                                 Throw New Exception("eExposureType can not be parsed")
                             End If
+                        Case GetType(eReadOutMode)
+                            Dim ParsedValue As eReadOutMode = eReadOutMode.Invalid
+                            Dim Parsed As Boolean = [Enum].TryParse(Of eReadOutMode)(ExpAttrib.Value, ParsedValue)
+                            If Parsed = True Then
+                                PropValue = ParsedValue
+                            Else
+                                Throw New Exception("eReadOutMode can not be parsed")
+                            End If
                         Case Else
                             'Dim X As Type = Type.GetType(PropTypeName)
                             PropValue = [Enum].Parse(PropType, ExpAttrib.Value)
@@ -191,6 +199,7 @@ Partial Public Class MainForm
 
         'Load parameters from the mount
         If M.Meta.Load10MicronDataAlways = True Then Load10MicronData()
+        LoadPWI4Data()
 
         'Load all parameter from the camera
         With SingleCaptureData

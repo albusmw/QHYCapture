@@ -73,13 +73,13 @@ Partial Class MainForm
         Me.tsmiPreset_NoOverhead = New System.Windows.Forms.ToolStripMenuItem()
         Me.FromFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiActions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiResetLoopStat = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiActions_ResetLoopStat = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiNewGUID = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiLoad10MicronData = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiClearLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiActions_AllCoolersOff = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoadPWI4DataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiActions_LoadPWI4Data = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiTools_AllQHYDLLs = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiTools_Log = New System.Windows.Forms.ToolStripMenuItem()
@@ -102,12 +102,12 @@ Partial Class MainForm
         Me.pgPlotAndText = New System.Windows.Forms.PropertyGrid()
         Me.scMain = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.tbItemName = New System.Windows.Forms.TextBox()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
         Me.rtbStatistics = New System.Windows.Forms.RichTextBox()
         Me.sfdMain = New System.Windows.Forms.SaveFileDialog()
         Me.ofdMain = New System.Windows.Forms.OpenFileDialog()
         Me.tStatusUpdate = New System.Windows.Forms.Timer(Me.components)
-        Me.tbItemName = New System.Windows.Forms.TextBox()
         Me.ssMain.SuspendLayout()
         Me.msMain.SuspendLayout()
         Me.tsMain.SuspendLayout()
@@ -455,51 +455,51 @@ Partial Class MainForm
         '
         'tsmiActions
         '
-        Me.tsmiActions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiResetLoopStat, Me.tsmiNewGUID, Me.tsmiLoad10MicronData, Me.tsmiClearLog, Me.ToolStripMenuItem2, Me.tsmiActions_AllCoolersOff, Me.LoadPWI4DataToolStripMenuItem})
+        Me.tsmiActions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiActions_ResetLoopStat, Me.tsmiNewGUID, Me.tsmiLoad10MicronData, Me.tsmiClearLog, Me.ToolStripMenuItem2, Me.tsmiActions_AllCoolersOff, Me.tsmiActions_LoadPWI4Data})
         Me.tsmiActions.Name = "tsmiActions"
         Me.tsmiActions.Size = New System.Drawing.Size(59, 20)
         Me.tsmiActions.Text = "Actions"
         '
-        'tsmiResetLoopStat
+        'tsmiActions_ResetLoopStat
         '
-        Me.tsmiResetLoopStat.Name = "tsmiResetLoopStat"
-        Me.tsmiResetLoopStat.Size = New System.Drawing.Size(179, 22)
-        Me.tsmiResetLoopStat.Text = "Reset loop statistics"
+        Me.tsmiActions_ResetLoopStat.Name = "tsmiActions_ResetLoopStat"
+        Me.tsmiActions_ResetLoopStat.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiActions_ResetLoopStat.Text = "Reset loop statistics"
         '
         'tsmiNewGUID
         '
         Me.tsmiNewGUID.Name = "tsmiNewGUID"
-        Me.tsmiNewGUID.Size = New System.Drawing.Size(179, 22)
+        Me.tsmiNewGUID.Size = New System.Drawing.Size(180, 22)
         Me.tsmiNewGUID.Text = "New GUID"
         '
         'tsmiLoad10MicronData
         '
         Me.tsmiLoad10MicronData.Name = "tsmiLoad10MicronData"
-        Me.tsmiLoad10MicronData.Size = New System.Drawing.Size(179, 22)
+        Me.tsmiLoad10MicronData.Size = New System.Drawing.Size(180, 22)
         Me.tsmiLoad10MicronData.Text = "Load 10Micron data"
         '
         'tsmiClearLog
         '
         Me.tsmiClearLog.Name = "tsmiClearLog"
-        Me.tsmiClearLog.Size = New System.Drawing.Size(179, 22)
+        Me.tsmiClearLog.Size = New System.Drawing.Size(180, 22)
         Me.tsmiClearLog.Text = "Clear log"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(176, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'tsmiActions_AllCoolersOff
         '
         Me.tsmiActions_AllCoolersOff.Name = "tsmiActions_AllCoolersOff"
-        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(179, 22)
+        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(180, 22)
         Me.tsmiActions_AllCoolersOff.Text = "All coolers off"
         '
-        'LoadPWI4DataToolStripMenuItem
+        'tsmiActions_LoadPWI4Data
         '
-        Me.LoadPWI4DataToolStripMenuItem.Name = "LoadPWI4DataToolStripMenuItem"
-        Me.LoadPWI4DataToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
-        Me.LoadPWI4DataToolStripMenuItem.Text = "Load PWI4 data"
+        Me.tsmiActions_LoadPWI4Data.Name = "tsmiActions_LoadPWI4Data"
+        Me.tsmiActions_LoadPWI4Data.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiActions_LoadPWI4Data.Text = "Load PWI4 data"
         '
         'tsmiTools
         '
@@ -648,7 +648,7 @@ Partial Class MainForm
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(487, 548)
+        Me.TabPage2.Size = New System.Drawing.Size(487, 518)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Meta data / Advanced"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -659,7 +659,7 @@ Partial Class MainForm
         Me.pgMeta.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pgMeta.Location = New System.Drawing.Point(3, 3)
         Me.pgMeta.Name = "pgMeta"
-        Me.pgMeta.Size = New System.Drawing.Size(481, 542)
+        Me.pgMeta.Size = New System.Drawing.Size(481, 512)
         Me.pgMeta.TabIndex = 1
         Me.pgMeta.ToolbarVisible = False
         '
@@ -669,7 +669,7 @@ Partial Class MainForm
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(487, 548)
+        Me.TabPage3.Size = New System.Drawing.Size(487, 518)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Plot / Report"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -680,7 +680,7 @@ Partial Class MainForm
         Me.pgPlotAndText.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pgPlotAndText.Location = New System.Drawing.Point(3, 3)
         Me.pgPlotAndText.Name = "pgPlotAndText"
-        Me.pgPlotAndText.Size = New System.Drawing.Size(481, 542)
+        Me.pgPlotAndText.Size = New System.Drawing.Size(481, 512)
         Me.pgPlotAndText.TabIndex = 2
         Me.pgPlotAndText.ToolbarVisible = False
         '
@@ -722,6 +722,16 @@ Partial Class MainForm
         Me.SplitContainer2.SplitterDistance = 574
         Me.SplitContainer2.TabIndex = 0
         '
+        'tbItemName
+        '
+        Me.tbItemName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbItemName.Location = New System.Drawing.Point(7, 547)
+        Me.tbItemName.Name = "tbItemName"
+        Me.tbItemName.ReadOnly = True
+        Me.tbItemName.Size = New System.Drawing.Size(481, 20)
+        Me.tbItemName.TabIndex = 7
+        '
         'SplitContainer3
         '
         Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
@@ -760,16 +770,6 @@ Partial Class MainForm
         '
         Me.tStatusUpdate.Enabled = True
         Me.tStatusUpdate.Interval = 250
-        '
-        'tbItemName
-        '
-        Me.tbItemName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbItemName.Location = New System.Drawing.Point(7, 547)
-        Me.tbItemName.Name = "tbItemName"
-        Me.tbItemName.ReadOnly = True
-        Me.tbItemName.Size = New System.Drawing.Size(481, 20)
-        Me.tbItemName.TabIndex = 7
         '
         'MainForm
         '
@@ -849,7 +849,7 @@ Partial Class MainForm
     Friend WithEvents rtbStatistics As Windows.Forms.RichTextBox
     Friend WithEvents tsmiFile_ExploreCampaign As Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiActions As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiResetLoopStat As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiActions_ResetLoopStat As Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As Windows.Forms.ToolStripSeparator
     Friend WithEvents tsmiFile_StoreEXCELStat As Windows.Forms.ToolStripMenuItem
     Friend WithEvents sfdMain As Windows.Forms.SaveFileDialog
@@ -893,7 +893,7 @@ Partial Class MainForm
     Friend WithEvents ToolStripMenuItem4 As ToolStripSeparator
     Friend WithEvents FromFileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem6 As ToolStripSeparator
-    Friend WithEvents LoadPWI4DataToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents tsmiActions_LoadPWI4Data As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents tsslETA As ToolStripStatusLabel
     Friend WithEvents tbItemName As TextBox

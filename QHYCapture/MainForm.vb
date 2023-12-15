@@ -1,6 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
 Imports System.IO
+Imports System.Security.Cryptography
 Imports System.Windows.Forms
 Imports DocumentFormat.OpenXml.Bibliography
 
@@ -244,7 +245,7 @@ Partial Public Class MainForm
             '================================================================================
 
             CaptureInfo_finished = CaptureInfo_running
-            If (M.DB.CurrentExposureIndex < M.Config.CaptureCount) And (M.DB.StopFlag = False) Then
+            If (M.DB.CurrentExposureIndex <= M.Config.CaptureCount) And (M.DB.StopFlag = False) Then
                 M.DB.CurrentExposureIndex += OneCapture
                 CaptureInfo_running = StartExposure()
             End If
@@ -839,7 +840,7 @@ Partial Public Class MainForm
         If System.IO.Directory.Exists(FolderToOpen) = True Then System.Diagnostics.Process.Start(FolderToOpen)
     End Sub
 
-    Private Sub tsmiResetLoopStat_Click(sender As Object, e As EventArgs) Handles tsmiResetLoopStat.Click
+    Private Sub tsmiActions_ResetLoopStat_Click(sender As Object, e As EventArgs) Handles tsmiActions_ResetLoopStat.Click
         LoopStat = New AstroNET.Statistics.sStatistics
         LoopStat.Count = 0
     End Sub
@@ -1000,8 +1001,8 @@ Partial Public Class MainForm
 
     Private Sub tsmiPreset_SkipCooling_Click(sender As Object, e As EventArgs) Handles tsmiPreset_SkipCooling.Click
         Dim MemStream As New MemoryStream
-        Dim SettingDoc As New Xml.XmlDocument
-        Using XMLContent As Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
+        Dim SettingDoc As New System.Xml.XmlDocument
+        Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
             XMLContent.WriteStartDocument()
             XMLContent.WriteStartElement("sequence")
             XMLContent.WriteStartElement("exp")
@@ -1063,8 +1064,8 @@ Partial Public Class MainForm
 
     Private Sub tsmiPreset_DevTestMWeiss_Click(sender As Object, e As EventArgs) Handles tsmiPreset_DevTestMWeiss.Click
         Dim MemStream As New MemoryStream
-        Dim SettingDoc As New Xml.XmlDocument
-        Using XMLContent As Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
+        Dim SettingDoc As New System.Xml.XmlDocument
+        Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
             XMLContent.WriteStartDocument()
             XMLContent.WriteStartElement("sequence")
             XMLContent.WriteStartElement("exp")
@@ -1193,9 +1194,9 @@ Partial Public Class MainForm
             If .ShowDialog <> DialogResult.OK Then Exit Sub
         End With
         'Create the XML file to save
-        Dim FileOut As New Xml.XmlDocument
-        Dim Sequence As Xml.XmlNode = FileOut.AppendChild(FileOut.CreateNode(Xml.XmlNodeType.Element, "sequence", String.Empty))
-        Dim Exp As Xml.XmlNode = Sequence.AppendChild(FileOut.CreateNode(Xml.XmlNodeType.Element, "exp", String.Empty))
+        Dim FileOut As New System.Xml.XmlDocument
+        Dim Sequence As System.Xml.XmlNode = FileOut.AppendChild(FileOut.CreateNode(System.Xml.XmlNodeType.Element, "sequence", String.Empty))
+        Dim Exp As System.Xml.XmlNode = Sequence.AppendChild(FileOut.CreateNode(System.Xml.XmlNodeType.Element, "exp", String.Empty))
         PropGridToXML(Exp, M.DB)
         PropGridToXML(Exp, M.Meta)
         FileOut.Save(sfdMain.FileName)
@@ -1212,13 +1213,14 @@ Partial Public Class MainForm
 
     Private Sub FromFileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromFileToolStripMenuItem.Click
         Dim MemStream As New MemoryStream
-        Dim SettingDoc As New Xml.XmlDocument
-        Using XMLContent As Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
+        Dim SettingDoc As New System.Xml.XmlDocument
+        Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
             With XMLContent
                 .WriteStartDocument()
                 .WriteStartElement("sequence")
                 .WriteStartElement("exp")
                 .WriteAttributeString("Load10MicronDataAlways", "false")
+                .WriteAttributeString("IP_PWI4_URL", "http://localhost:8220")
                 .WriteAttributeString("SiteLongitude", "-70:51:11.8'")
                 .WriteAttributeString("SiteLatitude", "-30:31:34.7'")
                 .WriteAttributeString("Origin", "Deep Sky Chile")
@@ -1240,30 +1242,6 @@ Partial Public Class MainForm
         LogError(RunXMLSequence(SettingDoc, False))
     End Sub
 
-    Private Sub LoadPWI4DataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadPWI4DataToolStripMenuItem.Click
-
-        Dim PWI_data As String() = Download.GetResponse("http://localhost:8220/status").Split(CChar(vbLf))
-        For Each Line As String In PWI_data
-            Dim Splitter As Integer = Line.IndexOf("=")
-            If Splitter > -1 Then
-                Dim Parameter As String = Line.Substring(0, Splitter)
-                Dim Value As String = Line.Substring(Splitter + 1)
-                Select Case M.DB.PWI4.GetEnumFromString(Parameter)
-                    Case ePWI4.mount__is_connected
-                        Select Case Value.ToUpper
-                            Case "TRUE" : M.DB.PWI4.SetValue(Parameter, 0)
-                            Case "FALSE" : M.DB.PWI4.SetValue(Parameter, 1)
-                            Case Else : M.DB.PWI4.SetValue(Parameter, "<" & Value & ">")
-                        End Select
-                    Case Else
-                        M.DB.PWI4.SetValue(Parameter, Value)
-                End Select
-
-            End If
-        Next Line
-
-    End Sub
-
     Private Sub QHYFunction_Log(Text As String) Handles QHYFunction.Log
         Log(Text)
     End Sub
@@ -1278,6 +1256,22 @@ Partial Public Class MainForm
 
     Private Sub pgMain_SelectedGridItemChanged(sender As Object, e As SelectedGridItemChangedEventArgs) Handles pgMain.SelectedGridItemChanged
         tbItemName.Text = "Item name: " & pgMain.SelectedGridItem.PropertyDescriptor.Name
+    End Sub
+
+    Private Sub tsmiActions_LoadPWI4Data_Click(sender As Object, e As EventArgs) Handles tsmiActions_LoadPWI4Data.Click
+        LoadPWI4Data()
+    End Sub
+
+    Private Sub LoadPWI4Data()
+        If String.IsNullOrEmpty(M.Meta.IP_PWI4_URL) = False Then
+            Dim CurrentStatus As String = Download.GetResponse(M.Meta.IP_PWI4_URL & "/status")
+            M.DB.PWI4.ProcessStatus(CurrentStatus)
+            M.Meta.TelescopeFocus = CType(M.DB.PWI4.GetValue(ePWI4.focuser__position), Integer)
+            M.Meta.TelescopeRightAscension = CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String)
+            M.Meta.TelescopeDeclination = CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String)
+            M.Meta.TelescopeAltitude = CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String)
+            M.Meta.TelescopeAzimuth = CType(M.DB.PWI4.GetValue(ePWI4.mount__azimuth_degs), String)
+        End If
     End Sub
 
 End Class

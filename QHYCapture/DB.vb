@@ -481,6 +481,12 @@ Public Class cDB_meta
     <ComponentModel.DefaultValue(2)>
     Public Property IP_10Micron_TimeOut As Integer = 2
 
+    '''<summary>Time-out time for connecting the mount.</summary>
+    <ComponentModel.Category(Cat1_SiteAndMount)>
+    <ComponentModel.DisplayName(Indent & "1.5. PWI4 URL")>
+    <ComponentModel.Description("URL to read PWI4 data; leave blank to disable reading.")>
+    Public Property IP_PWI4_URL As String = String.Empty
+
     '''<summary>Longitude of the site.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
     <ComponentModel.DisplayName(Indent & "2.1. Site - Longitude")>
