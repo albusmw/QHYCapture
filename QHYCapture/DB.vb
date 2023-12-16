@@ -588,7 +588,7 @@ Public Class cDB_meta
     <ComponentModel.DisplayName(Indent & "5.3. Telescope focus position")>
     <ComponentModel.Description("Focuser position reported by the telescope.")>
     <ComponentModel.DefaultValue(0)>
-    Public Property TelescopeFocus As Integer = 0
+    Public Property TelescopeFocusAsSet As Integer = 0
 
     '===================================================================================================
 

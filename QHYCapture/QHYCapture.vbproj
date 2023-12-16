@@ -93,6 +93,12 @@
     <Compile Include="..\..\src\atomics\cDownloader.vb">
       <Link>common\cDownloader.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\cFITSHeaderKeywords.vb">
+      <Link>common\cFITSHeaderKeywords.vb</Link>
+    </Compile>
+    <Compile Include="..\..\src\atomics\cFITSWriter.vb">
+      <Link>common\cFITSWriter.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\cHardwareState.vb">
       <Link>cHardwareState.vb</Link>
     </Compile>
@@ -102,6 +108,9 @@
     <Compile Include="..\..\src\atomics\cLockBitmap.vb">
       <Link>common\cLockBitmap.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\cMIDIMonitor.vb">
+      <Link>common\cMIDIMonitor.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\ComponentModelConverter.vb">
       <Link>common\ComponentModelConverter.vb</Link>
     </Compile>
@@ -109,7 +118,7 @@
       <Link>common\cOpenCvSharp.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\cPWI4.vb">
-      <Link>cPWI4.vb</Link>
+      <Link>common\cPWI4.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\cRTFGeneration.vb">
       <Link>common\cRTFGeneration.vb</Link>
@@ -120,8 +129,17 @@
     <Compile Include="..\..\src\atomics\Everything.vb">
       <Link>common\Everything.vb</Link>
     </Compile>
+    <Compile Include="..\..\src\atomics\FileHash.vb">
+      <Link>common\FileHash.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\atomics\ForHardware\QHY.vb">
       <Link>QHY.vb</Link>
+    </Compile>
+    <Compile Include="..\..\src\atomics\ImageProcessing.vb">
+      <Link>common\ImageProcessing.vb</Link>
+    </Compile>
+    <Compile Include="..\..\src\atomics\INI_IO.vb">
+      <Link>common\INI_IO.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\QHYDLLWrapper.vb">
       <Link>QHYDLLWrapper.vb</Link>
@@ -129,38 +147,17 @@
     <Compile Include="..\..\src\atomics\AstroStatistics.vb">
       <Link>AstroStatistics.vb</Link>
     </Compile>
-    <Compile Include="..\..\src\atomics\cFITSHeaderKeywords.vb">
-      <Link>cFITSHeaderKeywords.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\cFITSWriter.vb">
-      <Link>cFITSWriter.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\cMIDIMonitor.vb">
-      <Link>cMIDIMonitor.vb</Link>
-    </Compile>
     <Compile Include="..\..\src\atomics\cStatMultiThread.vb">
       <Link>cStatMultiThread.vb</Link>
     </Compile>
-    <Compile Include="..\..\src\atomics\FileHash.vb">
-      <Link>FileHash.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\Generics.vb">
-      <Link>Generics.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\ImageProcessing.vb">
-      <Link>ImageProcessing.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\INI_IO.vb">
-      <Link>INI_IO.vb</Link>
-    </Compile>
     <Compile Include="..\..\src\atomics\RTFTextBox.vb">
-      <Link>RTFTextBox.vb</Link>
+      <Link>common\RTFTextBox.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\Utils.vb">
       <Link>common\Utils.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\ZedGraphService.vb">
-      <Link>ZedGraphService.vb</Link>
+      <Link>common\ZedGraphService.vb</Link>
     </Compile>
     <Compile Include="..\..\src\cAstroStatDisp.vb">
       <Link>common\cAstroStatDisp.vb</Link>

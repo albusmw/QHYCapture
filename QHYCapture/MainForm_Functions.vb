@@ -211,7 +211,7 @@ Partial Public Class MainForm
             .Offset = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_OFFSET)
             .Brightness = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_BRIGHTNESS)
             .ObsStartTemp = QHY.QHY.GetQHYCCDParam(M.DB.CamHandle, QHYCamera.QHY.CONTROL_ID.CONTROL_CURTEMP)
-            .TelescopeFocus = M.Meta.TelescopeFocus
+            .TelescopeFocus = M.Meta.TelescopeFocusAsSet
         End With
 
         'Start exposure (single or live frame mode)

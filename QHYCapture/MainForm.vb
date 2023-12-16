@@ -1266,7 +1266,7 @@ Partial Public Class MainForm
         If String.IsNullOrEmpty(M.Meta.IP_PWI4_URL) = False Then
             Dim CurrentStatus As String = Download.GetResponse(M.Meta.IP_PWI4_URL & "/status")
             M.DB.PWI4.ProcessStatus(CurrentStatus)
-            M.Meta.TelescopeFocus = CType(M.DB.PWI4.GetValue(ePWI4.focuser__position), Integer)
+            M.Meta.TelescopeFocusAsSet = CType(M.DB.PWI4.GetValue(ePWI4.focuser__position), Integer)
             M.Meta.TelescopeRightAscension = CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String)
             M.Meta.TelescopeDeclination = CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String)
             M.Meta.TelescopeAltitude = CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String)
