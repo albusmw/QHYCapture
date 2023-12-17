@@ -180,7 +180,7 @@ Partial Public Class MainForm
 
         'Set exposure parameters (first time / on property change / always if configured)
         LED_update(tsslLED_config, True)
-        If (M.DB.CurrentExposureIndex = 1) Or (M.Config.ConfigAlways = True) Or PropertyChanged = True Then
+        If (M.DB.CurrentExposureIndex = FirstCapture) Or (M.Config.ConfigAlways = True) Or PropertyChanged = True Then
             M.Config.ROI = AdjustAndCorrectROI()
             SetExpParameters()
         End If

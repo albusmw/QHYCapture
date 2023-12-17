@@ -386,13 +386,6 @@ Public Class cConfig
     <ComponentModel.DefaultValue(False)>
     Public Property AutoOpenImage As Boolean = False
 
-    <ComponentModel.Category(Cat3)>
-    <ComponentModel.DisplayName(Indent & "6. Show live image")>
-    <ComponentModel.Description("Show a live image?")>
-    <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
-    <ComponentModel.DefaultValue(False)>
-    Public Property ShowLiveImage As Boolean = False
-
     '===================================================================================================
 
     <ComponentModel.Category(Cat4)>
