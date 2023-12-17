@@ -20,8 +20,6 @@ Partial Public Class MainForm
     Private PropertyChanged As Boolean = False
     '''<summary>RTF report generator.</summary>
     Private RTFGen As New Ato.cRTFGenerator
-    '''<summary>Focus window.</summary>
-    Private FocusWindow As frmImageForm = Nothing
     '''<summary>Accumulated statistics.</summary>
     Private LoopStat As AstroNET.Statistics.sStatistics
     '''<summary>Monitor for the MIDI events.</summary>
@@ -30,6 +28,9 @@ Partial Public Class MainForm
     Private WithEvents ZWOASI As New cZWOASI
 
     Private WithEvents QHYFunction As New cQHYFunction
+
+    Private Const OneCapture As UInt32 = CType(1, UInt32)
+    Private Const FirstCapture As UInt32 = CType(1, UInt32)
 
     '''<summary>Class to configure the temperature control of the camera.</summary>
     Private Class cTempConfig
@@ -157,15 +158,14 @@ Partial Public Class MainForm
         Dim CaptureInfo_running As New cSingleCaptureInfo
         Dim CaptureInfo_finished As New cSingleCaptureInfo
 
-        Dim OneCapture As UInt32 = CType(1, UInt32)
-        M.DB.CurrentExposureIndex = 1
+        M.DB.CurrentExposureIndex = FirstCapture
         Do
 
             '================================================================================
             ' START EXPOSURE ON FIRST ENTRY
             '================================================================================
 
-            If M.DB.CurrentExposureIndex = 1 Then
+            If M.DB.CurrentExposureIndex = FirstCapture Then
                 CaptureInfo_running = StartExposure()
             End If
 
@@ -280,8 +280,9 @@ Partial Public Class MainForm
             End If
             M.DB.Stopper.Stamp("Statistics - text")
 
-            '================================================================================
+            '═════════════════════════════════════════════════════════════════════════════
             'Plot histogram
+            '═════════════════════════════════════════════════════════════════════════════
 
             'Set caption
             Dim PlotTitle As New List(Of String)
@@ -295,30 +296,9 @@ Partial Public Class MainForm
 
             M.DB.Stopper.Stamp("Statistics - plot")
 
-            '================================================================================
-            'Display focus image if required
-            If M.Config.ShowLiveImage = True Then
-                Dim NewWindowRequired As Boolean = False
-                If IsNothing(FocusWindow) = True Then
-                    NewWindowRequired = True
-                Else
-                    If FocusWindow.IsDisposed = True Then NewWindowRequired = True
-                End If
-                If NewWindowRequired = True Then
-                    FocusWindow = New frmImageForm
-                End If
-                FocusWindow.Show() '("Focus Window <" & SingleStatCalc.Dimensions & ">")
-                Select Case SingleStatCalc.DataType
-                    Case AstroNET.Statistics.eDataType.UInt16
-                        FocusWindow.ShowData(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, SingleStat.MonoStatistics_Int.Min.Key, SingleStat.MonoStatistics_Int.Max.Key)
-                    Case AstroNET.Statistics.eDataType.UInt32
-                        FocusWindow.ShowData(SingleStatCalc.DataProcessor_UInt32.ImageData(0).Data, SingleStat.MonoStatistics_Int.Min.Key, SingleStat.MonoStatistics_Int.Max.Key)
-                End Select
-                M.DB.Stopper.Stamp("Focus window")
-            End If
-
-            '================================================================================
+            '═════════════════════════════════════════════════════════════════════════════
             'Store image
+            '═════════════════════════════════════════════════════════════════════════════
 
             If M.Config.StoreImage = True Then
 
@@ -345,7 +325,7 @@ Partial Public Class MainForm
             M.DB.Stopper.Stamp("Store image")
 
             'Stop conditions
-            If M.DB.CurrentExposureIndex >= M.Config.CaptureCount Then Exit Do
+            If M.DB.CurrentExposureIndex > M.Config.CaptureCount Then Exit Do
             If M.DB.StopFlag = True Then Exit Do
 
         Loop Until 1 = 0
@@ -436,7 +416,11 @@ Partial Public Class MainForm
 
     '''<summary>Calculate the total time for the running exposure and the estimated ETA.</summary>
     Private Function TimeToGo() As TimeSpan
-        Return TimeSpan.FromSeconds((M.Config.CaptureCount - M.DB.CurrentExposureIndex) * M.Config.ExposureTime)
+        Try
+            Return TimeSpan.FromSeconds((M.Config.CaptureCount - M.DB.CurrentExposureIndex) * M.Config.ExposureTime)
+        Catch ex As Exception
+            Return TimeSpan.Zero
+        End Try
     End Function
 
     '''<summary>Calculate the total time for the running exposure and the estimated ETA.</summary>
@@ -773,7 +757,6 @@ Partial Public Class MainForm
             .DDR_RAM = False
             .ConfigAlways = False
             .Filter = cFilterWheelHelper.eFilter.Unchanged
-            .ShowLiveImage = True
             .USBTraffic = 0
             .Temp_Target = -100
             .Temp_Tolerance = 1000
@@ -958,7 +941,6 @@ Partial Public Class MainForm
             .CaptureCount = 1000000
             .USBTraffic = 25
             .ExposureTime = 0.001
-            .ShowLiveImage = False
             .StoreImage = False
             .ConfigAlways = True
         End With
