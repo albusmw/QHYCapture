@@ -63,6 +63,9 @@
     <Folder Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\MyLib\CodeUtils.vb">
+      <Link>MyLib\CodeUtils.vb</Link>
+    </Compile>
     <Compile Include="..\..\MyLib\Download.vb">
       <Link>MyLib\Download.vb</Link>
     </Compile>

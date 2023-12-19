@@ -1,5 +1,6 @@
 ﻿Option Explicit On
 Option Strict On
+
 Imports System.Runtime.InteropServices
 Imports QHYCapture.ComponentModelEx
 
@@ -174,6 +175,10 @@ Public Class cConfig
 
     Public FilterWheelHelper As cFilterWheelHelper = Nothing
 
+    '═════════════════════════════════════════════════════════════════════════════
+    'Imaging hardware
+    '═════════════════════════════════════════════════════════════════════════════
+
     '''<summary>Camera to search for.</summary>
     <ComponentModel.Category(Cat1)>
     <ComponentModel.DisplayName(Indent & "1. Camera to search")>
@@ -267,7 +272,9 @@ Public Class cConfig
     <ComponentModel.DefaultValue(True)>
     Public Property DDR_RAM As Boolean = True
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Exposure
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Number of exposured to take with identical settings.</summary>
     <ComponentModel.Category(Cat2_Exposure)>
@@ -358,7 +365,9 @@ Public Class cConfig
     <ComponentModel.DefaultValue(False)>
     Public Property CloseCam As Boolean = False
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Image storage
+    '═════════════════════════════════════════════════════════════════════════════
 
     <ComponentModel.Category(Cat3)>
     <ComponentModel.DisplayName(Indent & "1. Store captured image")>
@@ -386,7 +395,9 @@ Public Class cConfig
     <ComponentModel.DefaultValue(False)>
     Public Property AutoOpenImage As Boolean = False
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Statistical calculation
+    '═════════════════════════════════════════════════════════════════════════════
 
     <ComponentModel.Category(Cat4)>
     <ComponentModel.DisplayName(Indent & "1. Calculate mono statistics")>
@@ -444,6 +455,10 @@ Public Class cDB_meta
     Const Cat7_MiscSettings As String = "7. Misc settings"
     Const Indent As String = "  "
     Const NotSet As String = "-----"
+
+    '═════════════════════════════════════════════════════════════════════════════
+    'Site and mount
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Automatically load mount data via LAN?.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
@@ -529,7 +544,9 @@ Public Class cDB_meta
     <ComponentModel.DefaultValue(NotSet)>
     Public Property TelescopeAzimuth As String = NotSet
 
-    '================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Object and instrument
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Name of the object (NGC1234, ...).</summary>
     <ComponentModel.Category(Cat2_ObjectAndInstrument)>
@@ -583,7 +600,9 @@ Public Class cDB_meta
     <ComponentModel.DefaultValue(0)>
     Public Property TelescopeFocusAsSet As Integer = 0
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Logging
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Log all supported camera properties with name and range in the begin - useful e.g. to see the value range for certain settings.</summary>
     <ComponentModel.Category(Cat3_Logging)>
@@ -635,7 +654,9 @@ Public Class cDB_meta
         End Get
     End Property
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Camera properties
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Chip physical size [mm].</summary>
     <ComponentModel.Category(Cat4_CamProperties)>
@@ -699,7 +720,9 @@ Public Class cDB_meta
     End Property
     Public FWVersion As Byte() = {0, 0, 0, 0}
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Advanced camera settings
+    '═════════════════════════════════════════════════════════════════════════════
 
     <ComponentModel.Category(Cat5_CamAdvanced)>
     <ComponentModel.DisplayName(Indent & "1. Brightness")>
@@ -737,7 +760,9 @@ Public Class cDB_meta
     <ComponentModel.DefaultValue(128.0)>
     Public Property WhiteBalance_Blue As Double = 128.0
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
+    'Misc settings
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Time [s] after which the filter wheel movement is stoped and the software goes on even if the filter is NOT in place.</summary>
     <ComponentModel.Category(Cat7_MiscSettings)>
@@ -777,5 +802,10 @@ Public Class cDB_meta
     <ComponentModel.DisplayName(Indent & "5. FITS viewer")>
     <ComponentModel.Description("Viewer for stored FITS files - delete to use default viewer")>
     Public Property FITSViewer As String = String.Empty
+
+    <ComponentModel.Category(Cat7_MiscSettings)>
+    <ComponentModel.DisplayName(Indent & "6. Time to start sequence")>
+    <ComponentModel.Description("Set a date and time to start the sequence")>
+    Public Property StartDateTime As DateTime = Now
 
 End Class

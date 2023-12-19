@@ -78,6 +78,16 @@ Partial Public Class MainForm
         'Set DLL log path
         QHY.QHY.LogFile = M.Meta.QHYLogFile
 
+        'Wait for start condition
+        If M.Meta.StartDateTime >= Now Then
+            Do
+                Dim TimeToGo As TimeSpan = M.Meta.StartDateTime - Now
+                tsslProgress.Text = "Exposure starts @ " & M.Meta.StartDateTime.ValRegIndep & " (" & TimeToGo.ValRegIndep & " to go)"
+                DE()
+            Loop Until (Now >= M.Meta.StartDateTime) Or (M.DB.StopFlag = True)
+        End If
+        If (M.DB.StopFlag = True) Then Exit Sub
+
         'Start
         M.DB.StopFlag = False
         M.DB.RunningFlag = True
@@ -411,7 +421,7 @@ Partial Public Class MainForm
             Loop Until (TimePassed >= ExposureTime) Or (M.DB.StopFlag = True)
         End If
         tspbProgress.Value = 0
-        tsslProgress.Text = "---"
+        tsslProgress.Text = "-- not exposing right now --"
     End Sub
 
     '''<summary>Calculate the total time for the running exposure and the estimated ETA.</summary>
@@ -1215,7 +1225,7 @@ Partial Public Class MainForm
                 .WriteAttributeString("CaptureCount", "30")
                 .WriteAttributeString("Temp_Target", "-15")
                 .WriteAttributeString("Temp_Tolerance", "0.5")
-                .WriteAttributeString("Gain", "50")
+                .WriteAttributeString("Gain", "56")
                 .WriteEndElement()
                 .WriteEndElement()
                 .WriteEndDocument()
@@ -1249,10 +1259,14 @@ Partial Public Class MainForm
             Dim CurrentStatus As String = Download.GetResponse(M.Meta.IP_PWI4_URL & "/status")
             M.DB.PWI4.ProcessStatus(CurrentStatus)
             M.Meta.TelescopeFocusAsSet = CType(M.DB.PWI4.GetValue(ePWI4.focuser__position), Integer)
-            M.Meta.TelescopeRightAscension = CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String)
-            M.Meta.TelescopeDeclination = CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String)
-            M.Meta.TelescopeAltitude = CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String)
-            M.Meta.TelescopeAzimuth = CType(M.DB.PWI4.GetValue(ePWI4.mount__azimuth_degs), String)
+            M.Meta.TelescopeRightAscension = Ato.AstroCalc.FormatHMS(CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String).ValRegIndep)
+            M.Meta.TelescopeDeclination = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String).ValRegIndep)
+            M.Meta.TelescopeAltitude = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String).ValRegIndep)
+            M.Meta.TelescopeAzimuth = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.mount__azimuth_degs), String).ValRegIndep)
+            M.Meta.SiteLatitude = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.site__latitude_degs), String).ValRegIndep)
+            M.Meta.SiteLongitude = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.site__longitude_degs), String).ValRegIndep)
+            M.Meta.SiteHeight = CType(M.DB.PWI4.GetValue(ePWI4.site__height_meters), String)
+            RefreshProperties()
         End If
     End Sub
 

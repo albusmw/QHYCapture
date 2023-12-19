@@ -208,8 +208,8 @@ Partial Class MainForm
         'tsslProgress
         '
         Me.tsslProgress.Name = "tsslProgress"
-        Me.tsslProgress.Size = New System.Drawing.Size(22, 19)
-        Me.tsslProgress.Text = "---"
+        Me.tsslProgress.Size = New System.Drawing.Size(130, 19)
+        Me.tsslProgress.Text = "-- not exposing right now --"
         '
         'tsslSplit1
         '
@@ -463,42 +463,42 @@ Partial Class MainForm
         'tsmiActions_ResetLoopStat
         '
         Me.tsmiActions_ResetLoopStat.Name = "tsmiActions_ResetLoopStat"
-        Me.tsmiActions_ResetLoopStat.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiActions_ResetLoopStat.Size = New System.Drawing.Size(179, 22)
         Me.tsmiActions_ResetLoopStat.Text = "Reset loop statistics"
         '
         'tsmiNewGUID
         '
         Me.tsmiNewGUID.Name = "tsmiNewGUID"
-        Me.tsmiNewGUID.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiNewGUID.Size = New System.Drawing.Size(179, 22)
         Me.tsmiNewGUID.Text = "New GUID"
         '
         'tsmiLoad10MicronData
         '
         Me.tsmiLoad10MicronData.Name = "tsmiLoad10MicronData"
-        Me.tsmiLoad10MicronData.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiLoad10MicronData.Size = New System.Drawing.Size(179, 22)
         Me.tsmiLoad10MicronData.Text = "Load 10Micron data"
         '
         'tsmiClearLog
         '
         Me.tsmiClearLog.Name = "tsmiClearLog"
-        Me.tsmiClearLog.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiClearLog.Size = New System.Drawing.Size(179, 22)
         Me.tsmiClearLog.Text = "Clear log"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(176, 6)
         '
         'tsmiActions_AllCoolersOff
         '
         Me.tsmiActions_AllCoolersOff.Name = "tsmiActions_AllCoolersOff"
-        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(179, 22)
         Me.tsmiActions_AllCoolersOff.Text = "All coolers off"
         '
         'tsmiActions_LoadPWI4Data
         '
         Me.tsmiActions_LoadPWI4Data.Name = "tsmiActions_LoadPWI4Data"
-        Me.tsmiActions_LoadPWI4Data.Size = New System.Drawing.Size(180, 22)
+        Me.tsmiActions_LoadPWI4Data.Size = New System.Drawing.Size(179, 22)
         Me.tsmiActions_LoadPWI4Data.Text = "Load PWI4 data"
         '
         'tsmiTools
