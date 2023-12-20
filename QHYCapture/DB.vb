@@ -425,7 +425,7 @@ Public Class cConfig
         If ExposureTypeEnum = eExposureType.Custom Then Return ExposureTypeCustom Else Return [Enum].GetName(GetType(eExposureType), ExposureTypeEnum)
     End Function
 
-    '===================================================================================================
+    '═════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Property indicating if the ROI is set.</summary>
     <ComponentModel.Browsable(False)>
@@ -438,8 +438,6 @@ Public Class cConfig
             Return True
         End Get
     End Property
-
-    '===================================================================================================
 
 End Class
 
