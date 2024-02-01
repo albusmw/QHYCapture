@@ -63,8 +63,14 @@
     <Folder Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\MyLib\ASCOMDynamic.vb">
+      <Link>MyLib\ASCOMDynamic.vb</Link>
+    </Compile>
     <Compile Include="..\..\MyLib\CodeUtils.vb">
       <Link>MyLib\CodeUtils.vb</Link>
+    </Compile>
+    <Compile Include="..\..\MyLib\COMInterop.vb">
+      <Link>MyLib\COMInterop.vb</Link>
     </Compile>
     <Compile Include="..\..\MyLib\Download.vb">
       <Link>MyLib\Download.vb</Link>

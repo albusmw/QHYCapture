@@ -672,6 +672,12 @@ Partial Public Class MainForm
         MIDI = New cMIDIMonitor
         If MIDI.MIDIDeviceCount > 0 Then MIDI.SelectMidiDevice(0)
 
+        'Load DSC if running on DSC PC
+        Select Case Environment.MachineName
+            Case "NUCDSCALBUSMW"
+                tsmiPreset_DSC_Click(Nothing, Nothing)
+        End Select
+
         'Show DB
         RefreshProperties()
 
@@ -693,6 +699,7 @@ Partial Public Class MainForm
 
     Private Sub tsbCapture_Click(sender As Object, e As EventArgs) Handles tsbCapture.Click
         If CType(sender, System.Windows.Forms.ToolStripButton).Enabled = True Then QHYCapture(True)
+        M.DB.StopFlag = False
     End Sub
 
     Private Sub tsbStopCapture_Click(sender As Object, e As EventArgs) Handles tsbStopCapture.Click
@@ -746,7 +753,7 @@ Partial Public Class MainForm
 
     Private Sub tsmiFile_TestWebInterface_Click(sender As Object, e As EventArgs) Handles tsmiFile_TestWebInterface.Click
         'Test call for the web interface
-        System.Diagnostics.Process.Start("http://localhost:1250/GetParameterList")
+        System.Diagnostics.Process.Start("http//localhost:1250/GetParameterList")
     End Sub
 
     Private Sub DB_ServiceContract_ValueChanged() Handles DB_ServiceContract.ValueChanged
@@ -785,8 +792,8 @@ Partial Public Class MainForm
         RefreshProperties()
     End Sub
 
-    Private Sub CenterROIToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CenterROIToolStripMenuItem.Click
-        Dim ROISize As Integer = CInt(InputBox("Size:", "ROI size", "100")) : ROISize = ROISize \ 2
+    Private Sub tsmiPreset_Click(sender As Object, e As EventArgs) Handles tsmiPreset_CenterROI.Click
+        Dim ROISize As Integer = CInt(InputBox("Size", "ROI size", "100")) : ROISize = ROISize \ 2
         If ROISize > 0 Then
             With M.Config
                 .ROI = New Drawing.Rectangle((9600 \ 2) - ROISize, (6422 \ 2) - ROISize, 2 * ROISize, 2 * ROISize)
@@ -900,10 +907,6 @@ Partial Public Class MainForm
         RefreshProperties()
     End Sub
 
-    Private Sub tsmiLoad10MicronData_Click(sender As Object, e As EventArgs) Handles tsmiLoad10MicronData.Click
-        Load10MicronData()
-    End Sub
-
     Private Sub tsmiFile_RunSequence_Click(sender As Object, e As EventArgs) Handles tsmiFile_RunSequence.Click, tsmiFile_LoadSettings.Click
         'Load / run the passed XML config file
         With ofdMain
@@ -921,12 +924,12 @@ Partial Public Class MainForm
     End Function
 
     Private Sub FITSWriterWithKeywordsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        cFITSWriter.WriteTestFile_Float32("C:\TEMP\FITSHeader.fits")
+        cFITSWriter.WriteTestFile_Float32("C\TEMP\FITSHeader.fits")
     End Sub
 
     Private Sub tStatusUpdate_Tick(sender As Object, e As EventArgs) Handles tStatusUpdate.Tick
-        tsslMemory.Text = "Memory: " & Format(GetMyMemSize, "0.0") & " MByte"
-        tsslETA.Text = "ETA: " & Format(ETA() & " ( total capture time: " & TimeToGo.ToString & ")")
+        tsslMemory.Text = "Memory " & Format(GetMyMemSize, "0.0") & " MByte"
+        tsslETA.Text = "ETA " & Format(ETA() & " ( total capture time: " & TimeToGo.ToString & ")")
     End Sub
 
     '''<summary>Get the memory consumption [MByte] of this EXE.</summary>
@@ -945,7 +948,7 @@ Partial Public Class MainForm
         End If
     End Sub
 
-    Private Sub SaveTransmissionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveTransmissionToolStripMenuItem.Click
+    Private Sub tsmiPreset_SaveTransmission_Click(sender As Object, e As EventArgs) Handles tsmiPreset_SaveTransmission.Click
         With M.Config
             .StreamMode = eStreamMode.LiveFrame
             .CaptureCount = 1000000
@@ -992,6 +995,7 @@ Partial Public Class MainForm
     End Sub
 
     Private Sub tsmiPreset_SkipCooling_Click(sender As Object, e As EventArgs) Handles tsmiPreset_SkipCooling.Click
+        'Build the settings XML in memory
         Dim MemStream As New MemoryStream
         Dim SettingDoc As New System.Xml.XmlDocument
         Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
@@ -1005,6 +1009,7 @@ Partial Public Class MainForm
             XMLContent.WriteEndElement()
             XMLContent.WriteEndDocument()
         End Using
+        'Load it
         LogError(RunXMLSequence(SettingDoc, False))
     End Sub
 
@@ -1055,6 +1060,7 @@ Partial Public Class MainForm
     End Sub
 
     Private Sub tsmiPreset_DevTestMWeiss_Click(sender As Object, e As EventArgs) Handles tsmiPreset_DevTestMWeiss.Click
+        ''Build the settings XML in memory
         Dim MemStream As New MemoryStream
         Dim SettingDoc As New System.Xml.XmlDocument
         Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
@@ -1074,6 +1080,7 @@ Partial Public Class MainForm
             XMLContent.WriteEndElement()
             XMLContent.WriteEndDocument()
         End Using
+        'Load it
         LogError(RunXMLSequence(SettingDoc, False))
     End Sub
 
@@ -1135,7 +1142,7 @@ Partial Public Class MainForm
             .ExposureTypeEnum = eExposureType.Light
         End With
         M.Meta.Load10MicronDataAlways = True
-        M.Meta.ObjectName = InputBox("Object:", "Object", M.Meta.ObjectName)
+        M.Meta.ObjectName = InputBox("Object", "Object", M.Meta.ObjectName)
         RefreshProperties()
     End Sub
 
@@ -1199,11 +1206,12 @@ Partial Public Class MainForm
         If System.IO.File.Exists(M.DB.MyINI) Then
             Ato.Utils.StartWithItsEXE(M.DB.MyINI)
         Else
-            MsgBox("INI file <" & M.DB.MyINI & "> NOT found!", vbCritical Or MsgBoxStyle.OkOnly, "File not found")
+            MsgBox("INI file <" & M.DB.MyINI & "> Not found!", vbCritical Or MsgBoxStyle.OkOnly, "File Not found")
         End If
     End Sub
 
-    Private Sub FromFileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FromFileToolStripMenuItem.Click
+    Private Sub tsmiPreset_DSC_Click(sender As Object, e As EventArgs) Handles tsmiPreset_DSC.Click
+        'Build the settings XML in memory
         Dim MemStream As New MemoryStream
         Dim SettingDoc As New System.Xml.XmlDocument
         Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
@@ -1231,6 +1239,7 @@ Partial Public Class MainForm
                 .WriteEndDocument()
             End With
         End Using
+        'Load it
         LogError(RunXMLSequence(SettingDoc, False))
     End Sub
 
@@ -1247,11 +1256,11 @@ Partial Public Class MainForm
     End Sub
 
     Private Sub pgMain_SelectedGridItemChanged(sender As Object, e As SelectedGridItemChangedEventArgs) Handles pgMain.SelectedGridItemChanged
-        tbItemName.Text = "Item name: " & pgMain.SelectedGridItem.PropertyDescriptor.Name
-    End Sub
-
-    Private Sub tsmiActions_LoadPWI4Data_Click(sender As Object, e As EventArgs) Handles tsmiActions_LoadPWI4Data.Click
-        LoadPWI4Data()
+        Try
+            tbItemName.Text = "Item name: " & pgMain.SelectedGridItem.PropertyDescriptor.Name
+        Catch ex As Exception
+            tbItemName.Text = "Item name: ???"
+        End Try
     End Sub
 
     Private Sub LoadPWI4Data()
@@ -1268,6 +1277,14 @@ Partial Public Class MainForm
             M.Meta.SiteHeight = CType(M.DB.PWI4.GetValue(ePWI4.site__height_meters), String)
             RefreshProperties()
         End If
+    End Sub
+
+    Private Sub tsmiActions_Mount_10Micron_Click(sender As Object, e As EventArgs) Handles tsmiActions_Mount_10Micron.Click
+        Load10MicronData()
+    End Sub
+
+    Private Sub tsmiActions_Mount_PWI4_Click(sender As Object, e As EventArgs) Handles tsmiActions_Mount_PWI4.Click
+        LoadPWI4Data()
     End Sub
 
 End Class
