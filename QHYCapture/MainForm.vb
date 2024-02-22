@@ -7,6 +7,8 @@ Imports DocumentFormat.OpenXml.Bibliography
 
 Partial Public Class MainForm
 
+    Private Const BitsPerByte As Integer = 8
+
     'Reflect database
     Public ReadOnly DB_config As New cReflectHelp(M.Config)
     'Reflect meta database
@@ -70,9 +72,8 @@ Partial Public Class MainForm
     '''<summary>Command for a QHY capture run.</summary>
     Public Sub QHYCapture(ByVal CloseAtEnd As Boolean)
 
-        Const BitsPerByte As Integer = 8
-        Dim EffArea As sRect_UInt
-        Dim OverArea As sRect_UInt
+        Dim EffectiveArea As sRect_UInt
+        Dim OverScanArea_invalid As sRect_UInt              'current DLL return 0:0:0:0
         Dim bpp As UInteger = 0
 
         'Set DLL log path
@@ -103,8 +104,8 @@ Partial Public Class MainForm
 
         'Get chip properties & SDK version
         QHY.QHY.GetQHYCCDChipInfo(M.DB.CamHandle, M.Meta.MyChip_Physical.Width, M.Meta.MyChip_Physical.Height, M.Meta.MyChip_Pixel.Width, M.Meta.MyChip_Pixel.Height, M.Meta.MyPixel_Size.Width, M.Meta.MyPixel_Size.Height, bpp)
-        QHY.QHY.GetQHYCCDEffectiveArea(M.DB.CamHandle, EffArea.X, EffArea.Y, EffArea.Width, EffArea.Height)
-        QHY.QHY.GetQHYCCDOverScanArea(M.DB.CamHandle, OverArea.X, OverArea.Y, OverArea.Width, OverArea.Height)
+        QHY.QHY.GetQHYCCDEffectiveArea(M.DB.CamHandle, EffectiveArea.X, EffectiveArea.Y, EffectiveArea.Width, EffectiveArea.Height)
+        QHY.QHY.GetQHYCCDOverScanArea(M.DB.CamHandle, OverScanArea_invalid.X, OverScanArea_invalid.Y, OverScanArea_invalid.Width, OverScanArea_invalid.Height)
         QHY.QHY.GetQHYCCDSDKVersion(M.Meta.SDKVersion(0), M.Meta.SDKVersion(1), M.Meta.SDKVersion(2), M.Meta.SDKVersion(3))
         M.DB.Stopper.Stamp("Get chip properties")
 
@@ -123,11 +124,11 @@ Partial Public Class MainForm
             Log("  Image W x H  :" & M.Meta.MyChip_Pixel.Width.ValRegIndep & " x " & M.Meta.MyChip_Pixel.Height.ValRegIndep & " pixel")
             Log("  Pixel W x H  :" & M.Meta.MyPixel_Size.Width.ValRegIndep & " x " & M.Meta.MyPixel_Size.Height.ValRegIndep & " um")
             Log("CCD Effective Area:")
-            Log("  Start X : Y  :" & EffArea.X.ValRegIndep & ":" & EffArea.Y.ValRegIndep)
-            Log("  Size  W x H  :" & EffArea.Width.ValRegIndep & " x " & EffArea.Height.ValRegIndep)
+            Log("  Start X : Y  :" & EffectiveArea.X.ValRegIndep & ":" & EffectiveArea.Y.ValRegIndep)
+            Log("  Size  W x H  :" & EffectiveArea.Width.ValRegIndep & " x " & EffectiveArea.Height.ValRegIndep)
             Log("CCD Overscan Area:")
-            Log("  Start X : Y  :" & OverArea.X.ValRegIndep & ":" & OverArea.Y.ValRegIndep)
-            Log("  Size  W x H  :" & OverArea.Width.ValRegIndep & " x " & OverArea.Height.ValRegIndep)
+            Log("  Start X : Y  :" & OverScanArea_invalid.X.ValRegIndep & ":" & OverScanArea_invalid.Y.ValRegIndep)
+            Log("  Size  W x H  :" & OverScanArea_invalid.Width.ValRegIndep & " x " & OverScanArea_invalid.Height.ValRegIndep)
             Log("==============================================================================")
             'Log all control values
             Log("ControlValues:")
@@ -223,13 +224,9 @@ Partial Public Class MainForm
             'Remove overscan - do NOT run if an ROI is set
             Dim SingleStatCalc As New AstroNET.Statistics(M.DB.IPP)
             SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data = ChangeAspectIPP(M.DB.IPP, CamRawBuffer, CInt(Captured_W), CInt(Captured_H))      'only convert flat byte buffer to UInt16 matrix data
-            If M.Config.RemoveOverscan = True And M.Config.ROISet = False Then
-                Dim NoOverscan(CInt(EffArea.Width - 1), CInt(EffArea.Height - 1)) As UInt16
-                Dim Status_GetROI As cIntelIPP.IppStatus = M.DB.IPP.Copy(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, NoOverscan, CInt(EffArea.X), CInt(EffArea.Y), CInt(EffArea.Width), CInt(EffArea.Height))
-                Dim Status_SetData As cIntelIPP.IppStatus = M.DB.IPP.Copy(NoOverscan, SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, 0, 0, NoOverscan.GetUpperBound(0) + 1, NoOverscan.GetUpperBound(1) + 1)
-                If Status_GetROI <> cIntelIPP.IppStatus.NoErr Or Status_SetData <> cIntelIPP.IppStatus.NoErr Then
-                    LogError("Overscan removal FAILED")
-                End If
+            If M.Config.EffectiveAreaOnly = True And M.Config.ROISet = False Then
+                Dim ReturnCode As cIntelIPP.IppStatus = GetEffectiveArea(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, EffectiveArea)
+                If ReturnCode <> cIntelIPP.IppStatus.NoErr Then LogError("Overscan removal FAILED")
             End If
             CaptureInfo_running.NAXIS1 = SingleStatCalc.DataProcessor_UInt16.ImageData(0).NAXIS1
             CaptureInfo_running.NAXIS2 = SingleStatCalc.DataProcessor_UInt16.ImageData(0).NAXIS2
@@ -370,7 +367,15 @@ Partial Public Class MainForm
 
     End Sub
 
-    '''<summary></summary>
+    '''<summary>Remove overscan and dark fields and get only effective area.</summary>
+    Private Function GetEffectiveArea(ByRef FullFrame As UInt16(,), ByVal EffectiveArea As sRect_UInt) As cIntelIPP.IppStatus
+        Dim NoOverscan(CInt(EffectiveArea.Width - 1), CInt(EffectiveArea.Height - 1)) As UInt16
+        Dim Status_GetROI As cIntelIPP.IppStatus = M.DB.IPP.Copy(FullFrame, NoOverscan, CInt(EffectiveArea.X), CInt(EffectiveArea.Y), CInt(EffectiveArea.Width), CInt(EffectiveArea.Height))
+        If Status_GetROI <> cIntelIPP.IppStatus.NoErr Then Return Status_GetROI
+        Return M.DB.IPP.Copy(NoOverscan, FullFrame, 0, 0, NoOverscan.GetUpperBound(0) + 1, NoOverscan.GetUpperBound(1) + 1)
+    End Function
+
+
     '''<returns>TRUE if camera hardware is stopped and exit can be performed.</returns>
     Private Function StopNow(ByVal Force As Boolean) As Boolean
         If M.DB.StopFlag Or Force = True Then

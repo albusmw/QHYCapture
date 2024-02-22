@@ -342,13 +342,13 @@ Public Class cConfig
     <ComponentModel.DefaultValue(50.0)>
     Public Property Offset As Double = 50.0
 
-    '''<summary>Remove the overscan area in the stored data and file</summary>
+    '''<summary>Get only the effective area in the stored data and file.</summary>
     <ComponentModel.Category(Cat2_Exposure)>
-    <ComponentModel.DisplayName(Indent & "6. Remove overscan")>
-    <ComponentModel.Description("Remove the overscan area in the stored data and file")>
+    <ComponentModel.DisplayName(Indent & "6. Effective area only")>
+    <ComponentModel.Description("Get only the effective area in the stored data and file")>
     <ComponentModel.TypeConverter(GetType(ComponentModelEx.BooleanPropertyConverter_YesNo))>
     <ComponentModel.DefaultValue(True)>
-    Public Property RemoveOverscan As Boolean = True
+    Public Property EffectiveAreaOnly As Boolean = True
 
     '''<summary>Write all exposure data to the camera on each exposure start (takes some ms ...)</summary>
     <ComponentModel.Category(Cat2_Exposure)>
