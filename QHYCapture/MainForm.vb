@@ -225,6 +225,8 @@ Partial Public Class MainForm
             Dim SingleStatCalc As New AstroNET.Statistics(M.DB.IPP)
             SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data = ChangeAspectIPP(M.DB.IPP, CamRawBuffer, CInt(Captured_W), CInt(Captured_H))      'only convert flat byte buffer to UInt16 matrix data
             If M.Config.EffectiveAreaOnly = True And M.Config.ROISet = False Then
+                'Effective area Y coordinates must be shifted ...
+                EffectiveArea.Y = 0
                 Dim ReturnCode As cIntelIPP.IppStatus = GetEffectiveArea(SingleStatCalc.DataProcessor_UInt16.ImageData(0).Data, EffectiveArea)
                 If ReturnCode <> cIntelIPP.IppStatus.NoErr Then LogError("Overscan removal FAILED")
             End If
