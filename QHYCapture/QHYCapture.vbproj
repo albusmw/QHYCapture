@@ -46,6 +46,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>QHY600.ico</ApplicationIcon>
+    <SourceRevisionID>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionID>
   </PropertyGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -143,6 +144,9 @@
     </Compile>
     <Compile Include="..\..\src\atomics\ForHardware\QHY.vb">
       <Link>QHY.vb</Link>
+    </Compile>
+    <Compile Include="..\..\src\atomics\GetBuildDateTime.vb">
+      <Link>common\GetBuildDateTime.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\ImageProcessing.vb">
       <Link>common\ImageProcessing.vb</Link>
@@ -348,6 +352,7 @@
       <Link>Everything64.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="BuildDate.txt" />
     <Content Include="FITSKeywords_FromGrep.txt" />
     <Content Include="QHY600.ico" />
     <Content Include="..\BiasCapture.qhycapture.xml">
@@ -381,12 +386,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>echo %25date%25 %25time%25 &gt; "$(ProjectDir)\BuildDate.txt"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>del "$(ProjectDir)\BuildDate.txt"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

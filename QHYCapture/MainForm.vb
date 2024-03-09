@@ -610,17 +610,8 @@ Partial Public Class MainForm
 
         tsmiNewGUID_Click(Nothing, Nothing)
 
-        'Get build data
-        Dim BuildDate As String = String.Empty
-        Dim AllResources As String() = System.Reflection.Assembly.GetExecutingAssembly.GetManifestResourceNames
-        For Each Entry As String In AllResources
-            If Entry.EndsWith(".BuildDate.txt") Then
-                BuildDate = " (Build of " & (New System.IO.StreamReader(System.Reflection.Assembly.GetExecutingAssembly.GetManifestResourceStream(Entry)).ReadToEnd.Trim).Replace(",", ".") & ")"
-                Exit For
-            End If
-        Next Entry
-
-        Me.Text &= BuildDate
+        Dim GetBuildDateTime As New cGetBuildDateTime
+        Me.Text = GetBuildDateTime.GetMainformTitle
 
         'Load IPP
         cFITSWriter.UseIPPForWriting = False
