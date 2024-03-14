@@ -73,6 +73,12 @@
     <Compile Include="..\..\MyLib\COMInterop.vb">
       <Link>MyLib\COMInterop.vb</Link>
     </Compile>
+    <Compile Include="..\..\MyLib\cUDP_IO.vb">
+      <Link>MyLib\cUDP_IO.vb</Link>
+    </Compile>
+    <Compile Include="..\..\MyLib\cZEDGraph.vb">
+      <Link>MyLib\cZEDGraph.vb</Link>
+    </Compile>
     <Compile Include="..\..\MyLib\Download.vb">
       <Link>MyLib\Download.vb</Link>
     </Compile>

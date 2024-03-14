@@ -655,7 +655,7 @@ Partial Public Class MainForm
         End If
 
         'Other objects
-        M.Report.Plotter = New cZEDGraphService(zgcMain)
+        M.Report.Plotter = New cZEDGraph(zgcMain)
         RefreshProperties()
 
         'Set toolstrip icons
@@ -920,10 +920,6 @@ Partial Public Class MainForm
     Private Function TabFormat(ByVal Text As Integer) As String
         Return Text.ValRegIndep.PadLeft(10)
     End Function
-
-    Private Sub FITSWriterWithKeywordsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        cFITSWriter.WriteTestFile_Float32("C\TEMP\FITSHeader.fits")
-    End Sub
 
     Private Sub tStatusUpdate_Tick(sender As Object, e As EventArgs) Handles tStatusUpdate.Tick
         tsslMemory.Text = "Memory " & Format(GetMyMemSize, "0.0") & " MByte"
