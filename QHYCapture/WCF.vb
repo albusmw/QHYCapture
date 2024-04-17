@@ -5,36 +5,36 @@ Option Strict On
 'Reference: Assembly System.ServiceModel.Web
 
 Public Class IDB_Properties
-    Public Const ResponseFormat As ServiceModel.Web.WebMessageFormat = ServiceModel.Web.WebMessageFormat.Xml
-    Public Const BodyStyle As ServiceModel.Web.WebMessageBodyStyle = ServiceModel.Web.WebMessageBodyStyle.Wrapped
+    'Public Const ResponseFormat As System.ServiceModel.Web.WebMessageFormat = System.ServiceModel.Web.WebMessageFormat.Xml
+    'Public Const BodyStyle As System.ServiceModel.Web.WebMessageBodyStyle = System.ServiceModel.Web.WebMessageBodyStyle.Wrapped
 End Class
 
 '''<summary>Web service interfaces.</summary>
-<ServiceModel.ServiceContract>
+<System.ServiceModel.ServiceContract>
 Public Interface IDB
 
     '''<summary>Get a list of all available parameters.</summary>
-    <ServiceModel.Web.WebGet(UriTemplate:="GetParameterList", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
+    '<System.ServiceModel.Web.WebGet(UriTemplate:="GetParameterList", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
     <ServiceModel.OperationContract()>
     Function GetParameterList() As List(Of String)
 
     '''<summary>Get value of a certain parameter.</summary>
-    <ServiceModel.Web.WebGet(UriTemplate:="GetParameter/{Key}", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
+    '<System.ServiceModel.Web.WebGet(UriTemplate:="GetParameter/{Key}", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
     <ServiceModel.OperationContract()>
     Function GetParameter(Key As String) As Object
 
     '''<summary>Set value of a certain parameter.</summary>
-    <ServiceModel.Web.WebGet(UriTemplate:="SetParameter/{Key}={Value}", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
+    '<System.ServiceModel.Web.WebGet(UriTemplate:="SetParameter/{Key}={Value}", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
     <ServiceModel.OperationContract()>
     Function SetParameter(Key As String, Value As String) As Object
 
     '''<summary>Run an exposure.</summary>
-    <ServiceModel.Web.WebGet(UriTemplate:="RunExposure", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
+    '<System.ServiceModel.Web.WebGet(UriTemplate:="RunExposure", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
     <ServiceModel.OperationContract()>
     Function RunExposure() As Object
 
     '''<summary>Get the software log.</summary>
-    <ServiceModel.Web.WebGet(UriTemplate:="GetLog", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
+    '<System.ServiceModel.Web.WebGet(UriTemplate:="GetLog", ResponseFormat:=IDB_Properties.ResponseFormat, BodyStyle:=IDB_Properties.BodyStyle)>
     <ServiceModel.OperationContract()>
     Function GetLog() As String()
 

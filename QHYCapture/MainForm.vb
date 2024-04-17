@@ -1,9 +1,5 @@
 ﻿Option Explicit On
 Option Strict On
-Imports System.IO
-Imports System.Security.Cryptography
-Imports System.Windows.Forms
-Imports DocumentFormat.OpenXml.Bibliography
 
 Partial Public Class MainForm
 
@@ -21,7 +17,7 @@ Partial Public Class MainForm
     '''<summary>Indicate that a property was changed and parameters need to be updated in the camera.</summary>
     Private PropertyChanged As Boolean = False
     '''<summary>RTF report generator.</summary>
-    Private RTFGen As New Ato.cRTFGenerator
+    Private RTFGen As New cRTFGen
     '''<summary>Accumulated statistics.</summary>
     Private LoopStat As AstroNET.Statistics.sStatistics
     '''<summary>Monitor for the MIDI events.</summary>
@@ -31,8 +27,8 @@ Partial Public Class MainForm
 
     Private WithEvents QHYFunction As New cQHYFunction
 
-    Private Const OneCapture As UInt32 = CType(1, UInt32)
-    Private Const FirstCapture As UInt32 = CType(1, UInt32)
+    Private Const OneCapture As System.UInt32 = CType(1, System.UInt32)
+    Private Const FirstCapture As System.UInt32 = CType(1, System.UInt32)
 
     '''<summary>Class to configure the temperature control of the camera.</summary>
     Private Class cTempConfig
@@ -370,8 +366,8 @@ Partial Public Class MainForm
     End Sub
 
     '''<summary>Remove overscan and dark fields and get only effective area.</summary>
-    Private Function GetEffectiveArea(ByRef FullFrame As UInt16(,), ByVal EffectiveArea As sRect_UInt) As cIntelIPP.IppStatus
-        Dim NoOverscan(CInt(EffectiveArea.Width - 1), CInt(EffectiveArea.Height - 1)) As UInt16
+    Private Function GetEffectiveArea(ByRef FullFrame As System.UInt16(,), ByVal EffectiveArea As sRect_UInt) As cIntelIPP.IppStatus
+        Dim NoOverscan(CInt(EffectiveArea.Width - 1), CInt(EffectiveArea.Height - 1)) As System.UInt16
         Dim Status_GetROI As cIntelIPP.IppStatus = M.DB.IPP.Copy(FullFrame, NoOverscan, CInt(EffectiveArea.X), CInt(EffectiveArea.Y), CInt(EffectiveArea.Width), CInt(EffectiveArea.Height))
         If Status_GetROI <> cIntelIPP.IppStatus.NoErr Then Return Status_GetROI
         Return M.DB.IPP.Copy(NoOverscan, FullFrame, 0, 0, NoOverscan.GetUpperBound(0) + 1, NoOverscan.GetUpperBound(1) + 1)
@@ -643,12 +639,12 @@ Partial Public Class MainForm
         DB_ServiceContract = New cDB_ServiceContract(M.DB, M.Meta)
         If M.Meta.WebInterfacePort <> "0" Then
             Dim WebServiceAdr As String = "http://localhost:" & M.Meta.WebInterfacePort & "/"
-            M.DB.SetupWCF = New ServiceModel.Web.WebServiceHost(GetType(cDB_ServiceContract), New Uri(WebServiceAdr))
-            M.DB.serviceBehavior = M.DB.SetupWCF.Description.Behaviors.Find(Of ServiceModel.Description.ServiceDebugBehavior)
-            M.DB.serviceBehavior.HttpHelpPageEnabled = True
-            M.DB.serviceBehavior.IncludeExceptionDetailInFaults = True
+            'M.DB.SetupWCF = New ServiceModel.Web.WebServiceHost(GetType(cDB_ServiceContract), New Uri(WebServiceAdr))
+            'M.DB.serviceBehavior = M.DB.SetupWCF.Description.Behaviors.Find(Of ServiceModel.Description.ServiceDebugBehavior)
+            'M.DB.serviceBehavior.HttpHelpPageEnabled = True
+            'M.DB.serviceBehavior.IncludeExceptionDetailInFaults = True
             Try
-                M.DB.SetupWCF.Open()
+                ' M.DB.SetupWCF.Open()
             Catch ex As Exception
                 Log("Error creating WCF interface: <" & ex.Message & ">")
             End Try
@@ -990,7 +986,7 @@ Partial Public Class MainForm
 
     Private Sub tsmiPreset_SkipCooling_Click(sender As Object, e As EventArgs) Handles tsmiPreset_SkipCooling.Click
         'Build the settings XML in memory
-        Dim MemStream As New MemoryStream
+        Dim MemStream As New System.IO.MemoryStream
         Dim SettingDoc As New System.Xml.XmlDocument
         Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
             XMLContent.WriteStartDocument()
@@ -1030,7 +1026,7 @@ Partial Public Class MainForm
         'Get all qhyccd.dll version and display them
         Dim AllDLLs As List(Of String) = Everything.GetSearchResult("qhyccd.dll")
         Dim DifferentDLLs As New Dictionary(Of String, String)
-        Dim RTFScanReport As New Ato.cRTFGenerator : RTFScanReport.RTFInit("Courier New", 8)
+        Dim RTFScanReport As New cRTFGen : RTFScanReport.RTFInit("Courier New", 8)
         For Each DLLFile As String In AllDLLs
             Dim Hash As String = FileHash.MD5(DLLFile)
             If String.IsNullOrEmpty(Hash) = False Then
@@ -1055,7 +1051,7 @@ Partial Public Class MainForm
 
     Private Sub tsmiPreset_DevTestMWeiss_Click(sender As Object, e As EventArgs) Handles tsmiPreset_DevTestMWeiss.Click
         ''Build the settings XML in memory
-        Dim MemStream As New MemoryStream
+        Dim MemStream As New System.IO.MemoryStream
         Dim SettingDoc As New System.Xml.XmlDocument
         Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
             XMLContent.WriteStartDocument()
@@ -1206,7 +1202,7 @@ Partial Public Class MainForm
 
     Private Sub tsmiPreset_DSC_Click(sender As Object, e As EventArgs) Handles tsmiPreset_DSC.Click
         'Build the settings XML in memory
-        Dim MemStream As New MemoryStream
+        Dim MemStream As New System.IO.MemoryStream
         Dim SettingDoc As New System.Xml.XmlDocument
         Using XMLContent As System.Xml.XmlWriter = SettingDoc.CreateNavigator.AppendChild
             With XMLContent

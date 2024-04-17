@@ -158,8 +158,8 @@ Public Class cDB
     Public Log_Generic As New Text.StringBuilder
 
     'WCF
-    Public SetupWCF As ServiceModel.Web.WebServiceHost
-    Public serviceBehavior As ServiceModel.Description.ServiceDebugBehavior
+    'Public SetupWCF As System.ServiceModel.Web.WebServiceHost
+    'Public serviceBehavior As ServiceModel.Description.ServiceDebugBehavior
 
 End Class
 

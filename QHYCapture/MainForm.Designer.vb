@@ -22,846 +22,852 @@ Partial Class MainForm
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
+        components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
-        Me.pgMain = New System.Windows.Forms.PropertyGrid()
-        Me.ssMain = New System.Windows.Forms.StatusStrip()
-        Me.tsslLED_init = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslLED_config = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslLED_cooling = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslLED_capture = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslLED_reading = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tspbProgress = New System.Windows.Forms.ToolStripProgressBar()
-        Me.tsslProgress = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslSplit1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslMain = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslSplit2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslTemperature = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslMemory = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tsslETA = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.msMain = New System.Windows.Forms.MenuStrip()
-        Me.tsmiFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_LoadSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_RunSequence = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmiFile_SaveSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_SaveAllXMLParameters = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmiFile_ExploreHere = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_ExploreCampaign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_OpenLastFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmiFile_CreateXML = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_TestWebInterface = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiFile_StoreEXCELStat = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmiFile_Exit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CaptureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SeriesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AllReadoutModesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExposureTimeSeriesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GainVariationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_StandardCapture = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmiPreset_FastLive = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_CenterROI = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_SaveTransmission = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_SkipCooling = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_DevTestMWeiss = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_NoOverhead = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiPreset_DSC = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiActions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiActions_ResetLoopStat = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiNewGUID = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiClearLog = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmiActions_Mount = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiActions_Mount_10Micron = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiActions_Mount_PWI4 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiActions_AllCoolersOff = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiTools = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiTools_AllQHYDLLs = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiTools_Log = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiTools_Log_Store = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiTools_Log_Clear = New System.Windows.Forms.ToolStripMenuItem()
-        Me.zgcMain = New ZedGraph.ZedGraphControl()
-        Me.tSetTemp = New System.Windows.Forms.Timer(Me.components)
-        Me.tsMain = New System.Windows.Forms.ToolStrip()
-        Me.tsbCapture = New System.Windows.Forms.ToolStripButton()
-        Me.tsbStopCapture = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsbCooling = New System.Windows.Forms.ToolStripButton()
-        Me.ilMain = New System.Windows.Forms.ImageList(Me.components)
-        Me.tbLogOutput = New System.Windows.Forms.TextBox()
-        Me.tcMain = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.pgMeta = New System.Windows.Forms.PropertyGrid()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.pgPlotAndText = New System.Windows.Forms.PropertyGrid()
-        Me.scMain = New System.Windows.Forms.SplitContainer()
-        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.tbItemName = New System.Windows.Forms.TextBox()
-        Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
-        Me.rtbStatistics = New System.Windows.Forms.RichTextBox()
-        Me.sfdMain = New System.Windows.Forms.SaveFileDialog()
-        Me.ofdMain = New System.Windows.Forms.OpenFileDialog()
-        Me.tStatusUpdate = New System.Windows.Forms.Timer(Me.components)
-        Me.ssMain.SuspendLayout()
-        Me.msMain.SuspendLayout()
-        Me.tsMain.SuspendLayout()
-        Me.tcMain.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
-        Me.TabPage3.SuspendLayout()
-        CType(Me.scMain, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.scMain.Panel1.SuspendLayout()
-        Me.scMain.Panel2.SuspendLayout()
-        Me.scMain.SuspendLayout()
-        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer2.Panel1.SuspendLayout()
-        Me.SplitContainer2.Panel2.SuspendLayout()
-        Me.SplitContainer2.SuspendLayout()
-        CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer3.Panel1.SuspendLayout()
-        Me.SplitContainer3.Panel2.SuspendLayout()
-        Me.SplitContainer3.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'pgMain
-        '
-        Me.pgMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pgMain.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.pgMain.Location = New System.Drawing.Point(3, 3)
-        Me.pgMain.Name = "pgMain"
-        Me.pgMain.Size = New System.Drawing.Size(481, 512)
-        Me.pgMain.TabIndex = 0
-        Me.pgMain.ToolbarVisible = False
-        '
-        'ssMain
-        '
-        Me.ssMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsslLED_init, Me.tsslLED_config, Me.tsslLED_cooling, Me.tsslLED_capture, Me.tsslLED_reading, Me.tspbProgress, Me.tsslProgress, Me.tsslSplit1, Me.tsslMain, Me.tsslSplit2, Me.tsslTemperature, Me.tsslMemory, Me.ToolStripStatusLabel1, Me.tsslETA})
-        Me.ssMain.Location = New System.Drawing.Point(0, 793)
-        Me.ssMain.Name = "ssMain"
-        Me.ssMain.Size = New System.Drawing.Size(1273, 24)
-        Me.ssMain.TabIndex = 1
-        Me.ssMain.Text = "StatusStrip1"
-        '
-        'tsslLED_init
-        '
-        Me.tsslLED_init.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.tsslLED_init.Enabled = False
-        Me.tsslLED_init.Name = "tsslLED_init"
-        Me.tsslLED_init.Size = New System.Drawing.Size(28, 19)
-        Me.tsslLED_init.Text = "Init"
-        '
-        'tsslLED_config
-        '
-        Me.tsslLED_config.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.tsslLED_config.Enabled = False
-        Me.tsslLED_config.Name = "tsslLED_config"
-        Me.tsslLED_config.Size = New System.Drawing.Size(47, 19)
-        Me.tsslLED_config.Text = "Config"
-        '
-        'tsslLED_cooling
-        '
-        Me.tsslLED_cooling.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.tsslLED_cooling.Enabled = False
-        Me.tsslLED_cooling.Name = "tsslLED_cooling"
-        Me.tsslLED_cooling.Size = New System.Drawing.Size(53, 19)
-        Me.tsslLED_cooling.Text = "Cooling"
-        '
-        'tsslLED_capture
-        '
-        Me.tsslLED_capture.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.tsslLED_capture.Enabled = False
-        Me.tsslLED_capture.Name = "tsslLED_capture"
-        Me.tsslLED_capture.Size = New System.Drawing.Size(53, 19)
-        Me.tsslLED_capture.Text = "Capture"
-        '
-        'tsslLED_reading
-        '
-        Me.tsslLED_reading.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.tsslLED_reading.Enabled = False
-        Me.tsslLED_reading.Name = "tsslLED_reading"
-        Me.tsslLED_reading.Size = New System.Drawing.Size(63, 19)
-        Me.tsslLED_reading.Text = "Read data"
-        '
-        'tspbProgress
-        '
-        Me.tspbProgress.ForeColor = System.Drawing.Color.Lime
-        Me.tspbProgress.Name = "tspbProgress"
-        Me.tspbProgress.Size = New System.Drawing.Size(300, 18)
-        Me.tspbProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous
-        '
-        'tsslProgress
-        '
-        Me.tsslProgress.Name = "tsslProgress"
-        Me.tsslProgress.Size = New System.Drawing.Size(156, 19)
-        Me.tsslProgress.Text = "-- not exposing right now --"
-        '
-        'tsslSplit1
-        '
-        Me.tsslSplit1.Name = "tsslSplit1"
-        Me.tsslSplit1.Size = New System.Drawing.Size(10, 19)
-        Me.tsslSplit1.Text = "|"
-        '
-        'tsslMain
-        '
-        Me.tsslMain.Name = "tsslMain"
-        Me.tsslMain.Size = New System.Drawing.Size(50, 19)
-        Me.tsslMain.Text = "--IDLE--"
-        '
-        'tsslSplit2
-        '
-        Me.tsslSplit2.Name = "tsslSplit2"
-        Me.tsslSplit2.Size = New System.Drawing.Size(10, 19)
-        Me.tsslSplit2.Text = "|"
-        '
-        'tsslTemperature
-        '
-        Me.tsslTemperature.Name = "tsslTemperature"
-        Me.tsslTemperature.Size = New System.Drawing.Size(58, 19)
-        Me.tsslTemperature.Text = "T = ??? °C"
-        '
-        'tsslMemory
-        '
-        Me.tsslMemory.Name = "tsslMemory"
-        Me.tsslMemory.Size = New System.Drawing.Size(73, 19)
-        Me.tsslMemory.Text = "Memory: ???"
-        '
-        'ToolStripStatusLabel1
-        '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(10, 19)
-        Me.ToolStripStatusLabel1.Text = "|"
-        '
-        'tsslETA
-        '
-        Me.tsslETA.Name = "tsslETA"
-        Me.tsslETA.Size = New System.Drawing.Size(47, 19)
-        Me.tsslETA.Text = "ETA: ???"
-        '
-        'msMain
-        '
-        Me.msMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile, Me.CaptureToolStripMenuItem, Me.tsmiPreset, Me.tsmiActions, Me.tsmiTools})
-        Me.msMain.Location = New System.Drawing.Point(0, 0)
-        Me.msMain.Name = "msMain"
-        Me.msMain.Size = New System.Drawing.Size(1273, 24)
-        Me.msMain.TabIndex = 2
-        Me.msMain.Text = "MenuStrip1"
-        '
-        'tsmiFile
-        '
-        Me.tsmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile_LoadSettings, Me.tsmiFile_RunSequence, Me.ToolStripMenuItem6, Me.tsmiFile_SaveSettings, Me.tsmiFile_SaveAllXMLParameters, Me.ToolStripMenuItem4, Me.tsmiFile_ExploreHere, Me.tsmiFile_ExploreCampaign, Me.tsmiFile_OpenLastFile, Me.ToolStripMenuItem1, Me.tsmiFile_CreateXML, Me.tsmiFile_TestWebInterface, Me.tsmiFile_StoreEXCELStat, Me.ToolStripMenuItem5, Me.tsmiFile_Exit})
-        Me.tsmiFile.Name = "tsmiFile"
-        Me.tsmiFile.Size = New System.Drawing.Size(37, 20)
-        Me.tsmiFile.Text = "File"
-        '
-        'tsmiFile_LoadSettings
-        '
-        Me.tsmiFile_LoadSettings.Name = "tsmiFile_LoadSettings"
-        Me.tsmiFile_LoadSettings.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.tsmiFile_LoadSettings.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_LoadSettings.Tag = "Load"
-        Me.tsmiFile_LoadSettings.Text = "Load XML settings (does not expose)"
-        '
-        'tsmiFile_RunSequence
-        '
-        Me.tsmiFile_RunSequence.Name = "tsmiFile_RunSequence"
-        Me.tsmiFile_RunSequence.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_RunSequence.Tag = "Run"
-        Me.tsmiFile_RunSequence.Text = "Run XML settings (does expose)"
-        '
-        'ToolStripMenuItem6
-        '
-        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(308, 6)
-        '
-        'tsmiFile_SaveSettings
-        '
-        Me.tsmiFile_SaveSettings.Name = "tsmiFile_SaveSettings"
-        Me.tsmiFile_SaveSettings.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.tsmiFile_SaveSettings.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_SaveSettings.Text = "Save settings"
-        '
-        'tsmiFile_SaveAllXMLParameters
-        '
-        Me.tsmiFile_SaveAllXMLParameters.Name = "tsmiFile_SaveAllXMLParameters"
-        Me.tsmiFile_SaveAllXMLParameters.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters (for reference)"
-        '
-        'ToolStripMenuItem4
-        '
-        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(308, 6)
-        '
-        'tsmiFile_ExploreHere
-        '
-        Me.tsmiFile_ExploreHere.Name = "tsmiFile_ExploreHere"
-        Me.tsmiFile_ExploreHere.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_ExploreHere.Text = "Open - EXE path"
-        '
-        'tsmiFile_ExploreCampaign
-        '
-        Me.tsmiFile_ExploreCampaign.Name = "tsmiFile_ExploreCampaign"
-        Me.tsmiFile_ExploreCampaign.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.tsmiFile_ExploreCampaign.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_ExploreCampaign.Text = "Open - Current campaign folder"
-        '
-        'tsmiFile_OpenLastFile
-        '
-        Me.tsmiFile_OpenLastFile.Name = "tsmiFile_OpenLastFile"
-        Me.tsmiFile_OpenLastFile.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_OpenLastFile.Text = "Open - Last stored file"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(308, 6)
-        '
-        'tsmiFile_CreateXML
-        '
-        Me.tsmiFile_CreateXML.Name = "tsmiFile_CreateXML"
-        Me.tsmiFile_CreateXML.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_CreateXML.Text = "Create XML sequence (Inline VB)"
-        '
-        'tsmiFile_TestWebInterface
-        '
-        Me.tsmiFile_TestWebInterface.Name = "tsmiFile_TestWebInterface"
-        Me.tsmiFile_TestWebInterface.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_TestWebInterface.Text = "Test web interface"
-        '
-        'tsmiFile_StoreEXCELStat
-        '
-        Me.tsmiFile_StoreEXCELStat.Name = "tsmiFile_StoreEXCELStat"
-        Me.tsmiFile_StoreEXCELStat.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_StoreEXCELStat.Text = "Store statistics as EXCEL file"
-        '
-        'ToolStripMenuItem5
-        '
-        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(308, 6)
-        '
-        'tsmiFile_Exit
-        '
-        Me.tsmiFile_Exit.Name = "tsmiFile_Exit"
-        Me.tsmiFile_Exit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.tsmiFile_Exit.Size = New System.Drawing.Size(311, 22)
-        Me.tsmiFile_Exit.Text = "Exit"
-        '
-        'CaptureToolStripMenuItem
-        '
-        Me.CaptureToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SeriesToolStripMenuItem})
-        Me.CaptureToolStripMenuItem.Name = "CaptureToolStripMenuItem"
-        Me.CaptureToolStripMenuItem.Size = New System.Drawing.Size(61, 20)
-        Me.CaptureToolStripMenuItem.Text = "Capture"
-        '
-        'SeriesToolStripMenuItem
-        '
-        Me.SeriesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AllReadoutModesToolStripMenuItem, Me.ExposureTimeSeriesToolStripMenuItem, Me.GainVariationToolStripMenuItem})
-        Me.SeriesToolStripMenuItem.Name = "SeriesToolStripMenuItem"
-        Me.SeriesToolStripMenuItem.Size = New System.Drawing.Size(104, 22)
-        Me.SeriesToolStripMenuItem.Text = "Series"
-        '
-        'AllReadoutModesToolStripMenuItem
-        '
-        Me.AllReadoutModesToolStripMenuItem.Name = "AllReadoutModesToolStripMenuItem"
-        Me.AllReadoutModesToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
-        Me.AllReadoutModesToolStripMenuItem.Text = "All read-out modes"
-        '
-        'ExposureTimeSeriesToolStripMenuItem
-        '
-        Me.ExposureTimeSeriesToolStripMenuItem.Name = "ExposureTimeSeriesToolStripMenuItem"
-        Me.ExposureTimeSeriesToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
-        Me.ExposureTimeSeriesToolStripMenuItem.Text = "Exposure time series"
-        '
-        'GainVariationToolStripMenuItem
-        '
-        Me.GainVariationToolStripMenuItem.Name = "GainVariationToolStripMenuItem"
-        Me.GainVariationToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
-        Me.GainVariationToolStripMenuItem.Text = "Gain variation"
-        '
-        'tsmiPreset
-        '
-        Me.tsmiPreset.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiPreset_StandardCapture, Me.ToolStripMenuItem3, Me.tsmiPreset_FastLive, Me.tsmiPreset_CenterROI, Me.tsmiPreset_SaveTransmission, Me.tsmiPreset_SkipCooling, Me.tsmiPreset_DevTestMWeiss, Me.tsmiPreset_NoOverhead, Me.tsmiPreset_DSC})
-        Me.tsmiPreset.Name = "tsmiPreset"
-        Me.tsmiPreset.Size = New System.Drawing.Size(56, 20)
-        Me.tsmiPreset.Text = "Presets"
-        '
-        'tsmiPreset_StandardCapture
-        '
-        Me.tsmiPreset_StandardCapture.Name = "tsmiPreset_StandardCapture"
-        Me.tsmiPreset_StandardCapture.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_StandardCapture.Text = "Standard capture"
-        '
-        'ToolStripMenuItem3
-        '
-        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(234, 6)
-        '
-        'tsmiPreset_FastLive
-        '
-        Me.tsmiPreset_FastLive.Name = "tsmiPreset_FastLive"
-        Me.tsmiPreset_FastLive.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_FastLive.Text = "Fast live mode"
-        '
-        'tsmiPreset_CenterROI
-        '
-        Me.tsmiPreset_CenterROI.Name = "tsmiPreset_CenterROI"
-        Me.tsmiPreset_CenterROI.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_CenterROI.Text = "Center ROI"
-        '
-        'tsmiPreset_SaveTransmission
-        '
-        Me.tsmiPreset_SaveTransmission.Name = "tsmiPreset_SaveTransmission"
-        Me.tsmiPreset_SaveTransmission.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_SaveTransmission.Text = "Save transmission"
-        '
-        'tsmiPreset_SkipCooling
-        '
-        Me.tsmiPreset_SkipCooling.Name = "tsmiPreset_SkipCooling"
-        Me.tsmiPreset_SkipCooling.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_SkipCooling.Text = "Skip cooling (in-memory XML)"
-        '
-        'tsmiPreset_DevTestMWeiss
-        '
-        Me.tsmiPreset_DevTestMWeiss.Name = "tsmiPreset_DevTestMWeiss"
-        Me.tsmiPreset_DevTestMWeiss.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_DevTestMWeiss.Text = "Dev test (in-memory XML)"
-        '
-        'tsmiPreset_NoOverhead
-        '
-        Me.tsmiPreset_NoOverhead.Name = "tsmiPreset_NoOverhead"
-        Me.tsmiPreset_NoOverhead.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_NoOverhead.Text = "No overhead"
-        '
-        'tsmiPreset_DSC
-        '
-        Me.tsmiPreset_DSC.Name = "tsmiPreset_DSC"
-        Me.tsmiPreset_DSC.Size = New System.Drawing.Size(237, 22)
-        Me.tsmiPreset_DSC.Text = "DSC (in-memory XML)"
-        '
-        'tsmiActions
-        '
-        Me.tsmiActions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiActions_ResetLoopStat, Me.tsmiNewGUID, Me.tsmiClearLog, Me.ToolStripMenuItem2, Me.tsmiActions_Mount, Me.tsmiActions_AllCoolersOff})
-        Me.tsmiActions.Name = "tsmiActions"
-        Me.tsmiActions.Size = New System.Drawing.Size(59, 20)
-        Me.tsmiActions.Text = "Actions"
-        '
-        'tsmiActions_ResetLoopStat
-        '
-        Me.tsmiActions_ResetLoopStat.Name = "tsmiActions_ResetLoopStat"
-        Me.tsmiActions_ResetLoopStat.Size = New System.Drawing.Size(177, 22)
-        Me.tsmiActions_ResetLoopStat.Text = "Reset loop statistics"
-        '
-        'tsmiNewGUID
-        '
-        Me.tsmiNewGUID.Name = "tsmiNewGUID"
-        Me.tsmiNewGUID.Size = New System.Drawing.Size(177, 22)
-        Me.tsmiNewGUID.Text = "New GUID"
-        '
-        'tsmiClearLog
-        '
-        Me.tsmiClearLog.Name = "tsmiClearLog"
-        Me.tsmiClearLog.Size = New System.Drawing.Size(177, 22)
-        Me.tsmiClearLog.Text = "Clear log"
-        '
-        'ToolStripMenuItem2
-        '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(174, 6)
-        '
-        'tsmiActions_Mount
-        '
-        Me.tsmiActions_Mount.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiActions_Mount_10Micron, Me.tsmiActions_Mount_PWI4})
-        Me.tsmiActions_Mount.Name = "tsmiActions_Mount"
-        Me.tsmiActions_Mount.Size = New System.Drawing.Size(177, 22)
-        Me.tsmiActions_Mount.Text = "Load mount data ..."
-        '
-        'tsmiActions_Mount_10Micron
-        '
-        Me.tsmiActions_Mount_10Micron.Name = "tsmiActions_Mount_10Micron"
-        Me.tsmiActions_Mount_10Micron.Size = New System.Drawing.Size(179, 22)
-        Me.tsmiActions_Mount_10Micron.Text = "Load 10Micron data"
-        '
-        'tsmiActions_Mount_PWI4
-        '
-        Me.tsmiActions_Mount_PWI4.Name = "tsmiActions_Mount_PWI4"
-        Me.tsmiActions_Mount_PWI4.Size = New System.Drawing.Size(179, 22)
-        Me.tsmiActions_Mount_PWI4.Text = "Load PWI4 data"
-        '
-        'tsmiActions_AllCoolersOff
-        '
-        Me.tsmiActions_AllCoolersOff.Name = "tsmiActions_AllCoolersOff"
-        Me.tsmiActions_AllCoolersOff.Size = New System.Drawing.Size(177, 22)
-        Me.tsmiActions_AllCoolersOff.Text = "All coolers off"
-        '
-        'tsmiTools
-        '
-        Me.tsmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiTools_AllQHYDLLs, Me.tsmiTools_Log})
-        Me.tsmiTools.Name = "tsmiTools"
-        Me.tsmiTools.Size = New System.Drawing.Size(46, 20)
-        Me.tsmiTools.Text = "Tools"
-        '
-        'tsmiTools_AllQHYDLLs
-        '
-        Me.tsmiTools_AllQHYDLLs.Name = "tsmiTools_AllQHYDLLs"
-        Me.tsmiTools_AllQHYDLLs.Size = New System.Drawing.Size(163, 22)
-        Me.tsmiTools_AllQHYDLLs.Text = "Get all QHY DLLs"
-        '
-        'tsmiTools_Log
-        '
-        Me.tsmiTools_Log.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiTools_Log_Store, Me.tsmiTools_Log_Clear})
-        Me.tsmiTools_Log.Name = "tsmiTools_Log"
-        Me.tsmiTools_Log.Size = New System.Drawing.Size(163, 22)
-        Me.tsmiTools_Log.Text = "DLL Log"
-        '
-        'tsmiTools_Log_Store
-        '
-        Me.tsmiTools_Log_Store.Name = "tsmiTools_Log_Store"
-        Me.tsmiTools_Log_Store.Size = New System.Drawing.Size(121, 22)
-        Me.tsmiTools_Log_Store.Text = "Store log"
-        '
-        'tsmiTools_Log_Clear
-        '
-        Me.tsmiTools_Log_Clear.Name = "tsmiTools_Log_Clear"
-        Me.tsmiTools_Log_Clear.Size = New System.Drawing.Size(121, 22)
-        Me.tsmiTools_Log_Clear.Text = "Clear"
-        '
-        'zgcMain
-        '
-        Me.zgcMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.zgcMain.Location = New System.Drawing.Point(0, 0)
-        Me.zgcMain.Name = "zgcMain"
-        Me.zgcMain.ScrollGrace = 0R
-        Me.zgcMain.ScrollMaxX = 0R
-        Me.zgcMain.ScrollMaxY = 0R
-        Me.zgcMain.ScrollMaxY2 = 0R
-        Me.zgcMain.ScrollMinX = 0R
-        Me.zgcMain.ScrollMinY = 0R
-        Me.zgcMain.ScrollMinY2 = 0R
-        Me.zgcMain.Size = New System.Drawing.Size(774, 356)
-        Me.zgcMain.TabIndex = 0
-        '
-        'tSetTemp
-        '
-        Me.tSetTemp.Enabled = True
-        Me.tSetTemp.Interval = 500
-        '
-        'tsMain
-        '
-        Me.tsMain.BackColor = System.Drawing.SystemColors.Control
-        Me.tsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbCapture, Me.tsbStopCapture, Me.ToolStripSeparator1, Me.tsbCooling})
-        Me.tsMain.Location = New System.Drawing.Point(0, 24)
-        Me.tsMain.Name = "tsMain"
-        Me.tsMain.Size = New System.Drawing.Size(1273, 38)
-        Me.tsMain.TabIndex = 5
-        Me.tsMain.Text = "ToolStrip1"
-        '
-        'tsbCapture
-        '
-        Me.tsbCapture.Image = CType(resources.GetObject("tsbCapture.Image"), System.Drawing.Image)
-        Me.tsbCapture.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbCapture.Name = "tsbCapture"
-        Me.tsbCapture.Size = New System.Drawing.Size(53, 35)
-        Me.tsbCapture.Text = "Capture"
-        Me.tsbCapture.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'tsbStopCapture
-        '
-        Me.tsbStopCapture.Image = CType(resources.GetObject("tsbStopCapture.Image"), System.Drawing.Image)
-        Me.tsbStopCapture.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbStopCapture.Name = "tsbStopCapture"
-        Me.tsbStopCapture.Size = New System.Drawing.Size(35, 35)
-        Me.tsbStopCapture.Text = "Stop"
-        Me.tsbStopCapture.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 38)
-        '
-        'tsbCooling
-        '
-        Me.tsbCooling.Image = CType(resources.GetObject("tsbCooling.Image"), System.Drawing.Image)
-        Me.tsbCooling.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.tsbCooling.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbCooling.Name = "tsbCooling"
-        Me.tsbCooling.Size = New System.Drawing.Size(53, 35)
-        Me.tsbCooling.Text = "Cooling"
-        Me.tsbCooling.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.tsbCooling.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'ilMain
-        '
-        Me.ilMain.ImageStream = CType(resources.GetObject("ilMain.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.ilMain.TransparentColor = System.Drawing.Color.Transparent
-        Me.ilMain.Images.SetKeyName(0, "Capture.png")
-        Me.ilMain.Images.SetKeyName(1, "StopCapture.png")
-        '
-        'tbLogOutput
-        '
-        Me.tbLogOutput.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tbLogOutput.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbLogOutput.Location = New System.Drawing.Point(0, 0)
-        Me.tbLogOutput.Multiline = True
-        Me.tbLogOutput.Name = "tbLogOutput"
-        Me.tbLogOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.tbLogOutput.Size = New System.Drawing.Size(495, 149)
-        Me.tbLogOutput.TabIndex = 4
-        Me.tbLogOutput.WordWrap = False
-        '
-        'tcMain
-        '
-        Me.tcMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tcMain.Controls.Add(Me.TabPage1)
-        Me.tcMain.Controls.Add(Me.TabPage2)
-        Me.tcMain.Controls.Add(Me.TabPage3)
-        Me.tcMain.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tcMain.Location = New System.Drawing.Point(0, 0)
-        Me.tcMain.Name = "tcMain"
-        Me.tcMain.SelectedIndex = 0
-        Me.tcMain.Size = New System.Drawing.Size(495, 544)
-        Me.tcMain.TabIndex = 6
-        '
-        'TabPage1
-        '
-        Me.TabPage1.Controls.Add(Me.pgMain)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(487, 518)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Exposure"
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Controls.Add(Me.pgMeta)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(487, 518)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Meta data / Advanced"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'pgMeta
-        '
-        Me.pgMeta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pgMeta.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.pgMeta.Location = New System.Drawing.Point(3, 3)
-        Me.pgMeta.Name = "pgMeta"
-        Me.pgMeta.Size = New System.Drawing.Size(481, 512)
-        Me.pgMeta.TabIndex = 1
-        Me.pgMeta.ToolbarVisible = False
-        '
-        'TabPage3
-        '
-        Me.TabPage3.Controls.Add(Me.pgPlotAndText)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(487, 518)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "Plot / Report"
-        Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'pgPlotAndText
-        '
-        Me.pgPlotAndText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pgPlotAndText.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.pgPlotAndText.Location = New System.Drawing.Point(3, 3)
-        Me.pgPlotAndText.Name = "pgPlotAndText"
-        Me.pgPlotAndText.Size = New System.Drawing.Size(481, 512)
-        Me.pgPlotAndText.TabIndex = 2
-        Me.pgPlotAndText.ToolbarVisible = False
-        '
-        'scMain
-        '
-        Me.scMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.scMain.Location = New System.Drawing.Point(0, 65)
-        Me.scMain.Name = "scMain"
-        '
-        'scMain.Panel1
-        '
-        Me.scMain.Panel1.Controls.Add(Me.SplitContainer2)
-        '
-        'scMain.Panel2
-        '
-        Me.scMain.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.scMain.Size = New System.Drawing.Size(1273, 727)
-        Me.scMain.SplitterDistance = 495
-        Me.scMain.TabIndex = 7
-        '
-        'SplitContainer2
-        '
-        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer2.Name = "SplitContainer2"
-        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer2.Panel1
-        '
-        Me.SplitContainer2.Panel1.Controls.Add(Me.tbItemName)
-        Me.SplitContainer2.Panel1.Controls.Add(Me.tcMain)
-        '
-        'SplitContainer2.Panel2
-        '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.tbLogOutput)
-        Me.SplitContainer2.Size = New System.Drawing.Size(495, 727)
-        Me.SplitContainer2.SplitterDistance = 574
-        Me.SplitContainer2.TabIndex = 0
-        '
-        'tbItemName
-        '
-        Me.tbItemName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbItemName.Location = New System.Drawing.Point(7, 547)
-        Me.tbItemName.Name = "tbItemName"
-        Me.tbItemName.ReadOnly = True
-        Me.tbItemName.Size = New System.Drawing.Size(481, 20)
-        Me.tbItemName.TabIndex = 7
-        '
-        'SplitContainer3
-        '
-        Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer3.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer3.Name = "SplitContainer3"
-        Me.SplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer3.Panel1
-        '
-        Me.SplitContainer3.Panel1.Controls.Add(Me.zgcMain)
-        '
-        'SplitContainer3.Panel2
-        '
-        Me.SplitContainer3.Panel2.Controls.Add(Me.rtbStatistics)
-        Me.SplitContainer3.Size = New System.Drawing.Size(774, 727)
-        Me.SplitContainer3.SplitterDistance = 356
-        Me.SplitContainer3.TabIndex = 0
-        '
-        'rtbStatistics
-        '
-        Me.rtbStatistics.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.rtbStatistics.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rtbStatistics.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rtbStatistics.Location = New System.Drawing.Point(0, 0)
-        Me.rtbStatistics.Name = "rtbStatistics"
-        Me.rtbStatistics.Size = New System.Drawing.Size(774, 367)
-        Me.rtbStatistics.TabIndex = 0
-        Me.rtbStatistics.Text = ""
-        Me.rtbStatistics.WordWrap = False
-        '
-        'ofdMain
-        '
-        Me.ofdMain.FileName = "OpenFileDialog1"
-        '
-        'tStatusUpdate
-        '
-        Me.tStatusUpdate.Enabled = True
-        Me.tStatusUpdate.Interval = 250
-        '
-        'MainForm
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1273, 817)
-        Me.Controls.Add(Me.scMain)
-        Me.Controls.Add(Me.tsMain)
-        Me.Controls.Add(Me.ssMain)
-        Me.Controls.Add(Me.msMain)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MainMenuStrip = Me.msMain
-        Me.Name = "MainForm"
-        Me.Text = "QHY Capture"
-        Me.ssMain.ResumeLayout(False)
-        Me.ssMain.PerformLayout()
-        Me.msMain.ResumeLayout(False)
-        Me.msMain.PerformLayout()
-        Me.tsMain.ResumeLayout(False)
-        Me.tsMain.PerformLayout()
-        Me.tcMain.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage2.ResumeLayout(False)
-        Me.TabPage3.ResumeLayout(False)
-        Me.scMain.Panel1.ResumeLayout(False)
-        Me.scMain.Panel2.ResumeLayout(False)
-        CType(Me.scMain, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.scMain.ResumeLayout(False)
-        Me.SplitContainer2.Panel1.ResumeLayout(False)
-        Me.SplitContainer2.Panel1.PerformLayout()
-        Me.SplitContainer2.Panel2.ResumeLayout(False)
-        Me.SplitContainer2.Panel2.PerformLayout()
-        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer2.ResumeLayout(False)
-        Me.SplitContainer3.Panel1.ResumeLayout(False)
-        Me.SplitContainer3.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer3.ResumeLayout(False)
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        pgMain = New PropertyGrid()
+        ssMain = New StatusStrip()
+        tsslLED_init = New ToolStripStatusLabel()
+        tsslLED_config = New ToolStripStatusLabel()
+        tsslLED_cooling = New ToolStripStatusLabel()
+        tsslLED_capture = New ToolStripStatusLabel()
+        tsslLED_reading = New ToolStripStatusLabel()
+        tspbProgress = New ToolStripProgressBar()
+        tsslProgress = New ToolStripStatusLabel()
+        tsslSplit1 = New ToolStripStatusLabel()
+        tsslMain = New ToolStripStatusLabel()
+        tsslSplit2 = New ToolStripStatusLabel()
+        tsslTemperature = New ToolStripStatusLabel()
+        tsslMemory = New ToolStripStatusLabel()
+        ToolStripStatusLabel1 = New ToolStripStatusLabel()
+        tsslETA = New ToolStripStatusLabel()
+        msMain = New MenuStrip()
+        tsmiFile = New ToolStripMenuItem()
+        tsmiFile_LoadSettings = New ToolStripMenuItem()
+        tsmiFile_RunSequence = New ToolStripMenuItem()
+        ToolStripMenuItem6 = New ToolStripSeparator()
+        tsmiFile_SaveSettings = New ToolStripMenuItem()
+        tsmiFile_SaveAllXMLParameters = New ToolStripMenuItem()
+        ToolStripMenuItem4 = New ToolStripSeparator()
+        tsmiFile_ExploreHere = New ToolStripMenuItem()
+        tsmiFile_ExploreCampaign = New ToolStripMenuItem()
+        tsmiFile_OpenLastFile = New ToolStripMenuItem()
+        ToolStripMenuItem1 = New ToolStripSeparator()
+        tsmiFile_CreateXML = New ToolStripMenuItem()
+        tsmiFile_TestWebInterface = New ToolStripMenuItem()
+        tsmiFile_StoreEXCELStat = New ToolStripMenuItem()
+        ToolStripMenuItem5 = New ToolStripSeparator()
+        tsmiFile_Exit = New ToolStripMenuItem()
+        CaptureToolStripMenuItem = New ToolStripMenuItem()
+        SeriesToolStripMenuItem = New ToolStripMenuItem()
+        AllReadoutModesToolStripMenuItem = New ToolStripMenuItem()
+        ExposureTimeSeriesToolStripMenuItem = New ToolStripMenuItem()
+        GainVariationToolStripMenuItem = New ToolStripMenuItem()
+        tsmiPreset = New ToolStripMenuItem()
+        tsmiPreset_StandardCapture = New ToolStripMenuItem()
+        ToolStripMenuItem3 = New ToolStripSeparator()
+        tsmiPreset_FastLive = New ToolStripMenuItem()
+        tsmiPreset_CenterROI = New ToolStripMenuItem()
+        tsmiPreset_SaveTransmission = New ToolStripMenuItem()
+        tsmiPreset_SkipCooling = New ToolStripMenuItem()
+        tsmiPreset_DevTestMWeiss = New ToolStripMenuItem()
+        tsmiPreset_NoOverhead = New ToolStripMenuItem()
+        tsmiPreset_DSC = New ToolStripMenuItem()
+        tsmiActions = New ToolStripMenuItem()
+        tsmiActions_ResetLoopStat = New ToolStripMenuItem()
+        tsmiNewGUID = New ToolStripMenuItem()
+        tsmiClearLog = New ToolStripMenuItem()
+        ToolStripMenuItem2 = New ToolStripSeparator()
+        tsmiActions_Mount = New ToolStripMenuItem()
+        tsmiActions_Mount_10Micron = New ToolStripMenuItem()
+        tsmiActions_Mount_PWI4 = New ToolStripMenuItem()
+        tsmiActions_AllCoolersOff = New ToolStripMenuItem()
+        tsmiTools = New ToolStripMenuItem()
+        tsmiTools_AllQHYDLLs = New ToolStripMenuItem()
+        tsmiTools_Log = New ToolStripMenuItem()
+        tsmiTools_Log_Store = New ToolStripMenuItem()
+        tsmiTools_Log_Clear = New ToolStripMenuItem()
+        zgcMain = New ZedGraph.ZedGraphControl()
+        tSetTemp = New Timer(components)
+        tsMain = New ToolStrip()
+        tsbCapture = New ToolStripButton()
+        tsbStopCapture = New ToolStripButton()
+        ToolStripSeparator1 = New ToolStripSeparator()
+        tsbCooling = New ToolStripButton()
+        ilMain = New ImageList(components)
+        tbLogOutput = New TextBox()
+        tcMain = New TabControl()
+        TabPage1 = New TabPage()
+        TabPage2 = New TabPage()
+        pgMeta = New PropertyGrid()
+        TabPage3 = New TabPage()
+        pgPlotAndText = New PropertyGrid()
+        scMain = New SplitContainer()
+        SplitContainer2 = New SplitContainer()
+        tbItemName = New TextBox()
+        SplitContainer3 = New SplitContainer()
+        rtbStatistics = New RichTextBox()
+        sfdMain = New SaveFileDialog()
+        ofdMain = New OpenFileDialog()
+        tStatusUpdate = New Timer(components)
+        ssMain.SuspendLayout()
+        msMain.SuspendLayout()
+        tsMain.SuspendLayout()
+        tcMain.SuspendLayout()
+        TabPage1.SuspendLayout()
+        TabPage2.SuspendLayout()
+        TabPage3.SuspendLayout()
+        CType(scMain, ComponentModel.ISupportInitialize).BeginInit()
+        scMain.Panel1.SuspendLayout()
+        scMain.Panel2.SuspendLayout()
+        scMain.SuspendLayout()
+        CType(SplitContainer2, ComponentModel.ISupportInitialize).BeginInit()
+        SplitContainer2.Panel1.SuspendLayout()
+        SplitContainer2.Panel2.SuspendLayout()
+        SplitContainer2.SuspendLayout()
+        CType(SplitContainer3, ComponentModel.ISupportInitialize).BeginInit()
+        SplitContainer3.Panel1.SuspendLayout()
+        SplitContainer3.Panel2.SuspendLayout()
+        SplitContainer3.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' pgMain
+        ' 
+        pgMain.Dock = DockStyle.Fill
+        pgMain.Font = New Font("Consolas", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        pgMain.Location = New Point(4, 3)
+        pgMain.Margin = New Padding(4, 3, 4, 3)
+        pgMain.Name = "pgMain"
+        pgMain.Size = New Size(559, 734)
+        pgMain.TabIndex = 0
+        pgMain.ToolbarVisible = False
+        ' 
+        ' ssMain
+        ' 
+        ssMain.Items.AddRange(New ToolStripItem() {tsslLED_init, tsslLED_config, tsslLED_cooling, tsslLED_capture, tsslLED_reading, tspbProgress, tsslProgress, tsslSplit1, tsslMain, tsslSplit2, tsslTemperature, tsslMemory, ToolStripStatusLabel1, tsslETA})
+        ssMain.Location = New Point(0, 1091)
+        ssMain.Name = "ssMain"
+        ssMain.Padding = New Padding(1, 0, 16, 0)
+        ssMain.Size = New Size(1480, 27)
+        ssMain.TabIndex = 1
+        ssMain.Text = "StatusStrip1"
+        ' 
+        ' tsslLED_init
+        ' 
+        tsslLED_init.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
+        tsslLED_init.Enabled = False
+        tsslLED_init.Name = "tsslLED_init"
+        tsslLED_init.Size = New Size(28, 22)
+        tsslLED_init.Text = "Init"
+        ' 
+        ' tsslLED_config
+        ' 
+        tsslLED_config.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
+        tsslLED_config.Enabled = False
+        tsslLED_config.Name = "tsslLED_config"
+        tsslLED_config.Size = New Size(47, 22)
+        tsslLED_config.Text = "Config"
+        ' 
+        ' tsslLED_cooling
+        ' 
+        tsslLED_cooling.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
+        tsslLED_cooling.Enabled = False
+        tsslLED_cooling.Name = "tsslLED_cooling"
+        tsslLED_cooling.Size = New Size(53, 22)
+        tsslLED_cooling.Text = "Cooling"
+        ' 
+        ' tsslLED_capture
+        ' 
+        tsslLED_capture.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
+        tsslLED_capture.Enabled = False
+        tsslLED_capture.Name = "tsslLED_capture"
+        tsslLED_capture.Size = New Size(53, 22)
+        tsslLED_capture.Text = "Capture"
+        ' 
+        ' tsslLED_reading
+        ' 
+        tsslLED_reading.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
+        tsslLED_reading.Enabled = False
+        tsslLED_reading.Name = "tsslLED_reading"
+        tsslLED_reading.Size = New Size(63, 22)
+        tsslLED_reading.Text = "Read data"
+        ' 
+        ' tspbProgress
+        ' 
+        tspbProgress.ForeColor = Color.Lime
+        tspbProgress.Name = "tspbProgress"
+        tspbProgress.Size = New Size(350, 21)
+        tspbProgress.Style = ProgressBarStyle.Continuous
+        ' 
+        ' tsslProgress
+        ' 
+        tsslProgress.Name = "tsslProgress"
+        tsslProgress.Size = New Size(156, 22)
+        tsslProgress.Text = "-- not exposing right now --"
+        ' 
+        ' tsslSplit1
+        ' 
+        tsslSplit1.Name = "tsslSplit1"
+        tsslSplit1.Size = New Size(10, 22)
+        tsslSplit1.Text = "|"
+        ' 
+        ' tsslMain
+        ' 
+        tsslMain.Name = "tsslMain"
+        tsslMain.Size = New Size(50, 22)
+        tsslMain.Text = "--IDLE--"
+        ' 
+        ' tsslSplit2
+        ' 
+        tsslSplit2.Name = "tsslSplit2"
+        tsslSplit2.Size = New Size(10, 22)
+        tsslSplit2.Text = "|"
+        ' 
+        ' tsslTemperature
+        ' 
+        tsslTemperature.Name = "tsslTemperature"
+        tsslTemperature.Size = New Size(58, 22)
+        tsslTemperature.Text = "T = ??? °C"
+        ' 
+        ' tsslMemory
+        ' 
+        tsslMemory.Name = "tsslMemory"
+        tsslMemory.Size = New Size(73, 22)
+        tsslMemory.Text = "Memory: ???"
+        ' 
+        ' ToolStripStatusLabel1
+        ' 
+        ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        ToolStripStatusLabel1.Size = New Size(10, 22)
+        ToolStripStatusLabel1.Text = "|"
+        ' 
+        ' tsslETA
+        ' 
+        tsslETA.Name = "tsslETA"
+        tsslETA.Size = New Size(47, 22)
+        tsslETA.Text = "ETA: ???"
+        ' 
+        ' msMain
+        ' 
+        msMain.Items.AddRange(New ToolStripItem() {tsmiFile, CaptureToolStripMenuItem, tsmiPreset, tsmiActions, tsmiTools})
+        msMain.Location = New Point(0, 0)
+        msMain.Name = "msMain"
+        msMain.Padding = New Padding(7, 2, 0, 2)
+        msMain.Size = New Size(1480, 24)
+        msMain.TabIndex = 2
+        msMain.Text = "MenuStrip1"
+        ' 
+        ' tsmiFile
+        ' 
+        tsmiFile.DropDownItems.AddRange(New ToolStripItem() {tsmiFile_LoadSettings, tsmiFile_RunSequence, ToolStripMenuItem6, tsmiFile_SaveSettings, tsmiFile_SaveAllXMLParameters, ToolStripMenuItem4, tsmiFile_ExploreHere, tsmiFile_ExploreCampaign, tsmiFile_OpenLastFile, ToolStripMenuItem1, tsmiFile_CreateXML, tsmiFile_TestWebInterface, tsmiFile_StoreEXCELStat, ToolStripMenuItem5, tsmiFile_Exit})
+        tsmiFile.Name = "tsmiFile"
+        tsmiFile.Size = New Size(37, 20)
+        tsmiFile.Text = "File"
+        ' 
+        ' tsmiFile_LoadSettings
+        ' 
+        tsmiFile_LoadSettings.Name = "tsmiFile_LoadSettings"
+        tsmiFile_LoadSettings.ShortcutKeys = Keys.Control Or Keys.O
+        tsmiFile_LoadSettings.Size = New Size(313, 22)
+        tsmiFile_LoadSettings.Tag = "Load"
+        tsmiFile_LoadSettings.Text = "Load XML settings (does not expose)"
+        ' 
+        ' tsmiFile_RunSequence
+        ' 
+        tsmiFile_RunSequence.Name = "tsmiFile_RunSequence"
+        tsmiFile_RunSequence.Size = New Size(313, 22)
+        tsmiFile_RunSequence.Tag = "Run"
+        tsmiFile_RunSequence.Text = "Run XML settings (does expose)"
+        ' 
+        ' ToolStripMenuItem6
+        ' 
+        ToolStripMenuItem6.Name = "ToolStripMenuItem6"
+        ToolStripMenuItem6.Size = New Size(310, 6)
+        ' 
+        ' tsmiFile_SaveSettings
+        ' 
+        tsmiFile_SaveSettings.Name = "tsmiFile_SaveSettings"
+        tsmiFile_SaveSettings.ShortcutKeys = Keys.Control Or Keys.S
+        tsmiFile_SaveSettings.Size = New Size(313, 22)
+        tsmiFile_SaveSettings.Text = "Save settings"
+        ' 
+        ' tsmiFile_SaveAllXMLParameters
+        ' 
+        tsmiFile_SaveAllXMLParameters.Name = "tsmiFile_SaveAllXMLParameters"
+        tsmiFile_SaveAllXMLParameters.Size = New Size(313, 22)
+        tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters (for reference)"
+        ' 
+        ' ToolStripMenuItem4
+        ' 
+        ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        ToolStripMenuItem4.Size = New Size(310, 6)
+        ' 
+        ' tsmiFile_ExploreHere
+        ' 
+        tsmiFile_ExploreHere.Name = "tsmiFile_ExploreHere"
+        tsmiFile_ExploreHere.Size = New Size(313, 22)
+        tsmiFile_ExploreHere.Text = "Open - EXE path"
+        ' 
+        ' tsmiFile_ExploreCampaign
+        ' 
+        tsmiFile_ExploreCampaign.Name = "tsmiFile_ExploreCampaign"
+        tsmiFile_ExploreCampaign.ShortcutKeys = Keys.Control Or Keys.E
+        tsmiFile_ExploreCampaign.Size = New Size(313, 22)
+        tsmiFile_ExploreCampaign.Text = "Open - Current campaign folder"
+        ' 
+        ' tsmiFile_OpenLastFile
+        ' 
+        tsmiFile_OpenLastFile.Name = "tsmiFile_OpenLastFile"
+        tsmiFile_OpenLastFile.Size = New Size(313, 22)
+        tsmiFile_OpenLastFile.Text = "Open - Last stored file"
+        ' 
+        ' ToolStripMenuItem1
+        ' 
+        ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        ToolStripMenuItem1.Size = New Size(310, 6)
+        ' 
+        ' tsmiFile_CreateXML
+        ' 
+        tsmiFile_CreateXML.Name = "tsmiFile_CreateXML"
+        tsmiFile_CreateXML.Size = New Size(313, 22)
+        tsmiFile_CreateXML.Text = "Create XML sequence (Inline VB)"
+        ' 
+        ' tsmiFile_TestWebInterface
+        ' 
+        tsmiFile_TestWebInterface.Name = "tsmiFile_TestWebInterface"
+        tsmiFile_TestWebInterface.Size = New Size(313, 22)
+        tsmiFile_TestWebInterface.Text = "Test web interface"
+        ' 
+        ' tsmiFile_StoreEXCELStat
+        ' 
+        tsmiFile_StoreEXCELStat.Name = "tsmiFile_StoreEXCELStat"
+        tsmiFile_StoreEXCELStat.Size = New Size(313, 22)
+        tsmiFile_StoreEXCELStat.Text = "Store statistics as EXCEL file"
+        ' 
+        ' ToolStripMenuItem5
+        ' 
+        ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        ToolStripMenuItem5.Size = New Size(310, 6)
+        ' 
+        ' tsmiFile_Exit
+        ' 
+        tsmiFile_Exit.Name = "tsmiFile_Exit"
+        tsmiFile_Exit.ShortcutKeys = Keys.Control Or Keys.X
+        tsmiFile_Exit.Size = New Size(313, 22)
+        tsmiFile_Exit.Text = "Exit"
+        ' 
+        ' CaptureToolStripMenuItem
+        ' 
+        CaptureToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {SeriesToolStripMenuItem})
+        CaptureToolStripMenuItem.Name = "CaptureToolStripMenuItem"
+        CaptureToolStripMenuItem.Size = New Size(61, 20)
+        CaptureToolStripMenuItem.Text = "Capture"
+        ' 
+        ' SeriesToolStripMenuItem
+        ' 
+        SeriesToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {AllReadoutModesToolStripMenuItem, ExposureTimeSeriesToolStripMenuItem, GainVariationToolStripMenuItem})
+        SeriesToolStripMenuItem.Name = "SeriesToolStripMenuItem"
+        SeriesToolStripMenuItem.Size = New Size(104, 22)
+        SeriesToolStripMenuItem.Text = "Series"
+        ' 
+        ' AllReadoutModesToolStripMenuItem
+        ' 
+        AllReadoutModesToolStripMenuItem.Name = "AllReadoutModesToolStripMenuItem"
+        AllReadoutModesToolStripMenuItem.Size = New Size(181, 22)
+        AllReadoutModesToolStripMenuItem.Text = "All read-out modes"
+        ' 
+        ' ExposureTimeSeriesToolStripMenuItem
+        ' 
+        ExposureTimeSeriesToolStripMenuItem.Name = "ExposureTimeSeriesToolStripMenuItem"
+        ExposureTimeSeriesToolStripMenuItem.Size = New Size(181, 22)
+        ExposureTimeSeriesToolStripMenuItem.Text = "Exposure time series"
+        ' 
+        ' GainVariationToolStripMenuItem
+        ' 
+        GainVariationToolStripMenuItem.Name = "GainVariationToolStripMenuItem"
+        GainVariationToolStripMenuItem.Size = New Size(181, 22)
+        GainVariationToolStripMenuItem.Text = "Gain variation"
+        ' 
+        ' tsmiPreset
+        ' 
+        tsmiPreset.DropDownItems.AddRange(New ToolStripItem() {tsmiPreset_StandardCapture, ToolStripMenuItem3, tsmiPreset_FastLive, tsmiPreset_CenterROI, tsmiPreset_SaveTransmission, tsmiPreset_SkipCooling, tsmiPreset_DevTestMWeiss, tsmiPreset_NoOverhead, tsmiPreset_DSC})
+        tsmiPreset.Name = "tsmiPreset"
+        tsmiPreset.Size = New Size(56, 20)
+        tsmiPreset.Text = "Presets"
+        ' 
+        ' tsmiPreset_StandardCapture
+        ' 
+        tsmiPreset_StandardCapture.Name = "tsmiPreset_StandardCapture"
+        tsmiPreset_StandardCapture.Size = New Size(237, 22)
+        tsmiPreset_StandardCapture.Text = "Standard capture"
+        ' 
+        ' ToolStripMenuItem3
+        ' 
+        ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        ToolStripMenuItem3.Size = New Size(234, 6)
+        ' 
+        ' tsmiPreset_FastLive
+        ' 
+        tsmiPreset_FastLive.Name = "tsmiPreset_FastLive"
+        tsmiPreset_FastLive.Size = New Size(237, 22)
+        tsmiPreset_FastLive.Text = "Fast live mode"
+        ' 
+        ' tsmiPreset_CenterROI
+        ' 
+        tsmiPreset_CenterROI.Name = "tsmiPreset_CenterROI"
+        tsmiPreset_CenterROI.Size = New Size(237, 22)
+        tsmiPreset_CenterROI.Text = "Center ROI"
+        ' 
+        ' tsmiPreset_SaveTransmission
+        ' 
+        tsmiPreset_SaveTransmission.Name = "tsmiPreset_SaveTransmission"
+        tsmiPreset_SaveTransmission.Size = New Size(237, 22)
+        tsmiPreset_SaveTransmission.Text = "Save transmission"
+        ' 
+        ' tsmiPreset_SkipCooling
+        ' 
+        tsmiPreset_SkipCooling.Name = "tsmiPreset_SkipCooling"
+        tsmiPreset_SkipCooling.Size = New Size(237, 22)
+        tsmiPreset_SkipCooling.Text = "Skip cooling (in-memory XML)"
+        ' 
+        ' tsmiPreset_DevTestMWeiss
+        ' 
+        tsmiPreset_DevTestMWeiss.Name = "tsmiPreset_DevTestMWeiss"
+        tsmiPreset_DevTestMWeiss.Size = New Size(237, 22)
+        tsmiPreset_DevTestMWeiss.Text = "Dev test (in-memory XML)"
+        ' 
+        ' tsmiPreset_NoOverhead
+        ' 
+        tsmiPreset_NoOverhead.Name = "tsmiPreset_NoOverhead"
+        tsmiPreset_NoOverhead.Size = New Size(237, 22)
+        tsmiPreset_NoOverhead.Text = "No overhead"
+        ' 
+        ' tsmiPreset_DSC
+        ' 
+        tsmiPreset_DSC.Name = "tsmiPreset_DSC"
+        tsmiPreset_DSC.Size = New Size(237, 22)
+        tsmiPreset_DSC.Text = "DSC (in-memory XML)"
+        ' 
+        ' tsmiActions
+        ' 
+        tsmiActions.DropDownItems.AddRange(New ToolStripItem() {tsmiActions_ResetLoopStat, tsmiNewGUID, tsmiClearLog, ToolStripMenuItem2, tsmiActions_Mount, tsmiActions_AllCoolersOff})
+        tsmiActions.Name = "tsmiActions"
+        tsmiActions.Size = New Size(59, 20)
+        tsmiActions.Text = "Actions"
+        ' 
+        ' tsmiActions_ResetLoopStat
+        ' 
+        tsmiActions_ResetLoopStat.Name = "tsmiActions_ResetLoopStat"
+        tsmiActions_ResetLoopStat.Size = New Size(177, 22)
+        tsmiActions_ResetLoopStat.Text = "Reset loop statistics"
+        ' 
+        ' tsmiNewGUID
+        ' 
+        tsmiNewGUID.Name = "tsmiNewGUID"
+        tsmiNewGUID.Size = New Size(177, 22)
+        tsmiNewGUID.Text = "New GUID"
+        ' 
+        ' tsmiClearLog
+        ' 
+        tsmiClearLog.Name = "tsmiClearLog"
+        tsmiClearLog.Size = New Size(177, 22)
+        tsmiClearLog.Text = "Clear log"
+        ' 
+        ' ToolStripMenuItem2
+        ' 
+        ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        ToolStripMenuItem2.Size = New Size(174, 6)
+        ' 
+        ' tsmiActions_Mount
+        ' 
+        tsmiActions_Mount.DropDownItems.AddRange(New ToolStripItem() {tsmiActions_Mount_10Micron, tsmiActions_Mount_PWI4})
+        tsmiActions_Mount.Name = "tsmiActions_Mount"
+        tsmiActions_Mount.Size = New Size(177, 22)
+        tsmiActions_Mount.Text = "Load mount data ..."
+        ' 
+        ' tsmiActions_Mount_10Micron
+        ' 
+        tsmiActions_Mount_10Micron.Name = "tsmiActions_Mount_10Micron"
+        tsmiActions_Mount_10Micron.Size = New Size(179, 22)
+        tsmiActions_Mount_10Micron.Text = "Load 10Micron data"
+        ' 
+        ' tsmiActions_Mount_PWI4
+        ' 
+        tsmiActions_Mount_PWI4.Name = "tsmiActions_Mount_PWI4"
+        tsmiActions_Mount_PWI4.Size = New Size(179, 22)
+        tsmiActions_Mount_PWI4.Text = "Load PWI4 data"
+        ' 
+        ' tsmiActions_AllCoolersOff
+        ' 
+        tsmiActions_AllCoolersOff.Name = "tsmiActions_AllCoolersOff"
+        tsmiActions_AllCoolersOff.Size = New Size(177, 22)
+        tsmiActions_AllCoolersOff.Text = "All coolers off"
+        ' 
+        ' tsmiTools
+        ' 
+        tsmiTools.DropDownItems.AddRange(New ToolStripItem() {tsmiTools_AllQHYDLLs, tsmiTools_Log})
+        tsmiTools.Name = "tsmiTools"
+        tsmiTools.Size = New Size(46, 20)
+        tsmiTools.Text = "Tools"
+        ' 
+        ' tsmiTools_AllQHYDLLs
+        ' 
+        tsmiTools_AllQHYDLLs.Name = "tsmiTools_AllQHYDLLs"
+        tsmiTools_AllQHYDLLs.Size = New Size(163, 22)
+        tsmiTools_AllQHYDLLs.Text = "Get all QHY DLLs"
+        ' 
+        ' tsmiTools_Log
+        ' 
+        tsmiTools_Log.DropDownItems.AddRange(New ToolStripItem() {tsmiTools_Log_Store, tsmiTools_Log_Clear})
+        tsmiTools_Log.Name = "tsmiTools_Log"
+        tsmiTools_Log.Size = New Size(163, 22)
+        tsmiTools_Log.Text = "DLL Log"
+        ' 
+        ' tsmiTools_Log_Store
+        ' 
+        tsmiTools_Log_Store.Name = "tsmiTools_Log_Store"
+        tsmiTools_Log_Store.Size = New Size(121, 22)
+        tsmiTools_Log_Store.Text = "Store log"
+        ' 
+        ' tsmiTools_Log_Clear
+        ' 
+        tsmiTools_Log_Clear.Name = "tsmiTools_Log_Clear"
+        tsmiTools_Log_Clear.Size = New Size(121, 22)
+        tsmiTools_Log_Clear.Text = "Clear"
+        ' 
+        ' zgcMain
+        ' 
+        zgcMain.Dock = DockStyle.Fill
+        zgcMain.Location = New Point(0, 0)
+        zgcMain.Margin = New Padding(5, 3, 5, 3)
+        zgcMain.Name = "zgcMain"
+        zgcMain.ScrollGrace = 0R
+        zgcMain.ScrollMaxX = 0R
+        zgcMain.ScrollMaxY = 0R
+        zgcMain.ScrollMaxY2 = 0R
+        zgcMain.ScrollMinX = 0R
+        zgcMain.ScrollMinY = 0R
+        zgcMain.ScrollMinY2 = 0R
+        zgcMain.Size = New Size(900, 496)
+        zgcMain.TabIndex = 0
+        ' 
+        ' tSetTemp
+        ' 
+        tSetTemp.Enabled = True
+        tSetTemp.Interval = 500
+        ' 
+        ' tsMain
+        ' 
+        tsMain.BackColor = SystemColors.Control
+        tsMain.Items.AddRange(New ToolStripItem() {tsbCapture, tsbStopCapture, ToolStripSeparator1, tsbCooling})
+        tsMain.Location = New Point(0, 24)
+        tsMain.Name = "tsMain"
+        tsMain.Size = New Size(1480, 38)
+        tsMain.TabIndex = 5
+        tsMain.Text = "ToolStrip1"
+        ' 
+        ' tsbCapture
+        ' 
+        tsbCapture.Image = CType(resources.GetObject("tsbCapture.Image"), Image)
+        tsbCapture.ImageTransparentColor = Color.Magenta
+        tsbCapture.Name = "tsbCapture"
+        tsbCapture.Size = New Size(53, 35)
+        tsbCapture.Text = "Capture"
+        tsbCapture.TextImageRelation = TextImageRelation.ImageAboveText
+        ' 
+        ' tsbStopCapture
+        ' 
+        tsbStopCapture.Image = CType(resources.GetObject("tsbStopCapture.Image"), Image)
+        tsbStopCapture.ImageTransparentColor = Color.Magenta
+        tsbStopCapture.Name = "tsbStopCapture"
+        tsbStopCapture.Size = New Size(35, 35)
+        tsbStopCapture.Text = "Stop"
+        tsbStopCapture.TextImageRelation = TextImageRelation.ImageAboveText
+        ' 
+        ' ToolStripSeparator1
+        ' 
+        ToolStripSeparator1.Name = "ToolStripSeparator1"
+        ToolStripSeparator1.Size = New Size(6, 38)
+        ' 
+        ' tsbCooling
+        ' 
+        tsbCooling.Image = CType(resources.GetObject("tsbCooling.Image"), Image)
+        tsbCooling.ImageAlign = ContentAlignment.TopCenter
+        tsbCooling.ImageTransparentColor = Color.Magenta
+        tsbCooling.Name = "tsbCooling"
+        tsbCooling.Size = New Size(53, 35)
+        tsbCooling.Text = "Cooling"
+        tsbCooling.TextAlign = ContentAlignment.BottomCenter
+        tsbCooling.TextImageRelation = TextImageRelation.ImageAboveText
+        ' 
+        ' ilMain
+        ' 
+        ilMain.ColorDepth = ColorDepth.Depth8Bit
+        ilMain.ImageStream = CType(resources.GetObject("ilMain.ImageStream"), ImageListStreamer)
+        ilMain.TransparentColor = Color.Transparent
+        ilMain.Images.SetKeyName(0, "Capture.png")
+        ilMain.Images.SetKeyName(1, "StopCapture.png")
+        ' 
+        ' tbLogOutput
+        ' 
+        tbLogOutput.Dock = DockStyle.Fill
+        tbLogOutput.Font = New Font("Courier New", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbLogOutput.Location = New Point(0, 0)
+        tbLogOutput.Margin = New Padding(4, 3, 4, 3)
+        tbLogOutput.Multiline = True
+        tbLogOutput.Name = "tbLogOutput"
+        tbLogOutput.ScrollBars = ScrollBars.Both
+        tbLogOutput.Size = New Size(575, 209)
+        tbLogOutput.TabIndex = 4
+        tbLogOutput.WordWrap = False
+        ' 
+        ' tcMain
+        ' 
+        tcMain.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        tcMain.Controls.Add(TabPage1)
+        tcMain.Controls.Add(TabPage2)
+        tcMain.Controls.Add(TabPage3)
+        tcMain.Font = New Font("Consolas", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tcMain.Location = New Point(0, 0)
+        tcMain.Margin = New Padding(4, 3, 4, 3)
+        tcMain.Name = "tcMain"
+        tcMain.SelectedIndex = 0
+        tcMain.Size = New Size(575, 766)
+        tcMain.TabIndex = 6
+        ' 
+        ' TabPage1
+        ' 
+        TabPage1.Controls.Add(pgMain)
+        TabPage1.Location = New Point(4, 22)
+        TabPage1.Margin = New Padding(4, 3, 4, 3)
+        TabPage1.Name = "TabPage1"
+        TabPage1.Padding = New Padding(4, 3, 4, 3)
+        TabPage1.Size = New Size(567, 740)
+        TabPage1.TabIndex = 0
+        TabPage1.Text = "Exposure"
+        TabPage1.UseVisualStyleBackColor = True
+        ' 
+        ' TabPage2
+        ' 
+        TabPage2.Controls.Add(pgMeta)
+        TabPage2.Location = New Point(4, 22)
+        TabPage2.Margin = New Padding(4, 3, 4, 3)
+        TabPage2.Name = "TabPage2"
+        TabPage2.Padding = New Padding(4, 3, 4, 3)
+        TabPage2.Size = New Size(570, 602)
+        TabPage2.TabIndex = 1
+        TabPage2.Text = "Meta data / Advanced"
+        TabPage2.UseVisualStyleBackColor = True
+        ' 
+        ' pgMeta
+        ' 
+        pgMeta.Dock = DockStyle.Fill
+        pgMeta.Font = New Font("Lucida Console", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        pgMeta.Location = New Point(4, 3)
+        pgMeta.Margin = New Padding(4, 3, 4, 3)
+        pgMeta.Name = "pgMeta"
+        pgMeta.Size = New Size(562, 596)
+        pgMeta.TabIndex = 1
+        pgMeta.ToolbarVisible = False
+        ' 
+        ' TabPage3
+        ' 
+        TabPage3.Controls.Add(pgPlotAndText)
+        TabPage3.Location = New Point(4, 22)
+        TabPage3.Margin = New Padding(4, 3, 4, 3)
+        TabPage3.Name = "TabPage3"
+        TabPage3.Padding = New Padding(4, 3, 4, 3)
+        TabPage3.Size = New Size(570, 602)
+        TabPage3.TabIndex = 2
+        TabPage3.Text = "Plot / Report"
+        TabPage3.UseVisualStyleBackColor = True
+        ' 
+        ' pgPlotAndText
+        ' 
+        pgPlotAndText.Dock = DockStyle.Fill
+        pgPlotAndText.Font = New Font("Lucida Console", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        pgPlotAndText.Location = New Point(4, 3)
+        pgPlotAndText.Margin = New Padding(4, 3, 4, 3)
+        pgPlotAndText.Name = "pgPlotAndText"
+        pgPlotAndText.Size = New Size(562, 596)
+        pgPlotAndText.TabIndex = 2
+        pgPlotAndText.ToolbarVisible = False
+        ' 
+        ' scMain
+        ' 
+        scMain.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        scMain.Location = New Point(0, 75)
+        scMain.Margin = New Padding(4, 3, 4, 3)
+        scMain.Name = "scMain"
+        ' 
+        ' scMain.Panel1
+        ' 
+        scMain.Panel1.Controls.Add(SplitContainer2)
+        ' 
+        ' scMain.Panel2
+        ' 
+        scMain.Panel2.Controls.Add(SplitContainer3)
+        scMain.Size = New Size(1480, 1014)
+        scMain.SplitterDistance = 575
+        scMain.SplitterWidth = 5
+        scMain.TabIndex = 7
+        ' 
+        ' SplitContainer2
+        ' 
+        SplitContainer2.Dock = DockStyle.Fill
+        SplitContainer2.Location = New Point(0, 0)
+        SplitContainer2.Margin = New Padding(4, 3, 4, 3)
+        SplitContainer2.Name = "SplitContainer2"
+        SplitContainer2.Orientation = Orientation.Horizontal
+        ' 
+        ' SplitContainer2.Panel1
+        ' 
+        SplitContainer2.Panel1.Controls.Add(tbItemName)
+        SplitContainer2.Panel1.Controls.Add(tcMain)
+        ' 
+        ' SplitContainer2.Panel2
+        ' 
+        SplitContainer2.Panel2.Controls.Add(tbLogOutput)
+        SplitContainer2.Size = New Size(575, 1014)
+        SplitContainer2.SplitterDistance = 800
+        SplitContainer2.SplitterWidth = 5
+        SplitContainer2.TabIndex = 0
+        ' 
+        ' tbItemName
+        ' 
+        tbItemName.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        tbItemName.Location = New Point(8, 769)
+        tbItemName.Margin = New Padding(4, 3, 4, 3)
+        tbItemName.Name = "tbItemName"
+        tbItemName.ReadOnly = True
+        tbItemName.Size = New Size(557, 23)
+        tbItemName.TabIndex = 7
+        ' 
+        ' SplitContainer3
+        ' 
+        SplitContainer3.Dock = DockStyle.Fill
+        SplitContainer3.Location = New Point(0, 0)
+        SplitContainer3.Margin = New Padding(4, 3, 4, 3)
+        SplitContainer3.Name = "SplitContainer3"
+        SplitContainer3.Orientation = Orientation.Horizontal
+        ' 
+        ' SplitContainer3.Panel1
+        ' 
+        SplitContainer3.Panel1.Controls.Add(zgcMain)
+        ' 
+        ' SplitContainer3.Panel2
+        ' 
+        SplitContainer3.Panel2.Controls.Add(rtbStatistics)
+        SplitContainer3.Size = New Size(900, 1014)
+        SplitContainer3.SplitterDistance = 496
+        SplitContainer3.SplitterWidth = 5
+        SplitContainer3.TabIndex = 0
+        ' 
+        ' rtbStatistics
+        ' 
+        rtbStatistics.BorderStyle = BorderStyle.None
+        rtbStatistics.Dock = DockStyle.Fill
+        rtbStatistics.Font = New Font("Lucida Console", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        rtbStatistics.Location = New Point(0, 0)
+        rtbStatistics.Margin = New Padding(4, 3, 4, 3)
+        rtbStatistics.Name = "rtbStatistics"
+        rtbStatistics.Size = New Size(900, 513)
+        rtbStatistics.TabIndex = 0
+        rtbStatistics.Text = ""
+        rtbStatistics.WordWrap = False
+        ' 
+        ' ofdMain
+        ' 
+        ofdMain.FileName = "OpenFileDialog1"
+        ' 
+        ' tStatusUpdate
+        ' 
+        tStatusUpdate.Enabled = True
+        tStatusUpdate.Interval = 250
+        ' 
+        ' MainForm
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(1480, 1118)
+        Controls.Add(scMain)
+        Controls.Add(tsMain)
+        Controls.Add(ssMain)
+        Controls.Add(msMain)
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
+        MainMenuStrip = msMain
+        Margin = New Padding(4, 3, 4, 3)
+        Name = "MainForm"
+        Text = "QHY Capture"
+        ssMain.ResumeLayout(False)
+        ssMain.PerformLayout()
+        msMain.ResumeLayout(False)
+        msMain.PerformLayout()
+        tsMain.ResumeLayout(False)
+        tsMain.PerformLayout()
+        tcMain.ResumeLayout(False)
+        TabPage1.ResumeLayout(False)
+        TabPage2.ResumeLayout(False)
+        TabPage3.ResumeLayout(False)
+        scMain.Panel1.ResumeLayout(False)
+        scMain.Panel2.ResumeLayout(False)
+        CType(scMain, ComponentModel.ISupportInitialize).EndInit()
+        scMain.ResumeLayout(False)
+        SplitContainer2.Panel1.ResumeLayout(False)
+        SplitContainer2.Panel1.PerformLayout()
+        SplitContainer2.Panel2.ResumeLayout(False)
+        SplitContainer2.Panel2.PerformLayout()
+        CType(SplitContainer2, ComponentModel.ISupportInitialize).EndInit()
+        SplitContainer2.ResumeLayout(False)
+        SplitContainer3.Panel1.ResumeLayout(False)
+        SplitContainer3.Panel2.ResumeLayout(False)
+        CType(SplitContainer3, ComponentModel.ISupportInitialize).EndInit()
+        SplitContainer3.ResumeLayout(False)
+        ResumeLayout(False)
+        PerformLayout()
 
     End Sub
 
-    Friend WithEvents pgMain As Windows.Forms.PropertyGrid
-    Friend WithEvents ssMain As Windows.Forms.StatusStrip
-    Friend WithEvents msMain As Windows.Forms.MenuStrip
-    Friend WithEvents tsmiFile As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiFile_ExploreHere As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem1 As Windows.Forms.ToolStripSeparator
-    Friend WithEvents tsmiFile_Exit As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CaptureToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsslMain As Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents pgMain As System.Windows.Forms.PropertyGrid
+    Friend WithEvents ssMain As System.Windows.Forms.StatusStrip
+    Friend WithEvents msMain As System.Windows.Forms.MenuStrip
+    Friend WithEvents tsmiFile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiFile_ExploreHere As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents tsmiFile_Exit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CaptureToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsslMain As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents zgcMain As ZedGraph.ZedGraphControl
-    Friend WithEvents tspbProgress As Windows.Forms.ToolStripProgressBar
-    Friend WithEvents tsslProgress As Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents tSetTemp As Windows.Forms.Timer
-    Friend WithEvents tsMain As Windows.Forms.ToolStrip
-    Friend WithEvents tsbCapture As Windows.Forms.ToolStripButton
-    Friend WithEvents tsbStopCapture As Windows.Forms.ToolStripButton
-    Friend WithEvents tsmiPreset As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ilMain As Windows.Forms.ImageList
-    Friend WithEvents SeriesToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents AllReadoutModesToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ExposureTimeSeriesToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents GainVariationToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiFile_TestWebInterface As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiPreset_FastLive As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tbLogOutput As Windows.Forms.TextBox
-    Friend WithEvents tsmiPreset_CenterROI As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tcMain As Windows.Forms.TabControl
-    Friend WithEvents TabPage1 As Windows.Forms.TabPage
-    Friend WithEvents TabPage2 As Windows.Forms.TabPage
-    Friend WithEvents pgMeta As Windows.Forms.PropertyGrid
-    Friend WithEvents scMain As Windows.Forms.SplitContainer
-    Friend WithEvents SplitContainer2 As Windows.Forms.SplitContainer
-    Friend WithEvents SplitContainer3 As Windows.Forms.SplitContainer
-    Friend WithEvents rtbStatistics As Windows.Forms.RichTextBox
-    Friend WithEvents tsmiFile_ExploreCampaign As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiActions As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiActions_ResetLoopStat As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As Windows.Forms.ToolStripSeparator
-    Friend WithEvents tsmiFile_StoreEXCELStat As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents sfdMain As Windows.Forms.SaveFileDialog
-    Friend WithEvents tsmiNewGUID As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tspbProgress As System.Windows.Forms.ToolStripProgressBar
+    Friend WithEvents tsslProgress As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents tSetTemp As System.Windows.Forms.Timer
+    Friend WithEvents tsMain As System.Windows.Forms.ToolStrip
+    Friend WithEvents tsbCapture As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsbStopCapture As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsmiPreset As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ilMain As System.Windows.Forms.ImageList
+    Friend WithEvents SeriesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AllReadoutModesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ExposureTimeSeriesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents GainVariationToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiFile_TestWebInterface As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiPreset_FastLive As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tbLogOutput As System.Windows.Forms.TextBox
+    Friend WithEvents tsmiPreset_CenterROI As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tcMain As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents pgMeta As System.Windows.Forms.PropertyGrid
+    Friend WithEvents scMain As System.Windows.Forms.SplitContainer
+    Friend WithEvents SplitContainer2 As System.Windows.Forms.SplitContainer
+    Friend WithEvents SplitContainer3 As System.Windows.Forms.SplitContainer
+    Friend WithEvents rtbStatistics As System.Windows.Forms.RichTextBox
+    Friend WithEvents tsmiFile_ExploreCampaign As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiActions As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiActions_ResetLoopStat As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents tsmiFile_StoreEXCELStat As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents sfdMain As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents tsmiNewGUID As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiFile_RunSequence As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As ToolStripSeparator
     Friend WithEvents tsmiActions_Mount As ToolStripMenuItem
