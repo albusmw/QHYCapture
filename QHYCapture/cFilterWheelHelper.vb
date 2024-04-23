@@ -53,6 +53,7 @@ Public Class cFilterWheelHelper
     '''<summary>Get the filter name (from the filter slot).</summary>
     '''<param name="FilterSlot">Filter slot as reported from the filter wheel.</param>
     Public Function FilterNameLong(ByVal FilterSlot As Integer) As String
+        If FilterSlot = -1 Then Return String.Empty
         Return VerboseFilterList(FilterSlot)
     End Function
 

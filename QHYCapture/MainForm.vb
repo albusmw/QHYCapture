@@ -1,6 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
 
+#Disable Warning CA1416 ' Validate platform compatibility
 Partial Public Class MainForm
 
     Private Const BitsPerByte As Integer = 8
@@ -359,6 +360,7 @@ Partial Public Class MainForm
         End If
 
         'Reset GUI to idle state
+
         tsslMain.Text = "--IDLE--" : tsslMain.BackColor = ssMain.BackColor
         tsslTemperature.Text = "T = ??? °C" : tsslTemperature.BackColor = ssMain.BackColor
         M.DB.RunningFlag = False
@@ -1278,3 +1280,4 @@ Partial Public Class MainForm
     End Sub
 
 End Class
+#Enable Warning CA1416 ' Validate platform compatibility
