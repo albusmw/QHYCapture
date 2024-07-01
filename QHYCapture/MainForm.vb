@@ -275,11 +275,11 @@ Partial Public Class MainForm
             Dim SingleStatReport As List(Of String) = SingleStat.StatisticsReport(M.Config.StatMono, M.Config.StatColor, M.Report.Config.BayerPatternNames)
             Dim LoopStatReport As List(Of String) = LoopStat.StatisticsReport(M.Config.StatMono, M.Config.StatColor, M.Report.Config.BayerPatternNames)
             If IsNothing(SingleStatReport) = False Then
-                RTFGen.AddEntry("Capture #" & CaptureInfo_finished.CaptureIdx.ValRegIndep & " statistics:", Drawing.Color.Black, True, True)
+                RTFGen.AddEntry("Capture #" & CaptureInfo_finished.CaptureIdx.ValRegIndep & " statistics:", Drawing.Color.Black)
                 For Idx As Integer = 0 To SingleStatReport.Count - 1
                     Dim Line As String = SingleStatReport(Idx)
                     If DisplaySumStat = True Then Line &= "|" & LoopStatReport(Idx).Substring(AstroNET.Statistics.cSingleChannelStatistics_Int.ReportHeaderLength + 1)
-                    RTFGen.AddEntry(Line, Drawing.Color.Black, True, False)
+                    RTFGen.AddEntry(Line, Drawing.Color.Black)
                 Next Idx
                 RTFGen.ForceRefresh()
                 DE()
@@ -1260,12 +1260,12 @@ Partial Public Class MainForm
             Dim CurrentStatus As String = Download.GetResponse(M.Meta.IP_PWI4_URL & "/status")
             M.DB.PWI4.ProcessStatus(CurrentStatus)
             M.Meta.TelescopeFocusAsSet = CType(M.DB.PWI4.GetValue(ePWI4.focuser__position), Integer)
-            M.Meta.TelescopeRightAscension = Ato.AstroCalc.FormatHMS(CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String).ValRegIndep)
-            M.Meta.TelescopeDeclination = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String).ValRegIndep, ":")
-            M.Meta.TelescopeAltitude = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String).ValRegIndep, ":")
-            M.Meta.TelescopeAzimuth = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.mount__azimuth_degs), String).ValRegIndep, ":")
-            M.Meta.SiteLatitude = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.site__latitude_degs), String).ValRegIndep, ":")
-            M.Meta.SiteLongitude = Ato.AstroCalc.Format360Degree(CType(M.DB.PWI4.GetValue(ePWI4.site__longitude_degs), String).ValRegIndep, ":")
+            M.Meta.TelescopeRightAscension = CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String).ValRegIndep.ToHMS
+            M.Meta.TelescopeDeclination = CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String).ValRegIndep.ToDegMinSec(":")
+            M.Meta.TelescopeAltitude = CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String).ValRegIndep.ToDegMinSec(":")
+            M.Meta.TelescopeAzimuth = CType(M.DB.PWI4.GetValue(ePWI4.mount__azimuth_degs), String).ValRegIndep.ToDegMinSec(":")
+            M.Meta.SiteLatitude = CType(M.DB.PWI4.GetValue(ePWI4.site__latitude_degs), String).ValRegIndep.ToDegMinSec(":")
+            M.Meta.SiteLongitude = CType(M.DB.PWI4.GetValue(ePWI4.site__longitude_degs), String).ValRegIndep.ToDegMinSec(":")
             M.Meta.SiteHeight = CType(M.DB.PWI4.GetValue(ePWI4.site__height_meters), String)
             RefreshProperties()
         End If
