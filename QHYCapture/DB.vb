@@ -517,16 +517,28 @@ Public Class cDB_meta
     '''<summary>Configured mount right ascension.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
     <ComponentModel.DisplayName(Indent & "3.1. Mount - RA")>
+    <ComponentModel.Description("Configured mount right ascension [deg].")>
+    Public Property Tel_RA As Double = Double.NaN
+
+    '''<summary>Configured mount right ascension.</summary>
+    <ComponentModel.Category(Cat1_SiteAndMount)>
+    <ComponentModel.DisplayName(Indent & "3.1. Mount - RA")>
     <ComponentModel.Description("Configured mount right ascension.")>
     <ComponentModel.DefaultValue(NotSet)>
-    Public Property TelescopeRightAscension As String = NotSet
+    Public ReadOnly Property Tel_RAString As String = Tel_RA.ToHMS
 
     '''<summary>Configured mount declination.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
     <ComponentModel.DisplayName(Indent & "3.2. Mount - DEC")>
-    <ComponentModel.Description("Configured mount declination.")>
+    <ComponentModel.Description("Configured mount declination [deg].")>
+    Public Property Tel_DEC As Double = Double.NaN
+
+    '''<summary>Configured mount declination.</summary>
+    <ComponentModel.Category(Cat1_SiteAndMount)>
+    <ComponentModel.DisplayName(Indent & "3.2. Mount - DEC")>
+    <ComponentModel.Description("Configured mount declination [deg].")>
     <ComponentModel.DefaultValue(NotSet)>
-    Public Property TelescopeDeclination As String = NotSet
+    Public ReadOnly Property Tel_DECString As String = Tel_DEC.ToDegMinSec(":")
 
     '''<summary>Current mount altitude.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>

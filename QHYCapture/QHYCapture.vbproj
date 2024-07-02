@@ -26,6 +26,7 @@
       <Link>MyLib\ASCOMDynamic.vb</Link>
     </Compile>
     <Compile Include="..\..\MyLib\Astro.vb" Link="MyLib\Astro.vb" />
+    <Compile Include="..\..\MyLib\cFITSHeaderKeywords.vb" Link="cFITSHeaderKeywords.vb" />
     <Compile Include="..\..\MyLib\cRTFGen.vb">
       <Link>MyLib\cRTFGen.vb</Link>
     </Compile>

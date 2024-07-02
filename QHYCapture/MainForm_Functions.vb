@@ -4,6 +4,7 @@ Imports System.Reflection
 Imports System.Windows.Forms
 
 Partial Public Class MainForm
+#Disable Warning CA1416 ' Validate platform compatibility
 
     Private Delegate Sub InvokeDelegate()
 
@@ -470,8 +471,8 @@ Partial Public Class MainForm
                 c10Micron.SendCommand(Stream10Micron, c10Micron.SetCommand.SetUltraHighPrecision)
                 M.Meta.SiteLatitude = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.SiteLatitude)
                 M.Meta.SiteLongitude = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.SiteLongitude)
-                M.Meta.TelescopeRightAscension = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeRightAscension)
-                M.Meta.TelescopeDeclination = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeDeclination)
+                M.Meta.Tel_RA = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeRightAscension).ParseRA
+                M.Meta.Tel_DEC = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeDeclination).ParseDegree
                 M.Meta.TelescopeAltitude = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeAltitude)
                 M.Meta.TelescopeAzimuth = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeAzimuth)
                 RefreshProperties()
@@ -501,8 +502,10 @@ Partial Public Class MainForm
 
         'Object and telescope pointing data
         CustomElement.Add(eFITSKeywords.OBJECT, M.Meta.ObjectName)
-        CustomElement.Add(eFITSKeywords.RA_NOM, M.Meta.TelescopeRightAscension)
-        CustomElement.Add(eFITSKeywords.DEC_NOM, M.Meta.TelescopeDeclination)
+        CustomElement.Add(eFITSKeywords.RA_NOM, M.Meta.Tel_RAString)
+        CustomElement.Add(eFITSKeywords.DEC_NOM, M.Meta.Tel_DECString)
+        CustomElement.Add(eFITSKeywords.RA, M.Meta.Tel_RA)
+        CustomElement.Add(eFITSKeywords.DEC, M.Meta.Tel_DEC)
         CustomElement.Add(eFITSKeywords.ALTITUDE, M.Meta.TelescopeAltitude)
         CustomElement.Add(eFITSKeywords.AZIMUTH, M.Meta.TelescopeAzimuth)
 
@@ -540,8 +543,8 @@ Partial Public Class MainForm
         CustomElement.Add(eFITSKeywords.GAIN, SingleCaptureData.Gain)
         CustomElement.Add(eFITSKeywords.OFFSET, SingleCaptureData.Offset)
         CustomElement.Add(eFITSKeywords.BRIGHTNESS, SingleCaptureData.Brightness)
-        CustomElement.Add(eFITSKeywords.SETTEMP, M.Config.Temp_Target)
-        CustomElement.Add(eFITSKeywords.CCDTEMP, SingleCaptureData.ObsStartTemp)
+        CustomElement.Add(eFITSKeywords.SET_TEMP, M.Config.Temp_Target)
+        CustomElement.Add(eFITSKeywords.CCD_TEMP, SingleCaptureData.ObsStartTemp)
         CustomElement.Add(eFITSKeywords.FOCUS, SingleCaptureData.TelescopeFocus)
 
         CustomElement.Add(eFITSKeywords.QHY_MODE, SingleCaptureData.CamReadOutMode.ToString)
@@ -579,6 +582,7 @@ Partial Public Class MainForm
         LED.Invalidate()
         ssMain.Update()
         System.Windows.Forms.Application.DoEvents()
+
     End Sub
 
     Public Sub InvokeMethod()
@@ -587,4 +591,5 @@ Partial Public Class MainForm
         System.Windows.Forms.Application.DoEvents()
     End Sub
 
+#Enable Warning CA1416 ' Validate platform compatibility
 End Class
