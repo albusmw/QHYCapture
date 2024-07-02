@@ -471,7 +471,7 @@ Partial Public Class MainForm
                 c10Micron.SendCommand(Stream10Micron, c10Micron.SetCommand.SetUltraHighPrecision)
                 M.Meta.SiteLatitude = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.SiteLatitude)
                 M.Meta.SiteLongitude = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.SiteLongitude)
-                M.Meta.Tel_RA = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeRightAscension).ParseRA
+                M.Meta.Tel_RA = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeRightAscension).ParseRA * (360 / 24)
                 M.Meta.Tel_DEC = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeDeclination).ParseDegree
                 M.Meta.TelescopeAltitude = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeAltitude)
                 M.Meta.TelescopeAzimuth = c10Micron.GetAnswer(Stream10Micron, c10Micron.GetCommand.TelescopeAzimuth)
@@ -582,7 +582,6 @@ Partial Public Class MainForm
         LED.Invalidate()
         ssMain.Update()
         System.Windows.Forms.Application.DoEvents()
-
     End Sub
 
     Public Sub InvokeMethod()

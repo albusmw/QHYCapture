@@ -1260,7 +1260,7 @@ Partial Public Class MainForm
             Dim CurrentStatus As String = Download.GetResponse(M.Meta.IP_PWI4_URL & "/status")
             M.DB.PWI4.ProcessStatus(CurrentStatus)
             M.Meta.TelescopeFocusAsSet = CType(M.DB.PWI4.GetValue(ePWI4.focuser__position), Integer)
-            M.Meta.Tel_RA = CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String).ValRegIndep
+            M.Meta.Tel_RA = CType(M.DB.PWI4.GetValue(ePWI4.mount__ra_j2000_hours), String).ValRegIndep * (360 / 24)
             M.Meta.Tel_DEC = CType(M.DB.PWI4.GetValue(ePWI4.mount__dec_j2000_degs), String).ValRegIndep
             M.Meta.TelescopeAltitude = CType(M.DB.PWI4.GetValue(ePWI4.mount__altitude_degs), String).ValRegIndep.ToDegMinSec(":")
             M.Meta.TelescopeAzimuth = CType(M.DB.PWI4.GetValue(ePWI4.mount__azimuth_degs), String).ValRegIndep.ToDegMinSec(":")

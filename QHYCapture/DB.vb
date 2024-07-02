@@ -493,6 +493,8 @@ Public Class cDB_meta
     <ComponentModel.Description("URL to read PWI4 data; leave blank to disable reading.")>
     Public Property IP_PWI4_URL As String = String.Empty
 
+    '══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
     '''<summary>Longitude of the site.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
     <ComponentModel.DisplayName(Indent & "2.1. Site - Longitude")>
@@ -514,9 +516,11 @@ Public Class cDB_meta
     <ComponentModel.DefaultValue(NotSet)>
     Public Property SiteHeight As String = NotSet
 
-    '''<summary>Configured mount right ascension.</summary>
+    '══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+    '''<summary>Configured mount right ascension [deg].</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
-    <ComponentModel.DisplayName(Indent & "3.1. Mount - RA")>
+    <ComponentModel.DisplayName(Indent & "3.1. Mount - RA [deg]")>
     <ComponentModel.Description("Configured mount right ascension [deg].")>
     Public Property Tel_RA As Double = Double.NaN
 
@@ -525,20 +529,30 @@ Public Class cDB_meta
     <ComponentModel.DisplayName(Indent & "3.1. Mount - RA")>
     <ComponentModel.Description("Configured mount right ascension.")>
     <ComponentModel.DefaultValue(NotSet)>
-    Public ReadOnly Property Tel_RAString As String = Tel_RA.ToHMS
+    Public ReadOnly Property Tel_RAString As String
+        Get
+            Return (Tel_RA * (24 / 360)).ToHMS
+        End Get
+    End Property
 
-    '''<summary>Configured mount declination.</summary>
+    '''<summary>Configured mount declination [deg].</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
-    <ComponentModel.DisplayName(Indent & "3.2. Mount - DEC")>
+    <ComponentModel.DisplayName(Indent & "3.2. Mount - DEC [deg]")>
     <ComponentModel.Description("Configured mount declination [deg].")>
     Public Property Tel_DEC As Double = Double.NaN
 
     '''<summary>Configured mount declination.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
-    <ComponentModel.DisplayName(Indent & "3.2. Mount - DEC")>
+    <ComponentModel.DisplayName(Indent & "3.2. Mount - DEC as string")>
     <ComponentModel.Description("Configured mount declination [deg].")>
     <ComponentModel.DefaultValue(NotSet)>
-    Public ReadOnly Property Tel_DECString As String = Tel_DEC.ToDegMinSec(":")
+    Public ReadOnly Property Tel_DECString As String
+        Get
+            Return Tel_DEC.ToDegMinSec(":")
+        End Get
+    End Property
+
+    '══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
     '''<summary>Current mount altitude.</summary>
     <ComponentModel.Category(Cat1_SiteAndMount)>
