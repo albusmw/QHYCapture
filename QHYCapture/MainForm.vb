@@ -832,8 +832,12 @@ Partial Public Class MainForm
     End Sub
 
     Private Sub tsmiFile_ExploreCampaign_Click(sender As Object, e As EventArgs) Handles tsmiFile_ExploreCampaign.Click
-        Dim FolderToOpen As String = System.IO.Path.Combine(M.Config.StoragePath, M.Meta.GUID)
-        If System.IO.Directory.Exists(FolderToOpen) = True Then System.Diagnostics.Process.Start(FolderToOpen)
+        Try
+            Dim FolderToOpen As String = System.IO.Path.Combine(M.Config.StoragePath, M.Meta.GUID)
+            If System.IO.Directory.Exists(FolderToOpen) = True Then Ato.Utils.StartWithItsEXE(FolderToOpen)
+        Catch ex As Exception
+            'No nothing ...
+        End Try
     End Sub
 
     Private Sub tsmiActions_ResetLoopStat_Click(sender As Object, e As EventArgs) Handles tsmiActions_ResetLoopStat.Click
@@ -1235,6 +1239,16 @@ Partial Public Class MainForm
         LogError(RunXMLSequence(SettingDoc, False))
     End Sub
 
+    Private Sub tsmiPreset_Test_JustOnce_Click(sender As Object, e As EventArgs) Handles tsmiPreset_Test_JustOnce.Click
+        With M.Config
+            .Temp_Target = 30
+            .Temp_Tolerance = 1000
+            .Temp_StableTime = 0
+            .ExposureTime = 1
+            .CaptureCount = 1
+        End With
+    End Sub
+
     Private Sub QHYFunction_Log(Text As String) Handles QHYFunction.Log
         Log(Text)
     End Sub
@@ -1278,6 +1292,8 @@ Partial Public Class MainForm
     Private Sub tsmiActions_Mount_PWI4_Click(sender As Object, e As EventArgs) Handles tsmiActions_Mount_PWI4.Click
         LoadPWI4Data()
     End Sub
+
+
 
 End Class
 #Enable Warning CA1416 ' Validate platform compatibility

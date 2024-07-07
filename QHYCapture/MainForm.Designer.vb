@@ -109,6 +109,8 @@ Partial Class MainForm
         sfdMain = New SaveFileDialog()
         ofdMain = New OpenFileDialog()
         tStatusUpdate = New Timer(components)
+        tsmiPreset_Test = New ToolStripMenuItem()
+        tsmiPreset_Test_JustOnce = New ToolStripMenuItem()
         ssMain.SuspendLayout()
         msMain.SuspendLayout()
         tsMain.SuspendLayout()
@@ -267,92 +269,92 @@ Partial Class MainForm
         ' 
         tsmiFile_LoadSettings.Name = "tsmiFile_LoadSettings"
         tsmiFile_LoadSettings.ShortcutKeys = Keys.Control Or Keys.O
-        tsmiFile_LoadSettings.Size = New Size(313, 22)
+        tsmiFile_LoadSettings.Size = New Size(311, 22)
         tsmiFile_LoadSettings.Tag = "Load"
         tsmiFile_LoadSettings.Text = "Load XML settings (does not expose)"
         ' 
         ' tsmiFile_RunSequence
         ' 
         tsmiFile_RunSequence.Name = "tsmiFile_RunSequence"
-        tsmiFile_RunSequence.Size = New Size(313, 22)
+        tsmiFile_RunSequence.Size = New Size(311, 22)
         tsmiFile_RunSequence.Tag = "Run"
         tsmiFile_RunSequence.Text = "Run XML settings (does expose)"
         ' 
         ' ToolStripMenuItem6
         ' 
         ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        ToolStripMenuItem6.Size = New Size(310, 6)
+        ToolStripMenuItem6.Size = New Size(308, 6)
         ' 
         ' tsmiFile_SaveSettings
         ' 
         tsmiFile_SaveSettings.Name = "tsmiFile_SaveSettings"
         tsmiFile_SaveSettings.ShortcutKeys = Keys.Control Or Keys.S
-        tsmiFile_SaveSettings.Size = New Size(313, 22)
+        tsmiFile_SaveSettings.Size = New Size(311, 22)
         tsmiFile_SaveSettings.Text = "Save settings"
         ' 
         ' tsmiFile_SaveAllXMLParameters
         ' 
         tsmiFile_SaveAllXMLParameters.Name = "tsmiFile_SaveAllXMLParameters"
-        tsmiFile_SaveAllXMLParameters.Size = New Size(313, 22)
+        tsmiFile_SaveAllXMLParameters.Size = New Size(311, 22)
         tsmiFile_SaveAllXMLParameters.Text = "Save all XML parameters (for reference)"
         ' 
         ' ToolStripMenuItem4
         ' 
         ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        ToolStripMenuItem4.Size = New Size(310, 6)
+        ToolStripMenuItem4.Size = New Size(308, 6)
         ' 
         ' tsmiFile_ExploreHere
         ' 
         tsmiFile_ExploreHere.Name = "tsmiFile_ExploreHere"
-        tsmiFile_ExploreHere.Size = New Size(313, 22)
+        tsmiFile_ExploreHere.Size = New Size(311, 22)
         tsmiFile_ExploreHere.Text = "Open - EXE path"
         ' 
         ' tsmiFile_ExploreCampaign
         ' 
         tsmiFile_ExploreCampaign.Name = "tsmiFile_ExploreCampaign"
         tsmiFile_ExploreCampaign.ShortcutKeys = Keys.Control Or Keys.E
-        tsmiFile_ExploreCampaign.Size = New Size(313, 22)
+        tsmiFile_ExploreCampaign.Size = New Size(311, 22)
         tsmiFile_ExploreCampaign.Text = "Open - Current campaign folder"
         ' 
         ' tsmiFile_OpenLastFile
         ' 
         tsmiFile_OpenLastFile.Name = "tsmiFile_OpenLastFile"
-        tsmiFile_OpenLastFile.Size = New Size(313, 22)
+        tsmiFile_OpenLastFile.Size = New Size(311, 22)
         tsmiFile_OpenLastFile.Text = "Open - Last stored file"
         ' 
         ' ToolStripMenuItem1
         ' 
         ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        ToolStripMenuItem1.Size = New Size(310, 6)
+        ToolStripMenuItem1.Size = New Size(308, 6)
         ' 
         ' tsmiFile_CreateXML
         ' 
         tsmiFile_CreateXML.Name = "tsmiFile_CreateXML"
-        tsmiFile_CreateXML.Size = New Size(313, 22)
+        tsmiFile_CreateXML.Size = New Size(311, 22)
         tsmiFile_CreateXML.Text = "Create XML sequence (Inline VB)"
         ' 
         ' tsmiFile_TestWebInterface
         ' 
         tsmiFile_TestWebInterface.Name = "tsmiFile_TestWebInterface"
-        tsmiFile_TestWebInterface.Size = New Size(313, 22)
+        tsmiFile_TestWebInterface.Size = New Size(311, 22)
         tsmiFile_TestWebInterface.Text = "Test web interface"
         ' 
         ' tsmiFile_StoreEXCELStat
         ' 
         tsmiFile_StoreEXCELStat.Name = "tsmiFile_StoreEXCELStat"
-        tsmiFile_StoreEXCELStat.Size = New Size(313, 22)
+        tsmiFile_StoreEXCELStat.Size = New Size(311, 22)
         tsmiFile_StoreEXCELStat.Text = "Store statistics as EXCEL file"
         ' 
         ' ToolStripMenuItem5
         ' 
         ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        ToolStripMenuItem5.Size = New Size(310, 6)
+        ToolStripMenuItem5.Size = New Size(308, 6)
         ' 
         ' tsmiFile_Exit
         ' 
         tsmiFile_Exit.Name = "tsmiFile_Exit"
         tsmiFile_Exit.ShortcutKeys = Keys.Control Or Keys.X
-        tsmiFile_Exit.Size = New Size(313, 22)
+        tsmiFile_Exit.Size = New Size(311, 22)
         tsmiFile_Exit.Text = "Exit"
         ' 
         ' CaptureToolStripMenuItem
@@ -389,7 +391,7 @@ Partial Class MainForm
         ' 
         ' tsmiPreset
         ' 
-        tsmiPreset.DropDownItems.AddRange(New ToolStripItem() {tsmiPreset_StandardCapture, ToolStripMenuItem3, tsmiPreset_FastLive, tsmiPreset_CenterROI, tsmiPreset_SaveTransmission, tsmiPreset_SkipCooling, tsmiPreset_DevTestMWeiss, tsmiPreset_NoOverhead, tsmiPreset_DSC})
+        tsmiPreset.DropDownItems.AddRange(New ToolStripItem() {tsmiPreset_StandardCapture, ToolStripMenuItem3, tsmiPreset_FastLive, tsmiPreset_CenterROI, tsmiPreset_SaveTransmission, tsmiPreset_SkipCooling, tsmiPreset_DevTestMWeiss, tsmiPreset_NoOverhead, tsmiPreset_DSC, tsmiPreset_Test})
         tsmiPreset.Name = "tsmiPreset"
         tsmiPreset.Size = New Size(56, 20)
         tsmiPreset.Text = "Presets"
@@ -653,7 +655,7 @@ Partial Class MainForm
         TabPage2.Margin = New Padding(4, 3, 4, 3)
         TabPage2.Name = "TabPage2"
         TabPage2.Padding = New Padding(4, 3, 4, 3)
-        TabPage2.Size = New Size(570, 602)
+        TabPage2.Size = New Size(567, 740)
         TabPage2.TabIndex = 1
         TabPage2.Text = "Meta data / Advanced"
         TabPage2.UseVisualStyleBackColor = True
@@ -665,7 +667,7 @@ Partial Class MainForm
         pgMeta.Location = New Point(4, 3)
         pgMeta.Margin = New Padding(4, 3, 4, 3)
         pgMeta.Name = "pgMeta"
-        pgMeta.Size = New Size(562, 596)
+        pgMeta.Size = New Size(559, 734)
         pgMeta.TabIndex = 1
         pgMeta.ToolbarVisible = False
         ' 
@@ -676,7 +678,7 @@ Partial Class MainForm
         TabPage3.Margin = New Padding(4, 3, 4, 3)
         TabPage3.Name = "TabPage3"
         TabPage3.Padding = New Padding(4, 3, 4, 3)
-        TabPage3.Size = New Size(570, 602)
+        TabPage3.Size = New Size(567, 740)
         TabPage3.TabIndex = 2
         TabPage3.Text = "Plot / Report"
         TabPage3.UseVisualStyleBackColor = True
@@ -688,7 +690,7 @@ Partial Class MainForm
         pgPlotAndText.Location = New Point(4, 3)
         pgPlotAndText.Margin = New Padding(4, 3, 4, 3)
         pgPlotAndText.Name = "pgPlotAndText"
-        pgPlotAndText.Size = New Size(562, 596)
+        pgPlotAndText.Size = New Size(559, 734)
         pgPlotAndText.TabIndex = 2
         pgPlotAndText.ToolbarVisible = False
         ' 
@@ -783,6 +785,19 @@ Partial Class MainForm
         ' 
         tStatusUpdate.Enabled = True
         tStatusUpdate.Interval = 250
+        ' 
+        ' tsmiPreset_Test
+        ' 
+        tsmiPreset_Test.DropDownItems.AddRange(New ToolStripItem() {tsmiPreset_Test_JustOnce})
+        tsmiPreset_Test.Name = "tsmiPreset_Test"
+        tsmiPreset_Test.Size = New Size(237, 22)
+        tsmiPreset_Test.Text = "Test settings"
+        ' 
+        ' tsmiPreset_Test_JustOnce
+        ' 
+        tsmiPreset_Test_JustOnce.Name = "tsmiPreset_Test_JustOnce"
+        tsmiPreset_Test_JustOnce.Size = New Size(188, 22)
+        tsmiPreset_Test_JustOnce.Text = "Just capture fast once"
         ' 
         ' MainForm
         ' 
@@ -912,4 +927,6 @@ Partial Class MainForm
     Friend WithEvents tbItemName As TextBox
     Friend WithEvents tsmiActions_Mount_10Micron As ToolStripMenuItem
     Friend WithEvents tsmiActions_Mount_PWI4 As ToolStripMenuItem
+    Friend WithEvents tsmiPreset_Test As ToolStripMenuItem
+    Friend WithEvents tsmiPreset_Test_JustOnce As ToolStripMenuItem
 End Class
