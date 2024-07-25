@@ -608,7 +608,6 @@ Partial Public Class MainForm
 
         tsmiNewGUID_Click(Nothing, Nothing)
 
-        Dim GetBuildDateTime As New cGetBuildDateTime
         Me.Text = GetBuildDateTime.GetMainformTitle
 
         'Load IPP
@@ -1032,7 +1031,7 @@ Partial Public Class MainForm
         'Get all qhyccd.dll version and display them
         Dim AllDLLs As List(Of String) = Everything.GetSearchResult("qhyccd.dll")
         Dim DifferentDLLs As New Dictionary(Of String, String)
-        Dim RTFScanReport As New cRTFGen : RTFScanReport.RTFInit("Courier New", 8)
+        Dim RTFScanReport As New List(Of String)
         For Each DLLFile As String In AllDLLs
             Dim Hash As String = FileHash.MD5(DLLFile)
             If String.IsNullOrEmpty(Hash) = False Then
@@ -1042,17 +1041,17 @@ Partial Public Class MainForm
                 Dim InfoLine As String = VersionString & " of " & System.IO.File.GetCreationTime(DLLFile) & " -> " & DLLFile
                 If DifferentDLLs.ContainsKey(Hash) = False Then
                     DifferentDLLs.Add(Hash, DLLFile)
-                    RTFScanReport.AddEntry("*** " & InfoLine, Color.Black)
+                    RTFScanReport.Add("*** " & InfoLine)
                 Else
-                    RTFScanReport.AddEntry("    " & InfoLine, Color.Black)
+                    RTFScanReport.Add("    " & InfoLine)
                 End If
             End If
         Next DLLFile
-        RTFScanReport.AddEntry(DifferentDLLs.Count.ValRegIndep & " different verions found.", Color.Black)
+        RTFScanReport.Add(DifferentDLLs.Count.ValRegIndep & " different verions found.")
         'Display info
         Dim Info As New cRTFTextBox
         Info.Init("Different qhyccd.dll versions", 1200, 400)
-        Info.ShowText(RTFScanReport.GetRTFText)
+        Info.ShowText(RTFScanReport)
     End Sub
 
     Private Sub tsmiPreset_DevTestMWeiss_Click(sender As Object, e As EventArgs) Handles tsmiPreset_DevTestMWeiss.Click
@@ -1292,8 +1291,6 @@ Partial Public Class MainForm
     Private Sub tsmiActions_Mount_PWI4_Click(sender As Object, e As EventArgs) Handles tsmiActions_Mount_PWI4.Click
         LoadPWI4Data()
     End Sub
-
-
 
 End Class
 #Enable Warning CA1416 ' Validate platform compatibility

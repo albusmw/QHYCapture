@@ -72,6 +72,8 @@ Partial Class MainForm
         tsmiPreset_DevTestMWeiss = New ToolStripMenuItem()
         tsmiPreset_NoOverhead = New ToolStripMenuItem()
         tsmiPreset_DSC = New ToolStripMenuItem()
+        tsmiPreset_Test = New ToolStripMenuItem()
+        tsmiPreset_Test_JustOnce = New ToolStripMenuItem()
         tsmiActions = New ToolStripMenuItem()
         tsmiActions_ResetLoopStat = New ToolStripMenuItem()
         tsmiNewGUID = New ToolStripMenuItem()
@@ -109,8 +111,6 @@ Partial Class MainForm
         sfdMain = New SaveFileDialog()
         ofdMain = New OpenFileDialog()
         tStatusUpdate = New Timer(components)
-        tsmiPreset_Test = New ToolStripMenuItem()
-        tsmiPreset_Test_JustOnce = New ToolStripMenuItem()
         ssMain.SuspendLayout()
         msMain.SuspendLayout()
         tsMain.SuspendLayout()
@@ -449,6 +449,19 @@ Partial Class MainForm
         tsmiPreset_DSC.Size = New Size(237, 22)
         tsmiPreset_DSC.Text = "DSC (in-memory XML)"
         ' 
+        ' tsmiPreset_Test
+        ' 
+        tsmiPreset_Test.DropDownItems.AddRange(New ToolStripItem() {tsmiPreset_Test_JustOnce})
+        tsmiPreset_Test.Name = "tsmiPreset_Test"
+        tsmiPreset_Test.Size = New Size(237, 22)
+        tsmiPreset_Test.Text = "Test settings"
+        ' 
+        ' tsmiPreset_Test_JustOnce
+        ' 
+        tsmiPreset_Test_JustOnce.Name = "tsmiPreset_Test_JustOnce"
+        tsmiPreset_Test_JustOnce.Size = New Size(188, 22)
+        tsmiPreset_Test_JustOnce.Text = "Just capture fast once"
+        ' 
         ' tsmiActions
         ' 
         tsmiActions.DropDownItems.AddRange(New ToolStripItem() {tsmiActions_ResetLoopStat, tsmiNewGUID, tsmiClearLog, ToolStripMenuItem2, tsmiActions_Mount, tsmiActions_AllCoolersOff})
@@ -514,26 +527,26 @@ Partial Class MainForm
         ' tsmiTools_AllQHYDLLs
         ' 
         tsmiTools_AllQHYDLLs.Name = "tsmiTools_AllQHYDLLs"
-        tsmiTools_AllQHYDLLs.Size = New Size(163, 22)
+        tsmiTools_AllQHYDLLs.Size = New Size(180, 22)
         tsmiTools_AllQHYDLLs.Text = "Get all QHY DLLs"
         ' 
         ' tsmiTools_Log
         ' 
         tsmiTools_Log.DropDownItems.AddRange(New ToolStripItem() {tsmiTools_Log_Store, tsmiTools_Log_Clear})
         tsmiTools_Log.Name = "tsmiTools_Log"
-        tsmiTools_Log.Size = New Size(163, 22)
+        tsmiTools_Log.Size = New Size(180, 22)
         tsmiTools_Log.Text = "DLL Log"
         ' 
         ' tsmiTools_Log_Store
         ' 
         tsmiTools_Log_Store.Name = "tsmiTools_Log_Store"
-        tsmiTools_Log_Store.Size = New Size(121, 22)
+        tsmiTools_Log_Store.Size = New Size(180, 22)
         tsmiTools_Log_Store.Text = "Store log"
         ' 
         ' tsmiTools_Log_Clear
         ' 
         tsmiTools_Log_Clear.Name = "tsmiTools_Log_Clear"
-        tsmiTools_Log_Clear.Size = New Size(121, 22)
+        tsmiTools_Log_Clear.Size = New Size(180, 22)
         tsmiTools_Log_Clear.Text = "Clear"
         ' 
         ' zgcMain
@@ -785,19 +798,6 @@ Partial Class MainForm
         ' 
         tStatusUpdate.Enabled = True
         tStatusUpdate.Interval = 250
-        ' 
-        ' tsmiPreset_Test
-        ' 
-        tsmiPreset_Test.DropDownItems.AddRange(New ToolStripItem() {tsmiPreset_Test_JustOnce})
-        tsmiPreset_Test.Name = "tsmiPreset_Test"
-        tsmiPreset_Test.Size = New Size(237, 22)
-        tsmiPreset_Test.Text = "Test settings"
-        ' 
-        ' tsmiPreset_Test_JustOnce
-        ' 
-        tsmiPreset_Test_JustOnce.Name = "tsmiPreset_Test_JustOnce"
-        tsmiPreset_Test_JustOnce.Size = New Size(188, 22)
-        tsmiPreset_Test_JustOnce.Text = "Just capture fast once"
         ' 
         ' MainForm
         ' 

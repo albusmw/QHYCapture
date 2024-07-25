@@ -8,6 +8,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>QHYCapture.MainForm</StartupObject>
@@ -48,6 +49,8 @@
     <Compile Include="..\..\MyLib\Extensions.vb">
       <Link>MyLib\Extensions.vb</Link>
     </Compile>
+    <Compile Include="..\..\MyLib\GetBuildDateTime.vb" Link="MyLib\GetBuildDateTime.vb" />
+    <Compile Include="..\..\MyLib\MoravianDLLWrapper.vb" Link="MyLib\MoravianDLLWrapper.vb" />
     <Compile Include="..\..\MyLib\Util.vb">
       <Link>MyLib\Util.vb</Link>
     </Compile>
@@ -93,9 +96,6 @@
     <Compile Include="..\..\src\atomics\ComponentModelConverter.vb">
       <Link>common\ComponentModelConverter.vb</Link>
     </Compile>
-    <Compile Include="..\..\src\atomics\cOpenCvSharp.vb">
-      <Link>common\cOpenCvSharp.vb</Link>
-    </Compile>
     <Compile Include="..\..\src\atomics\cPWI4.vb">
       <Link>common\cPWI4.vb</Link>
     </Compile>
@@ -110,9 +110,6 @@
     </Compile>
     <Compile Include="..\..\src\atomics\ForHardware\QHY.vb">
       <Link>QHY.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\atomics\GetBuildDateTime.vb">
-      <Link>common\GetBuildDateTime.vb</Link>
     </Compile>
     <Compile Include="..\..\src\atomics\ImageProcessing.vb">
       <Link>common\ImageProcessing.vb</Link>
